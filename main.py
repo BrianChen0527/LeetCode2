@@ -5,7 +5,8 @@ from LeetFunctions import *
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    result = find_averages_of_subarrays(5, [1, 3, 2, 6, -1, 4, 1, 8, 2])
-    print("Averages of subarrays of size K: " + str(result))
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 2)))
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 1)))
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 3)))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
