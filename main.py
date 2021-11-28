@@ -5,8 +5,7 @@ from LeetFunctions import *
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 2)))
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 1)))
-    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 3)))
+    str = "abcdefg  dae0"
+    print(reverse_string(str))
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

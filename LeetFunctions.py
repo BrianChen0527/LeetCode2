@@ -48,7 +48,7 @@ def smallest_subarray_with_given_sum(s, arr):
     return min_length
 
 
-"""Given a string, find the length of the longest substring in it with no more than K distinct characters."""
+#Given a string, find the length of the longest substring in it with no more than K distinct characters.
 def longest_substring_with_k_distinct(str1, k):
     chars_freq = {}
     start = 0
@@ -67,3 +67,43 @@ def longest_substring_with_k_distinct(str1, k):
 
         max_len = max(max_len, j - start + 1)
     return max_len
+
+class Interval:
+  def __init__(self, start, end):
+    self.start = start
+    self.end = end
+
+  def print_interval(self):
+    print("[" + str(self.start) + ", " + str(self.end) + "]", end='')
+
+#Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
+def merge(intervals):
+    mergedIntervals = []
+
+    if len(intervals) < 2:
+        return intervals
+
+    intervals = sorted(intervals, key=lambda interval: interval.start)
+    start = intervals[0].start
+    end = intervals[0].end
+
+    for i in range(1, len(intervals)):
+        if intervals[i].start < end:
+            end = max(end, intervals[i].end)
+        else:
+            mergedIntervals.append(Interval(start, end))
+            start = intervals[i].start
+            end = intervals[i].end
+    mergedIntervals.append(Interval(start, end))
+    return mergedIntervals
+
+#reverse a string str
+def reverse_string(str):
+    reversed_str = ""
+    for i in range(len(str)):
+        reversed_str += str[len(str)-1-i]
+    return reversed_str
+
+
+
+
