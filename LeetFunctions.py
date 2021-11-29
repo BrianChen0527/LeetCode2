@@ -104,6 +104,34 @@ def reverse_string(str):
         reversed_str += str[len(str)-1-i]
     return reversed_str
 
+#Merge nums1 and nums2 into a single array sorted in non-decreasing order BY ALTERING THE FIRST GIVEN ARRAY
+# https://leetcode.com/problems/merge-sorted-array/
+def merge_sorted_arrays(nums1, m, nums2, n):
+    new_arr = [None]*(m+n)
+    c1, c2 = 0, 0
+    for i in range(m+n):
+        if c1 < m or c2 >= n or nums1[c1] < nums2[c2]:
+            new_arr[i] = nums1[c1]
+            c1 += 1
+        else:
+            new_arr[i] = nums2[c2]
+            c2 += 1
 
+def merge_sorted_arrays2(nums1, m, nums2, n):
+    c1, c2 = m - 1, n - 1
+    for i in reversed(range(m + n)):
+        if c1 >= 0 and (c2 < 0 or nums1[c1] > nums2[c2]):
+            nums1[i] = nums1[c1]
+            c1 -= 1
+        else:
+            nums1[i] = nums2[c2]
+            c2 -= 1
 
-
+#Given an int array nums and a target integer, return indices of the two numbers such that they add up to target.
+def twoSum(self, nums, target):
+    hashmap = {}
+    for i in range(len(nums)):
+        complement = target - nums[i]
+        if complement in hashmap:
+            return [hashmap[complement], i]
+        hashmap[nums[i]] = i
