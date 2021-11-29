@@ -135,3 +135,12 @@ def twoSum(self, nums, target):
         if complement in hashmap:
             return [hashmap[complement], i]
         hashmap[nums[i]] = i
+
+def firstRecurringNumber(arr):
+    hashmap = {}
+    for i in range(len(arr)):
+        if(hashmap.get(arr[i])):
+            return arr[i]
+        hashmap[arr[i]] = 1
+    return -1
+
