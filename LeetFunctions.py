@@ -144,3 +144,15 @@ def firstRecurringNumber(arr):
         hashmap[arr[i]] = 1
     return -1
 
+#Given the head of a singly linked list, reverse the list, and return the reversed list.
+#https://leetcode.com/problems/reverse-linked-list/
+def reverseList(self, head):
+    prevNode = None
+    while head:
+        nextNode = head.next
+        head.next = prevNode
+        prevNode = head
+        head = nextNode
+    return prevNode
+
+
