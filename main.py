@@ -5,7 +5,11 @@ from LeetFunctions import *
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    arr1 = [2,5,1,2,4,3,1]
-    print(firstRecurringNumber(arr1))
+    arr1 = []
+    arr1.push(1)
+    arr1.push(2)
+    arr1.push(3)
+    arr1.push(4)
+    print(arr1)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
