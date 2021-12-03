@@ -5,11 +5,12 @@ from LeetFunctions import *
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    arr1 = []
-    arr1.push(1)
-    arr1.push(2)
-    arr1.push(3)
-    arr1.push(4)
-    print(arr1)
+    str1 = ""
+    total = 0
+    for i in range (2000,3000):
+        num = str(i)
+        total += num.count('2')
+        str1 += num
+    print(total)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
