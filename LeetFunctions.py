@@ -48,7 +48,7 @@ def smallest_subarray_with_given_sum(s, arr):
     return min_length
 
 
-#Given a string, find the length of the longest substring in it with no more than K distinct characters.
+# Given a string, find the length of the longest substring in it with no more than K distinct characters.
 def longest_substring_with_k_distinct(str1, k):
     chars_freq = {}
     start = 0
@@ -68,15 +68,17 @@ def longest_substring_with_k_distinct(str1, k):
         max_len = max(max_len, j - start + 1)
     return max_len
 
+
 class Interval:
-  def __init__(self, start, end):
-    self.start = start
-    self.end = end
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
 
-  def print_interval(self):
-    print("[" + str(self.start) + ", " + str(self.end) + "]", end='')
+    def print_interval(self):
+        print("[" + str(self.start) + ", " + str(self.end) + "]", end='')
 
-#Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
+
+# Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
 def merge(intervals):
     mergedIntervals = []
 
@@ -97,25 +99,28 @@ def merge(intervals):
     mergedIntervals.append(Interval(start, end))
     return mergedIntervals
 
-#reverse a string str
+
+# reverse a string str
 def reverse_string(str):
     reversed_str = ""
     for i in range(len(str)):
-        reversed_str += str[len(str)-1-i]
+        reversed_str += str[len(str) - 1 - i]
     return reversed_str
 
-#Merge nums1 and nums2 into a single array sorted in non-decreasing order BY ALTERING THE FIRST GIVEN ARRAY
+
+# Merge nums1 and nums2 into a single array sorted in non-decreasing order BY ALTERING THE FIRST GIVEN ARRAY
 # https://leetcode.com/problems/merge-sorted-array/
 def merge_sorted_arrays(nums1, m, nums2, n):
-    new_arr = [None]*(m+n)
+    new_arr = [None] * (m + n)
     c1, c2 = 0, 0
-    for i in range(m+n):
+    for i in range(m + n):
         if c1 < m or c2 >= n or nums1[c1] < nums2[c2]:
             new_arr[i] = nums1[c1]
             c1 += 1
         else:
             new_arr[i] = nums2[c2]
             c2 += 1
+
 
 def merge_sorted_arrays2(nums1, m, nums2, n):
     c1, c2 = m - 1, n - 1
@@ -127,25 +132,18 @@ def merge_sorted_arrays2(nums1, m, nums2, n):
             nums1[i] = nums2[c2]
             c2 -= 1
 
-#Given an int array nums and a target integer, return indices of the two numbers such that they add up to target.
-def twoSum(self, nums, target):
-    hashmap = {}
-    for i in range(len(nums)):
-        complement = target - nums[i]
-        if complement in hashmap:
-            return [hashmap[complement], i]
-        hashmap[nums[i]] = i
 
 def firstRecurringNumber(arr):
     hashmap = {}
     for i in range(len(arr)):
-        if(hashmap.get(arr[i])):
+        if (hashmap.get(arr[i])):
             return arr[i]
         hashmap[arr[i]] = 1
     return -1
 
-#Given the head of a singly linked list, reverse the list, and return the reversed list.
-#https://leetcode.com/problems/reverse-linked-list/
+
+# Given the head of a singly linked list, reverse the list, and return the reversed list.
+# https://leetcode.com/problems/reverse-linked-list/
 def reverseList(self, head):
     prevNode = None
     while head:
@@ -156,3 +154,44 @@ def reverseList(self, head):
     return prevNode
 
 
+# Given a string s, return the longest palindromic substring in s.
+def longestPalindrome(self, s):
+    p = s[0]
+    for i in range(1, len(s)):
+        if (i + 1 < len(s) and s[i - 1] == s[i + 1]):
+            temp = self.helper(s, i, i)
+            if (len(temp) > len(p)):
+                p = temp
+        if (s[i - 1] == s[i]):
+            temp = self.helper(s, i - 1, i)
+            if (len(temp) > len(p)):
+                p = temp
+    return p
+
+
+# helper function for longestPalindrome
+def helper(self, s, l, r):
+    while l >= 0 and r < len(s) and s[l] == s[r]:
+        l -= 1
+        r += 1
+    return s[l + 1:r]
+
+
+# https://leetcode.com/problems/two-sum/submissions/
+def twoSum(self, nums, target: int):
+    hash = {}
+    for i in range(len(nums)):
+        complement = (target - nums[i])
+        if complement in hash:
+            return [hash[complement], i]
+        hash[nums[i]] = i
+
+
+def maxProfit(self, prices):
+    maxP, maxTrade = 0, 0
+    for i in reversed(prices):
+        if i > maxTrade:
+            maxTrade = i
+        if maxTrade - i > maxP:
+            maxP = maxTrade - i
+    return maxP
