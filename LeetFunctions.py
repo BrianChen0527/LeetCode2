@@ -195,3 +195,15 @@ def maxProfit(self, prices):
         if maxTrade - i > maxP:
             maxP = maxTrade - i
     return maxP
+
+# https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
+def findMin(self, nums):
+    l, r = 0, len(nums) - 1
+    mid = (l + r) // 2
+    while l < r:
+        if nums[mid] < nums[r]:
+            r = mid
+        else:
+            l = mid + 1
+        mid = (l + r) // 2
+    return nums[l]
