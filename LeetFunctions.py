@@ -207,3 +207,93 @@ def findMin(self, nums):
             l = mid + 1
         mid = (l + r) // 2
     return nums[l]
+
+def search(nums, target):
+    l, r = 0, len(nums) - 1
+    mid = (l + r) // 2
+    while nums[mid] != target and l < r:
+        print(l, r)
+        if nums[l] < nums[r]:  # no rotation
+            if target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        elif nums[mid] < nums[r]:
+            if target < nums[mid] or target > nums[r]:
+                r = mid - 1
+            else:
+                l = mid + 1
+        elif nums[mid] > nums[r]:
+            if target > nums[mid] or target < nums[l]:
+                l = mid + 1
+            else:
+                r = mid - 1
+        mid = (l + r) // 2
+    return mid if nums[mid] == target else -1
+
+def validWordSquare(self, words: List[str]) -> bool:
+    for r in range(len(words)):
+        for c in range(r + 1, len(words)):
+            if words[r][c] != words[c][r]:
+                return False
+    return True
+
+
+class FileSystem:
+    def __init__(self):
+        self.trie = dict()
+
+    def createPath(self, path: str, value: int) -> bool:
+        t = self.trie
+        path = path.split("/")[1:]
+        for s in path[:-1]:
+            if s not in t:
+                return False
+            t = t[s]
+
+        if path[-1] in t:
+            return False
+        else:
+            t[path[-1]] = {'_end': value}
+        print(self.trie)
+        return True
+
+    def get(self, path: str) -> int:
+        t = self.trie
+        path = path.split("/")[1:]
+        for s in path:
+            if s not in t:
+                return -1
+            t = t[s]
+        return t['_end']
+
+class Trie:
+    def __init__(self):
+        self.trie = dict()
+
+    def insert(self, word: str) -> None:
+        t = self.trie
+        for c in word:
+            if c not in t:
+                t[c] = {}
+            t = t[c]
+        t['_'] = {}
+        print(self.trie)
+
+    def search(self, word: str) -> bool:
+        t = self.trie
+        for c in word:
+            if c not in t:
+                return False
+            t = t[c]
+        return '_' in t
+
+    def startsWith(self, prefix: str) -> bool:
+        t = self.trie
+        for c in prefix:
+            if c not in t:
+                return False
+            t = t[c]
+        return True
+
+

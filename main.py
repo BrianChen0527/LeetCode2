@@ -5,6 +5,17 @@ from LeetFunctions import *
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    str1 = "dbcba"
-    str2 = "cccccccc"
-    print(max(str1, str2))
+    str = 'asdf'
+    trie = Trie()
+    trie.insert(str)
+
+    trie.insert('asdas')
+    print(trie.search('asdf'))
+    print(trie.search('asdas'))
+    print(trie.search('asde'))
+    print(trie.search('as'))
+
+    print(trie.startsWith('asdf'))
+    print(trie.startsWith('asdas'))
+    print(trie.startsWith('asde'))
+    print(trie.startsWith('as'))
