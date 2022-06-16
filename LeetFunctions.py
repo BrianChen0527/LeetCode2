@@ -1,13 +1,11 @@
 # functions file
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-"""Given an array of positive numbers and a positive number ‘k,’ 
-find the maximum sum of any contiguous subarray of size ‘k’."""
-
+import math
+from typing import List
+from typing import Optional
+from queue import PriorityQueue
+from collections import deque
+import heapq
+import sys
 
 def max_sub_array_of_size_k(k, arr):
     max_sum = 0
@@ -238,6 +236,13 @@ def validWordSquare(self, words: List[str]) -> bool:
                 return False
     return True
 
+def minDepth(self, root: Optional[TreeNode]) -> int:
+    if root is None:
+        return 0
+    if root.left is None or root.right is None:
+        return max(self.minDepth(root.left), self.minDepth(root.right)) + 1
+    else:
+        return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 
 class FileSystem:
     def __init__(self):
