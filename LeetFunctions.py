@@ -7,6 +7,13 @@ from collections import deque
 import heapq
 import sys
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
 def max_sub_array_of_size_k(k, arr):
     max_sum = 0
     window_sum = 0
@@ -76,7 +83,8 @@ class Interval:
         print("[" + str(self.start) + ", " + str(self.end) + "]", end='')
 
 
-# Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
+# Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive
+# intervals. 
 def merge(intervals):
     mergedIntervals = []
 
