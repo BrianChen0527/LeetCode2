@@ -244,6 +244,22 @@ def minDepth(self, root: Optional[TreeNode]) -> int:
     else:
         return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
 
+def isValidBST(root: Optional[TreeNode]) -> bool:
+    def inorder(node: Optional[TreeNode], l: List[int]):
+        if not node:
+            return
+        inorder(node.left, l)
+        l.append(node.val)
+        inorder(node.right, l)
+
+    lst = []
+    inorder(root, lst)
+    for i in range(len(lst) - 1):
+        if lst[i] >= lst[i + 1]:
+            return False
+    return True
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
