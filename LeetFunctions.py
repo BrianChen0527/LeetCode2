@@ -284,6 +284,23 @@ def plusOne(head: ListNode) -> ListNode:
     return int(s) + 1
 
 
+def maxResult(nums: List[int], k: int) -> int:
+    dp = [0] * len(nums)
+    dp[0] = nums[0]
+    deq = deque([(nums[0], 0)])
+    for i in range(1, len(nums)):
+        dp[i] = nums[i] + deq[0][0]
+
+        # remove elements smaller than our new element sum
+        while deq and deq[-1][0] < dp[i]:
+            deq.pop()
+        deq.append([dp[i], i])
+
+        # pop_front of deq when element out of jump range
+        if i - k == deq[0][1]:
+            deq.popleft()
+    return dp[-1]
+
 
 class FileSystem:
     def __init__(self):
