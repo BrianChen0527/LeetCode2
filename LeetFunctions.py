@@ -7,6 +7,12 @@ from collections import deque
 import heapq
 import sys
 
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -266,6 +272,17 @@ def isValidBST(root: Optional[TreeNode]) -> bool:
         if lst[i] >= lst[i + 1]:
             return False
     return True
+
+def plusOne(head: ListNode) -> ListNode:
+    if not head:
+        return 1
+
+    s = ""
+    while head:
+        s += str(head.val)
+        head = head.next
+    return int(s) + 1
+
 
 
 class FileSystem:
