@@ -374,6 +374,19 @@ def minCost(costs: List[List[int]]) -> int:
     return min(dp[0][-1], dp[1][-1], dp[2][-1])
 
 
+def countComponents(n: int, edges: List[List[int]]) -> int:
+    parents = [i for i in range(n)]
+    rank = [1 for i in range(n)]
+    components = n
+
+    def findParent(v: int) -> int:
+        # base case
+        if parents[v] == v:
+            return v
+        parents[v] = findParent(parents[v])
+        return parents[v]
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
