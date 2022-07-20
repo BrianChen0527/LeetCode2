@@ -429,6 +429,18 @@ def maxNumberOfApples(weight: List[int]) -> int:
     return apples
 
 
+# https://leetcode.com/problems/same-tree/
+def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    if p is None and q is None:
+        return True
+    elif p is None or q is None:
+        return False
+    elif p.val == q.val:
+        return isSameTree(p.left, q.left) and isSameTree(p.right, q.right)
+    else:
+        return False
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
