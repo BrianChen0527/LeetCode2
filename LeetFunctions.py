@@ -359,6 +359,21 @@ def countCornerRectangles(grid: List[List[int]]) -> int:
                         dp[col1][col2] += 1
     return rectangles
 
+
+def minCost(costs: List[List[int]]) -> int:
+    numHouses = len(costs)
+    dp = [[0 for x in range(numHouses)] for y in range(3)]
+    dp[0][0], dp[1][0], dp[2][0] = costs[0]
+
+    for i in range(1, numHouses):
+        prices = costs[i]
+        dp[0][i] = min(dp[1][i - 1], dp[2][i - 1]) + prices[0]
+        dp[1][i] = min(dp[0][i - 1], dp[2][i - 1]) + prices[1]
+        dp[2][i] = min(dp[0][i - 1], dp[1][i - 1]) + prices[2]
+
+    return min(dp[0][-1], dp[1][-1], dp[2][-1])
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
