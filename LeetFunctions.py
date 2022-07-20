@@ -344,6 +344,21 @@ def largestBSTSubtree(self, root: Optional[TreeNode]) -> int:
     return BSTfinder(root)[3]
 
 
+def countCornerRectangles(grid: List[List[int]]) -> int:
+    # create our Dynamic Programming grid, which keeps track of occurrences in each row where col1 and col2 are both 1s
+    cols = len(grid[0])
+    dp = [[0 for x in range(cols)] for y in range(cols)]
+    rectangles = 0
+    # loop through grid
+    for row in grid:
+        for col1 in range(cols - 1):
+            if row[col1] == 1:
+                for col2 in range(col1 + 1, cols):
+                    if row[col2] == 1:
+                        rectangles += dp[col1][col2]
+                        dp[col1][col2] += 1
+    return rectangles
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
