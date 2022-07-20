@@ -386,6 +386,24 @@ def countComponents(n: int, edges: List[List[int]]) -> int:
         parents[v] = findParent(parents[v])
         return parents[v]
 
+    def union(v1: int, v2: int) -> int:
+        # Check if the two vertices have the same parent, if so, we have not found a new connected component
+        parents[v1], parents[v2] = findParent(v1), findParent(v2)
+        if parents[v1] == parents[v2]:
+            return 0
+        else:
+            if rank[v1] > rank[v2]:
+                parents[v2] = findParent(v1)
+                rank[v1] += rank[v2]
+            else:
+                parents[v1] = findParent(v2)
+                rank[v2] += rank[v1]
+            return 1
+
+    # Iterate through edges list
+    for vertex1, vertex2 in edges:
+        components -= union(vertex1, vertex2)
+    return components
 
 class FileSystem:
     def __init__(self):
