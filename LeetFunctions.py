@@ -416,6 +416,19 @@ def validTree(n: int, edges: List[List[int]]) -> bool:
     return False not in visited
 
 
+def maxNumberOfApples(weight: List[int]) -> int:
+    CAPACITY = 5000
+    apples = 0
+    weight.sort()
+    for w in weight:
+        CAPACITY -= w
+        if CAPACITY > 0:
+            apples += 1
+        else:
+            break
+    return apples
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
