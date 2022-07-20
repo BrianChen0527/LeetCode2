@@ -7,11 +7,13 @@ from collections import deque
 import heapq
 import sys
 
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -19,6 +21,7 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+
 
 def max_sub_array_of_size_k(k, arr):
     max_sum = 0
@@ -208,6 +211,7 @@ def maxProfit(self, prices):
             maxP = maxTrade - i
     return maxP
 
+
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
     l, r = 0, len(nums) - 1
@@ -219,6 +223,7 @@ def findMin(self, nums):
             l = mid + 1
         mid = (l + r) // 2
     return nums[l]
+
 
 def search(nums, target):
     l, r = 0, len(nums) - 1
@@ -243,12 +248,14 @@ def search(nums, target):
         mid = (l + r) // 2
     return mid if nums[mid] == target else -1
 
+
 def validWordSquare(self, words: List[str]) -> bool:
     for r in range(len(words)):
         for c in range(r + 1, len(words)):
             if words[r][c] != words[c][r]:
                 return False
     return True
+
 
 def minDepth(self, root: Optional[TreeNode]) -> int:
     if root is None:
@@ -257,6 +264,7 @@ def minDepth(self, root: Optional[TreeNode]) -> int:
         return max(self.minDepth(root.left), self.minDepth(root.right)) + 1
     else:
         return min(self.minDepth(root.left), self.minDepth(root.right)) + 1
+
 
 def isValidBST(root: Optional[TreeNode]) -> bool:
     def inorder(node: Optional[TreeNode], l: List[int]):
@@ -272,6 +280,7 @@ def isValidBST(root: Optional[TreeNode]) -> bool:
         if lst[i] >= lst[i + 1]:
             return False
     return True
+
 
 def plusOne(head: ListNode) -> ListNode:
     if not head:
@@ -302,6 +311,39 @@ def maxResult(nums: List[int], k: int) -> int:
     return dp[-1]
 
 
+def largestBSTSubtree(self, root: Optional[TreeNode]) -> int:
+    def BSTfinder(currNode: Optional[TreeNode]) -> [int, int, int, int, bool]:
+        # return format: [subtree size, largest num of subtree, smallest num of subtree, max BST subtree size, isBST]
+        # base cases
+        if not currNode:
+            return 0, -sys.maxsize, sys.maxsize, 0, False
+        if not currNode.left and not currNode.right:
+            return 1, currNode.val, currNode.val, 1, True
+
+        # our return element
+        ans = [0, 0, 0, 0, 0]
+
+        # recur through left subtree
+        left = BSTfinder(currNode.left)
+        # recur through right subtree
+        right = BSTfinder(currNode.right)
+
+        # Check if left + right + parent Node is a valid BST
+        if left[4] and right[4] and right[2] > currNode.val > left[1]:
+            ans[1] = max(right[1], currNode.val)
+            ans[2] = min(left[2], currNode.val)
+            ans[3] = left[3] + right[3] + 1
+            ans[4] = 1
+            return ans
+
+        # If not, return max of left and right BST size
+        ans[3] = max(left[3], right[3])
+        ans[4] = 0
+        return ans
+
+    return BSTfinder(root)[3]
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
@@ -329,6 +371,7 @@ class FileSystem:
                 return -1
             t = t[s]
         return t['_end']
+
 
 class Trie:
     def __init__(self):
@@ -358,5 +401,3 @@ class Trie:
                 return False
             t = t[c]
         return True
-
-
