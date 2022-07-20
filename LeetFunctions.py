@@ -405,6 +405,17 @@ def countComponents(n: int, edges: List[List[int]]) -> int:
         components -= union(vertex1, vertex2)
     return components
 
+
+def validTree(n: int, edges: List[List[int]]) -> bool:
+    visited = [False for i in range(n)]
+    for n1, n2 in edges:
+        visited[n1] = True
+        if visited[n2]:
+            return False
+        visited[n2] = True
+    return False not in visited
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
