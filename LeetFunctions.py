@@ -476,6 +476,33 @@ def arraysIntersection(arr1: List[int], arr2: List[int], arr3: List[int]) -> Lis
     tmp = merger(arr1, arr2)
     return merger(tmp, arr3)
 
+
+def appendDict(graph, key, value):
+    if key not in graph:
+        graph[key] = []
+    graph[key].append(value)
+
+
+def findAllPaths(graph, curr, end, visited, currentRate, rate, maxRate):
+    # Mark the current currency as visited and adjust currentRate
+    visited.add(curr)
+    currentRate = currentRate*rate
+    # If current currency is same as target currency, then update maxRate
+    if curr == end:
+        maxRate[0] = max(float(maxRate[0]), currentRate)
+    else:
+        # If current vertex is not target currency
+        # Recur for all the vertices adjacent to this vertex
+        for exch in graph[curr]:
+            currency, newRate = exch[0], float(exch[1])
+            if currency not in visited:
+                findAllPaths(graph, currency, end, visited, currentRate, newRate, maxRate)
+
+    # Remove current vertex from visited and divide currentRate by the rate of previous currency in path
+    visited.remove(curr)
+    currentRate / rate
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
@@ -573,4 +600,32 @@ class Codec:
             return node
 
         return build(data)
+
+
+class WordDictionary:
+
+    def __init__(self):
+        self.trie = dict()
+
+    def addWord(self, word: str) -> None:
+        trie = self.trie
+        for c in word:
+            if c not in trie:
+                trie[c] = dict()
+            trie = trie[c]
+        trie['_end'] = dict()
+        return self.trie
+
+    def search(self, word: str) -> bool:
+        trie = self.trie
+        for c in word:
+            if c == '.':
+                return any(search(self, word[1:]) for key in trie if key != '_end')
+            if c not in trie:
+                return False
+            trie = trie[c]
+        return '_end' in trie
+
+
+
 
