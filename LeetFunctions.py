@@ -458,6 +458,24 @@ def wiggleSort(self, nums: List[int]) -> None:
     nums[::2], nums[1::2] = nums[:mid][::-1], nums[mid:][::-1]
 
 
+def arraysIntersection(arr1: List[int], arr2: List[int], arr3: List[int]) -> List[int]:
+
+    def merger(arr1: List[int], arr2: List[int]) -> List[int]:
+        tmp = []
+        p1, p2 = 0, 0
+        while p1 < len(arr1) and p2 < len(arr2):
+            if arr1[p1] < arr2[p2]:
+                p1 += 1
+            elif arr1[p1] > arr2[p2]:
+                p2 += 1
+            else:
+                tmp.append(arr1[p1])
+                p1, p2 = p1 + 1, p2 + 1
+        return tmp
+
+    tmp = merger(arr1, arr2)
+    return merger(tmp, arr3)
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
