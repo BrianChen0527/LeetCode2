@@ -498,3 +498,44 @@ class Trie:
                 return False
             t = t[c]
         return True
+
+
+# https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+class Codec:
+    def serialize(self, root: Optional[TreeNode]):
+        """Encodes a tree to a single string.
+        :type root: TreeNode
+        :rtype: str
+        """
+
+        def preOrder(node):
+            if node is None:
+                nodes.append('#')
+            else:
+                nodes.append(str(node.val))
+                preOrder(node.left)
+                preOrder(node.right)
+
+        nodes = []
+        preOrder(root)
+        return ' '.join(nodes)
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        :type data: str
+        :rtype: TreeNode
+        """
+        data = data.split(' ')
+
+        def build(data):
+            print(data[0])
+            if data[0] == '#':
+                data.pop(0)
+                return None
+            val = data[0]
+            data.pop(0)
+            node = TreeNode(val=val, left=build(data), right=build(data))
+            return node
+
+        return build(data)
+
