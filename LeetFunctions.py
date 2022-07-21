@@ -451,6 +451,12 @@ def minProductSum(nums1: List[int], nums2: List[int]) -> int:
     return sum
 
 
+def wiggleSort(self, nums: List[int]) -> None:
+    nums.sort()
+    # Extract the smallest number if the size of nums is odd and append it to the final array
+    mid = math.ceil(len(nums) / 2)
+    nums[::2], nums[1::2] = nums[:mid][::-1], nums[mid:][::-1]
+
 
 class FileSystem:
     def __init__(self):
