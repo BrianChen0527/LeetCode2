@@ -441,6 +441,17 @@ def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return False
 
 
+def minProductSum(nums1: List[int], nums2: List[int]) -> int:
+    nums1.sort()
+    nums2.sort(reverse=True)
+    sum = 0
+    for n1, n2 in zip(nums1, nums2):
+        print(n1 * n2)
+        sum += n1 * n2
+    return sum
+
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
