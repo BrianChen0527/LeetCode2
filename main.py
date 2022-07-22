@@ -12,7 +12,10 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
-    words = ["oath", "pea", "eat", "rain"]
+    board = [["a", "b", "c"], ["a", "e", "d"], ["a", "f", "g"]]
+    words = ["eaafgdcba", "eaabcdgfa"]
 
-    print(findWords(board,words))
+
+
+
+    print(findWords(board, words))

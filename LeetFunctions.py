@@ -3,6 +3,7 @@ import math
 from typing import List
 from typing import Optional
 from queue import PriorityQueue
+import collections
 from collections import deque
 import heapq
 import sys
@@ -503,40 +504,44 @@ def findAllPaths(graph, curr, end, visited, currentRate, rate, maxRate):
     currentRate / rate
 
 
-def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+
+
+def findWords(board: List[List[str]], words: List[str]) -> List[str]:
+    def trieBFS(node, pth, r, c, wordsPresent):
+        if node.isWord:
+            wordsPresent.append(pth)
+            node.isWord = False
+
+        if r < 0 or r >= rows or c < 0 or c >= cols:
+            return
+
+
+        tmp = board[r][c]
+        node = node.children.get(tmp)
+        if node is None:
+            return
+        board[r][c] = '#'
+        trieBFS(node, pth + tmp, r + 1, c, wordsPresent)
+        trieBFS(node, pth + tmp, r - 1, c, wordsPresent)
+        trieBFS(node, pth + tmp, r, c + 1, wordsPresent)
+        trieBFS(node, pth + tmp, r, c - 1, wordsPresent)
+        board[r][c] = tmp
+
+
+    trie = Trie2()
+    node = trie.root
     wordsPresent = []
-
-    def wordSearch(visited, word, r, c):
-        if len(word) is 0:
-            return True
-        char0 = word[0]
-        if r - 1 > 0 and board[r-1][c] == char0 and not visited[r-1][c]:
-            visited[r-1][c] = True
-            n = wordSearch(visited, word[1:], r-1, c)
-
-        if r + 1 < rows and board[r+1][c] == char0 and not visited[r+1][c]:
-            visited[r+1][c] = True
-            s = wordSearch(visited, word[1:], r+1, c)
-
-        if c - 1 > 0 and board[r][c - 1] == char0 and not visited[r][c - 1]:
-            visited[r][c - 1] = True
-            e = wordSearch(visited, word[1:], r, c - 1)
-
-        if c + 1 < cols and board[r][c + 1] == char0 and not visited[r][c + 1]:
-            visited[r][c + 1] = True
-            w = wordSearch(visited, word[1:], r, c + 1)
-        return any(n, s, e, w)
+    for word in words:
+        trie.insert(word)
 
     rows, cols = len(board), len(board[0])
-    for word in words:
-        starting_char = word[0]
-        for r in range(rows):
-            for c in range(cols):
-                if board[r][c] == starting_char:
-                    visited = [[False] * cols for i in range(cols)]
-                    if wordSearch(visited, word[1:], r, c):
-                        wordsPresent.append(word)
+    for r in range(rows):
+        for c in range(cols):
+            trieBFS(node, "", r, c, wordsPresent)
     return wordsPresent
+
+
+
 
 
 class FileSystem:
@@ -555,7 +560,6 @@ class FileSystem:
             return False
         else:
             t[path[-1]] = {'_end': value}
-        print(self.trie)
         return True
 
     def get(self, path: str) -> int:
@@ -568,34 +572,7 @@ class FileSystem:
         return t['_end']
 
 
-class Trie:
-    def __init__(self):
-        self.trie = dict()
 
-    def insert(self, word: str) -> None:
-        t = self.trie
-        for c in word:
-            if c not in t:
-                t[c] = {}
-            t = t[c]
-        t['_'] = {}
-        print(self.trie)
-
-    def search(self, word: str) -> bool:
-        t = self.trie
-        for c in word:
-            if c not in t:
-                return False
-            t = t[c]
-        return '_' in t
-
-    def startsWith(self, prefix: str) -> bool:
-        t = self.trie
-        for c in prefix:
-            if c not in t:
-                return False
-            t = t[c]
-        return True
 
 
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
@@ -650,7 +627,6 @@ class WordDictionary:
                 trie[c] = dict()
             trie = trie[c]
         trie['_end'] = dict()
-        return self.trie
 
     def search(self, word: str) -> bool:
         trie = self.trie
@@ -663,5 +639,48 @@ class WordDictionary:
         return '_end' in trie
 
 
+class TrieNode():
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self.isWord = False
 
+
+class Trie2:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        t = self.root
+        for c in word:
+            t = t.children[c]
+        t.isWord = True
+
+
+class Trie:
+    def __init__(self):
+        self.trie = dict()
+
+    def insert(self, word: str) -> None:
+        t = self.trie
+        for c in word:
+            if c not in t:
+                t[c] = {}
+            t = t[c]
+        t['_end'] = True
+
+    def search(self, word: str) -> bool:
+        t = self.trie
+        for c in word:
+            if c not in t:
+                return False
+            t = t[c]
+        return '_end' in t
+
+    def startsWith(self, prefix: str) -> bool:
+        t = self.trie
+        for c in prefix:
+            if c not in t:
+                return False
+            t = t[c]
+        return True
 
