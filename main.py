@@ -12,10 +12,11 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    board = [["a", "b", "c"], ["a", "e", "d"], ["a", "f", "g"]]
-    words = ["eaafgdcba", "eaabcdgfa"]
-
-
-
-
-    print(findWords(board, words))
+    arr = []
+    heapq.heappush(arr, -1)
+    heapq.heappush(arr, -2)
+    heapq.heappush(arr, -3)
+    heapq.heappush(arr, -4)
+    heapq.heapify(arr)
+    print(heapq.heappop(arr))
+    print(heapq.nlargest(3, [9, 1,2,3,4,5,6,7,8]))

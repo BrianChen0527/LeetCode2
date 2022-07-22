@@ -541,6 +541,20 @@ def findWords(board: List[List[str]], words: List[str]) -> List[str]:
     return wordsPresent
 
 
+# https://leetcode.com/problems/top-k-frequent-elements/
+def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    d = collections.defaultdict(int)
+
+    for n in nums:
+        d[n] += 1
+
+    ans, arr = [], []
+    for key in d:
+        arr.append((-d[key], key))
+    arr = heapq.nsmallest(k, arr, key=lambda x: x[0])
+    for i in range(k):
+        ans.append(arr[i][1])
+    return ans
 
 
 
@@ -684,3 +698,22 @@ class Trie:
             t = t[c]
         return True
 
+
+class MedianFinder:
+
+    def __init__(self):
+        self.small = []  # heap for smaller half of numbers
+        self.large = []  # heap for larger half of numbers
+
+    def addNum(self, num: int) -> None:
+        if len(self.large) > len(self.small):
+            heapq.heappush(self.small, -heapq.heappushpop(self.large, num))
+        else:
+            heapq.heappush(self.large, -heapq.heappushpop(self.small, -num))
+
+
+    def findMedian(self) -> float:
+        if len(self.small) == len(self.large):
+            return (self.large[0] - self.small[0])/2
+        else:
+            return -float(self.small[0])
