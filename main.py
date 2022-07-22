@@ -10,36 +10,9 @@ import sys
 # from sklearn import ...
 from LeetFunctions import WordDictionary
 
-
-
-
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    w = WordDictionary()
+    board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
+    words = ["oath", "pea", "eat", "rain"]
 
-    w.addWord('abcde')
-    trie = w.addWord('abcfg')
-    print(trie)
-
-    for c in 'abc':
-        trie = trie[c]
-    print(trie)
-    newTrie = dict()
-    for key in trie:
-        newTrie = {**newTrie, **trie[key]}
-    print(newTrie)
-
-    '''str = 'asdf'
-    trie = Trie()
-    trie.insert(str)
-
-    trie.insert('asdas')
-    print(trie.search('asdf'))
-    print(trie.search('asdas'))
-    print(trie.search('asde'))
-    print(trie.search('as'))
-
-    print(trie.startsWith('asdf'))
-    print(trie.startsWith('asdas'))
-    print(trie.startsWith('asde'))
-    print(trie.startsWith('as'))'''
+    print(findWords(board,words))

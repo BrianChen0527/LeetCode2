@@ -503,6 +503,42 @@ def findAllPaths(graph, curr, end, visited, currentRate, rate, maxRate):
     currentRate / rate
 
 
+def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+    wordsPresent = []
+
+    def wordSearch(visited, word, r, c):
+        if len(word) is 0:
+            return True
+        char0 = word[0]
+        if r - 1 > 0 and board[r-1][c] == char0 and not visited[r-1][c]:
+            visited[r-1][c] = True
+            n = wordSearch(visited, word[1:], r-1, c)
+
+        if r + 1 < rows and board[r+1][c] == char0 and not visited[r+1][c]:
+            visited[r+1][c] = True
+            s = wordSearch(visited, word[1:], r+1, c)
+
+        if c - 1 > 0 and board[r][c - 1] == char0 and not visited[r][c - 1]:
+            visited[r][c - 1] = True
+            e = wordSearch(visited, word[1:], r, c - 1)
+
+        if c + 1 < cols and board[r][c + 1] == char0 and not visited[r][c + 1]:
+            visited[r][c + 1] = True
+            w = wordSearch(visited, word[1:], r, c + 1)
+        return any(n, s, e, w)
+
+    rows, cols = len(board), len(board[0])
+    for word in words:
+        starting_char = word[0]
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == starting_char:
+                    visited = [[False] * cols for i in range(cols)]
+                    if wordSearch(visited, word[1:], r, c):
+                        wordsPresent.append(word)
+    return wordsPresent
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
