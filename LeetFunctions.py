@@ -557,6 +557,51 @@ def topKFrequent(self, nums: List[int], k: int) -> List[int]:
     return ans
 
 
+# https://leetcode.com/problems/palindromic-substrings/
+def countSubstrings(self, s: str) -> int:
+    totalPalindromes = 0
+    length = len(s)
+    for i in range(length):
+        ptr1, ptr2 = i, i
+        c, count = s[ptr1], 0
+        while ptr2 + 1 < length and s[ptr2 + 1] == s[ptr1]:
+            ptr2 += 1
+            count += 1
+        while ptr2 + 1 < length and ptr1 - 1 >= 0 and s[ptr2 + 1] == s[ptr1 - 1]:
+            ptr2 += 1
+            ptr1 -= 1
+            count += 1
+        totalPalindromes += count
+    return totalPalindromes
+
+
+# https://leetcode.com/problems/clone-graph/
+class Node:
+    def __init__(self, val=0, neighbors=None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+
+
+# https://leetcode.com/problems/clone-graph/
+def cloneGraph(self, node: 'Node') -> 'Node':
+    def cloner(node, visited):
+        if node.val in visited:
+            return visited[node.val]
+
+        newNode = Node(node.val)
+        visited[node.val] = newNode
+
+        for neighbor in node.neighbors:
+            newNode.neighbors.append(cloner(neighbor, visited))
+        return newNode
+
+    if node is None:
+        return None
+    visited = {}
+    return cloner(node, visited)
+
+
+
 
 class FileSystem:
     def __init__(self):
