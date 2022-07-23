@@ -755,6 +755,18 @@ def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
     return spiralArr
 
 
+# https://leetcode.com/problems/rotate-image/
+def rotate(self, matrix: List[List[int]]) -> None:
+    n = len(matrix)
+    for layer in range((n + 1) // 2):
+        length = n - 2 * layer
+        for p in range(layer, n - 1 - layer):
+            top, right, bottom, left = matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][layer]
+            print(top, " ", right, " ", bottom, " ", left)
+            matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][layer] = left, top, right , bottom
+
+
+
 
 class FileSystem:
     def __init__(self):
