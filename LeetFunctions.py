@@ -704,6 +704,48 @@ def longestConsecutive(nums: List[int]) -> int:
     return maxConsecutive
 
 
+# https://leetcode.com/problems/set-matrix-zeroes/
+def setZeroes(self, matrix: List[List[int]]) -> None:
+    """
+    We go through matrix, and if we find a 0 at (r,c), we set matrix[r,0] and matrix[0,c] to 0s
+    As a result of this logic, we also need to check if there are 0s in row 0 and col 0, that way we know if the
+    first row and first column need to be all zeroes as well
+    ######0###
+    #XXXXXXXXX
+    0XXXXX0XXX
+    #XXXXXXXXX
+    """
+
+    row0, col0 = False, False
+    rows, cols = len(matrix), len(matrix[0])
+    for r in range(rows):
+        if matrix[r][0] == 0:
+            col0 = True
+            break
+    for c in range(cols):
+        if matrix[0][c] == 0:
+            row0 = True
+            break
+
+    for r in range(1, rows):
+        for c in range(1, cols):
+            if matrix[r][c] == 0:
+                matrix[0][c] = 0
+                matrix[r][0] = 0
+
+    for r in range(1, rows):
+        for c in range(1, cols):
+            if matrix[0][c] == 0 or matrix[r][0] == 0:
+                matrix[r][c] = 0
+    if col0:
+        for r in range(rows):
+            matrix[r][0] = 0
+    if row0:
+        matrix[0] = [0] * len(matrix[0])
+
+
+
+
 
 
 class FileSystem:
@@ -732,7 +774,6 @@ class FileSystem:
                 return -1
             t = t[s]
         return t['_end']
-
 
 
 
