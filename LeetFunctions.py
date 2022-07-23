@@ -628,6 +628,80 @@ def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
     return True
 
 
+# https://leetcode.com/problems/pacific-atlantic-water-flow/
+def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+    def oceansBFS(r, c, canReach):
+        canReach[r][c] = True
+        for d in dirs:
+            r2, c2 = r + d[0], c + d[1]
+            if r2 < 0 or r2 >= rows or c2 < 0 or c2 >= cols or heights[r][c] < heights[r2][c2] or canReach[r2][c2]:
+                continue
+            oceansBFS(r2, c2, canReach)
+
+    dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    canPacific = [[False] * len(heights[0]) for _ in range(len(heights))]
+    canAtlantic = [[False] * len(heights[0]) for _ in range(len(heights))]
+    rows, cols = len(heights), len(heights[0])
+
+    for i in range(rows):
+        oceansBFS(i, 0, canPacific)
+        oceansBFS(i, cols-1, canAtlantic)
+
+    for i in range(cols):
+        oceansBFS(0, i, canPacific)
+        oceansBFS(rows-1, i, canAtlantic)
+
+    canReachBoth = []
+    for r in range(rows):
+        for c in range(cols):
+            if canPacific[r][c] and canAtlantic[r][c]:
+                canReachBoth.append([r, c])
+    return canReachBoth
+
+
+# https://leetcode.com/problems/number-of-islands/
+def numIslands(self, grid: List[List[str]]) -> int:
+    def islandSearch(r, c):
+        if grid[r][c] == '_':
+            return
+        grid[r][c] = '_'
+
+        for d in dirs:
+            r2, c2 = r + d[0], c + d[1]
+            if r2 < 0 or r2 >= rows or c2 < 0 or c2 >= cols or grid[r2][c2] == '0':
+                continue
+            islandSearch(r2, c2)
+
+    dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    rows, cols = len(grid), len(grid[0])
+    num_islands = 0
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1':
+                num_islands += 1
+                islandSearch(r, c)
+    return num_islands
+
+
+# https://leetcode.com/problems/longest-consecutive-sequence/
+def longestConsecutive(nums: List[int]) -> int:
+    def dictDFS(num):
+        if num in d:  # dynamic programming
+            return d[num]
+        if num in presentNums:
+            d[num] = dictDFS(num + 1) + 1
+            return d[num]
+        return 0
+    if not nums:
+        return 0
+
+    presentNums = set(nums)
+    d = dict()
+
+    maxConsecutive = 1
+    for num in presentNums:
+        maxConsecutive = max(maxConsecutive, dictDFS(num))
+    return maxConsecutive
 
 
 
