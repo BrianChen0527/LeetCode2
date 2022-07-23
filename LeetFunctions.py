@@ -715,21 +715,14 @@ def setZeroes(self, matrix: List[List[int]]) -> None:
     0XXXXX0XXX
     #XXXXXXXXX
     """
-
     row0, col0 = False, False
     rows, cols = len(matrix), len(matrix[0])
-    for r in range(rows):
-        if matrix[r][0] == 0:
-            col0 = True
-            break
-    for c in range(cols):
-        if matrix[0][c] == 0:
-            row0 = True
-            break
 
-    for r in range(1, rows):
-        for c in range(1, cols):
+    for r in range(rows):
+        for c in range(cols):
             if matrix[r][c] == 0:
+                if c == 0: col0 = True
+                if r == 0: row0 = True
                 matrix[0][c] = 0
                 matrix[r][0] = 0
 
@@ -744,7 +737,22 @@ def setZeroes(self, matrix: List[List[int]]) -> None:
         matrix[0] = [0] * len(matrix[0])
 
 
+# https://leetcode.com/problems/spiral-matrix/
+def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+    dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # order of directions: right -> down -> left -> up
+    rows, cols = len(matrix), len(matrix[0])
+    spiralArr = []
+    r, c, order = 0, 0, 0
+    while len(spiralArr) < rows * cols:
+        print(r, " ", c)
+        spiralArr.append(matrix[r][c])
+        matrix[r][c] = math.inf
+        r2, c2 = r + dirs[order][0], c + dirs[order][1]
+        if r2 < 0 or r2 >= rows or c2 < 0 or c2 >= cols or matrix[r2][c2] == math.inf:
+            order = (order + 1) % 4
+        r, c = r + dirs[order][0], c + dirs[order][1]
 
+    return spiralArr
 
 
 
