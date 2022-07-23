@@ -601,6 +601,35 @@ def cloneGraph(self, node: 'Node') -> 'Node':
     return cloner(node, visited)
 
 
+# https://github.com/BrianChen0527
+def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def isCyclic(mp, course, visiting):
+        if course in nonCyclic:  # if we already know this course is not part of a cycle
+            return False
+        if course in visiting:  # if we've visited this course already (cycle!)
+            return True
+        visiting.add(course)
+        for p in mp[course]:
+            if isCyclic(mp, p, visiting):
+                return True
+        nonCyclic.add(course)
+        return False
+
+    mp = [[] for i in range(numCourses)]
+    nonCyclic = set()  # nodes added to nonCyclic are non-cyclic, so if a course's prereq is a node in nonCyclic,
+                       # we know this course is non-cyclic too and thus can optimize for speed
+    for p in prerequisites:
+        mp[p[0]].append(p[1])
+
+    for n in range(len(mp)):
+        visiting = set()
+        if isCyclic(mp, n, visiting):
+            return False
+    return True
+
+
+
+
 
 
 class FileSystem:

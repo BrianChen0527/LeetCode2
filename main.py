@@ -12,11 +12,6 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    arr = []
-    heapq.heappush(arr, -1)
-    heapq.heappush(arr, -2)
-    heapq.heappush(arr, -3)
-    heapq.heappush(arr, -4)
-    heapq.heapify(arr)
-    print(heapq.heappop(arr))
-    print(heapq.nlargest(3, [9, 1,2,3,4,5,6,7,8]))
+    arr = [[0, 1], [1, 2], [1, 3], [4, 5], [1, 0]]
+
+    print(canFinish(6, arr))
