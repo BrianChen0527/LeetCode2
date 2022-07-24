@@ -766,6 +766,29 @@ def rotate(self, matrix: List[List[int]]) -> None:
             matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][layer] = left, top, right , bottom
 
 
+# https://leetcode.com/problems/word-search/
+def exist(self, board: List[List[str]], word: str) -> bool:
+    def wordSearch(word, r, c):
+        if word == "":
+            return True
+        if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != word[0]:
+            return False
+        tmp, board[r][c] = board[r][c], '_'
+        res = any(wordSearch(word[1:], r + d[0], c + d[1]) for d in dirs)
+        board[r][c] = tmp
+        return res
+
+
+    dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    rows, cols = len(board), len(board[0])
+    for r in range(rows):
+        for c in range(cols):
+            if wordSearch(word, r, c):
+                return True
+    return False
+
+
+
 
 
 class FileSystem:
