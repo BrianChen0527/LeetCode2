@@ -44,6 +44,22 @@ def lengthOfLIS(self, nums: List[int]) -> int:
     return len(dp)
 
 
+# https://leetcode.com/problems/longest-common-subsequence/
+def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+    n1, n2 = len(text1), len(text2)
+    dp = [[0] * (n2 + 1) for _ in range(n1 + 1)]
+
+    for i in range(1, n1 + 1):
+        for j in range(1, n2 + 1):
+            if text1[i - 1] == text2[j - 1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp[-1][-1]
+
+
+
+
 def find_averages_of_subarrays(K, arr):
     sums = []
     window_sum, start_pos = 0.0, 0
@@ -809,6 +825,19 @@ def coinChange(self, coins: List[int], amount: int) -> int:
     return dp[-1] if dp[-1] != math.inf else -1
 
 
+# https://leetcode.com/problems/decode-ways/submissions/
+def numDecodings(self, s: str) -> int:
+    prev2, prev1 = 1, 1
+
+    for i in range(len(s)):
+        tmp = 0
+        if s[i] != '0':
+            tmp += prev1
+        if i - 1 >= 0 and s[i - 1] != '0' and int(s[i - 1: i + 1]) <= 26:
+            tmp += prev2
+        prev2 = prev1
+        prev1 = tmp
+    return prev1
 
 
 class FileSystem:
