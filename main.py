@@ -1,4 +1,6 @@
 # This is a sample Python script.
+import bisect
+
 from LeetFunctions import *
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -12,6 +14,6 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    arr = [0,1,2,0,0,0]
+    dp = []
+    print(bisect.bisect_left(dp, 1, 0, len(dp)))
 
-    print(longestConsecutive(arr))

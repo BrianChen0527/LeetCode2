@@ -1,4 +1,5 @@
 # functions file
+import bisect
 import math
 from typing import List
 from typing import Optional
@@ -33,6 +34,14 @@ def max_sub_array_of_size_k(k, arr):
             window_sum -= arr[i - k]
         max_sum = max(max_sum, window_sum)
     return max_sum
+
+
+# https://leetcode.com/problems/longest-increasing-subsequence/
+def lengthOfLIS(self, nums: List[int]) -> int:
+    dp = []
+    for num in nums:
+        dp[bisect.bisect_left(dp, num, 0, len(dp))] = num
+    return len(dp)
 
 
 def find_averages_of_subarrays(K, arr):
