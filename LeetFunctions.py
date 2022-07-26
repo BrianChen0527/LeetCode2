@@ -998,3 +998,32 @@ class MedianFinder:
             return (self.large[0] - self.small[0])/2
         else:
             return -float(self.small[0])
+
+        
+class MyQueue:
+
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+
+    def push(self, x: int) -> None:
+        self.stack2.append(x)
+
+    def pop(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1.pop(-1)
+        
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1.pop(-1)            
+        
+    def peek(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1[-1]
+
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1[-1]
+
+    def empty(self) -> bool:
+        return len(self.stack2) == 0 and len(self.stack1) == 0
