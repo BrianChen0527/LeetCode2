@@ -976,7 +976,15 @@ class FileSystem:
             t = t[s]
         return t['_end']
 
-
+    
+# https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root.val > p.val and root.val > q.val:
+            return self.lowestCommonAncestor(self, root.left, p, q)
+        elif root.val < p.val and root.val < q.val:
+            return self.lowestCommonAncestor(self, root.right, p, q)
+        else:
+            return root
 
 
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
