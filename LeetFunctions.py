@@ -840,6 +840,24 @@ def numDecodings(self, s: str) -> int:
     return prev1
 
 
+# https://leetcode.com/problems/longest-substring-without-repeating-characters/
+def lengthOfLongestSubstring(s: str) -> int:
+    d = dict()
+    left, right = 0, 0
+    longest = 0
+    while right < len(s):
+        if s[right] not in d:
+            d[s[right]] = right
+        else:
+            left = max(left, d[s[right]] + 1)
+            d[s[right]] = right
+        print(left, " ", right, " ", longest)
+        longest = max(longest, right - left + 1)
+        right += 1
+
+    return longest
+
+
 # https://leetcode.com/problems/longest-repeating-character-replacement/
 def characterReplacement(self, s: str, k: int) -> int:
     chars = collections.defaultdict(int)
