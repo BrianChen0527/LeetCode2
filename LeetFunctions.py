@@ -872,6 +872,18 @@ def characterReplacement(self, s: str, k: int) -> int:
     return maxLen
 
 
+# https://leetcode.com/problems/non-overlapping-intervals/
+def eraseOverlapIntervals(intervals: List[List[int]]) -> int:
+    intervals.sort(key=lambda x: x[1])
+    end, removed = -math.inf, 0
+    for s, e in intervals:
+        if s < end:
+            removed += 1
+        else:
+            end = e
+    return removed
+
+
 # https://leetcode.com/problems/minimum-window-substring/
 def minWindow(s: str, t: str) -> str:
     needLen, needs = len(t), collections.Counter(t)
