@@ -840,6 +840,57 @@ def numDecodings(self, s: str) -> int:
     return prev1
 
 
+# https://leetcode.com/problems/minimum-window-substring/
+def minWindow(s: str, t: str) -> str:
+    needLen, needs = len(t), collections.Counter(t)
+    start, minSubstr = 0, ""
+
+    for i, c in enumerate(s):
+        if c in needs:
+            print(needs)
+            if needs[c] > 0:
+                needLen -= 1
+            needs[c] -= 1
+        while needLen <= 0 and start < i:
+            if minSubstr == "" or len(minSubstr) > i - start + 1:
+                minSubstr = s[start: i + 1]
+            needs[s[start]] += 1
+            start += 1
+            if needs[s[start]] > 0:
+                needLen += 1
+    return minSubstr
+
+
+# https://leetcode.com/problems/implement-queue-using-stacks/        
+class MyQueue:
+
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+
+    def push(self, x: int) -> None:
+        self.stack2.append(x)
+
+    def pop(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1.pop(-1)
+        
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1.pop(-1)            
+        
+    def peek(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1[-1]
+
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1[-1]
+
+    def empty(self) -> bool:
+        return len(self.stack2) == 0 and len(self.stack1) == 0
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
@@ -999,31 +1050,3 @@ class MedianFinder:
         else:
             return -float(self.small[0])
 
-        
-class MyQueue:
-
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-
-    def push(self, x: int) -> None:
-        self.stack2.append(x)
-
-    def pop(self) -> int:
-        if len(self.stack1) > 0:
-            return self.stack1.pop(-1)
-        
-        while len(self.stack2) > 0:
-            self.stack1.append(self.stack2.pop(-1))
-        return self.stack1.pop(-1)            
-        
-    def peek(self) -> int:
-        if len(self.stack1) > 0:
-            return self.stack1[-1]
-
-        while len(self.stack2) > 0:
-            self.stack1.append(self.stack2.pop(-1))
-        return self.stack1[-1]
-
-    def empty(self) -> bool:
-        return len(self.stack2) == 0 and len(self.stack1) == 0
