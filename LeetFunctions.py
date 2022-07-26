@@ -858,6 +858,20 @@ def lengthOfLongestSubstring(s: str) -> int:
     return longest
 
 
+# https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def inorderTraversal(node, pth):
+            if len(pth) == k:
+                return
+            if node:
+                inorderTraversal(node.left, pth)
+                pth.append(node.val)
+                inorderTraversal(node.right, pth)
+        pth = []
+        inorderTraversal(root, pth)
+        return pth[k-1]
+
+
 # https://leetcode.com/problems/longest-repeating-character-replacement/
 def characterReplacement(self, s: str, k: int) -> int:
     chars = collections.defaultdict(int)
