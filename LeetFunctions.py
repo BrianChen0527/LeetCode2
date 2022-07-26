@@ -840,6 +840,20 @@ def numDecodings(self, s: str) -> int:
     return prev1
 
 
+# https://leetcode.com/problems/longest-repeating-character-replacement/
+def characterReplacement(self, s: str, k: int) -> int:
+    chars = collections.defaultdict(int)
+    start, maxCharCount, maxLen = 0, 0, 0
+    for end in range(len(s)):
+        chars[s[end]] += 1
+        maxCharCount = max(maxCharCount, chars[s[end]])
+        while end - start + 1 - maxCharCount > k:
+            chars[s[start]] -= 1
+            start += 1
+        maxLen = max(maxLen, end - start + 1)
+    return maxLen
+
+
 # https://leetcode.com/problems/minimum-window-substring/
 def minWindow(s: str, t: str) -> str:
     needLen, needs = len(t), collections.Counter(t)
