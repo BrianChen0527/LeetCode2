@@ -1,6 +1,7 @@
 # functions file
 import bisect
 import math
+import random
 from typing import List
 from typing import Optional
 from queue import PriorityQueue
@@ -859,17 +860,17 @@ def lengthOfLongestSubstring(s: str) -> int:
 
 
 # https://leetcode.com/problems/kth-smallest-element-in-a-bst/
-    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def inorderTraversal(node, pth):
-            if len(pth) == k:
-                return
-            if node:
-                inorderTraversal(node.left, pth)
-                pth.append(node.val)
-                inorderTraversal(node.right, pth)
-        pth = []
-        inorderTraversal(root, pth)
-        return pth[k-1]
+def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+    def inorderTraversal(node, pth):
+        if len(pth) == k:
+            return
+        if node:
+            inorderTraversal(node.left, pth)
+            pth.append(node.val)
+            inorderTraversal(node.right, pth)
+    pth = []
+    inorderTraversal(root, pth)
+    return pth[k-1]
 
 
 # https://leetcode.com/problems/longest-repeating-character-replacement/
@@ -949,6 +950,39 @@ class MyQueue:
         return len(self.stack2) == 0 and len(self.stack1) == 0
 
 
+# https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    if root.val > p.val and root.val > q.val:
+        return self.lowestCommonAncestor(self, root.left, p, q)
+    elif root.val < p.val and root.val < q.val:
+        return self.lowestCommonAncestor(self, root.right, p, q)
+    else:
+        return root
+
+
+# https://leetcode.com/problems/combination-sum-iv/
+def combinationSum4(self, nums: List[int], target: int) -> int:
+    dp = [0 * target + 1]
+    dp[0] = 1
+
+    for i in range(target):
+        for n in nums:
+            if i - n >= 0:
+                dp[i] += dp[i - n]
+    return dp[-1]
+
+
+# https://leetcode.com/problems/basic-calculator-ii/
+def calculate(self, s: str) -> int:
+
+
+
+
+
+
+
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
@@ -976,15 +1010,29 @@ class FileSystem:
             t = t[s]
         return t['_end']
 
-    
-# https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if root.val > p.val and root.val > q.val:
-            return self.lowestCommonAncestor(self, root.left, p, q)
-        elif root.val < p.val and root.val < q.val:
-            return self.lowestCommonAncestor(self, root.right, p, q)
-        else:
-            return root
+
+
+
+# https://leetcode.com/problems/insert-delete-getrandom-o1/
+class RandomizedSet:
+
+    def __init__(self):
+        self.s = set()
+
+    def insert(self, val: int) -> bool:
+        if val in self.s:
+            return False
+        self.s.add(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.s:
+            return False
+        self.s.remove(val)
+        return True
+
+    def getRandom(self) -> int:
+        return list(self.s)[random.random(0, len(self.s))]
 
 
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
