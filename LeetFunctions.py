@@ -1054,6 +1054,17 @@ def sortColors(nums: List[int]) -> None:
             num1s += 1
 
 
+# https://leetcode.com/problems/partition-equal-subset-sum/
+def canPartition(nums: List[int]) -> bool:
+    total, bits = 0, 1
+    for n in nums:
+        total += n
+        bits |= bits << n
+
+    return total % 2 == 0 and (bits >> (total // 2)) & 1
+
+
+
 
 
 
