@@ -936,7 +936,7 @@ def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
 
 
 # https://leetcode.com/problems/insert-interval/
-def insertInterval(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+def insertInterval(intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
     def merge(i):
         while len(intervals) - 1 > i and intervals[i][1] >= intervals[i + 1][0]:
             intervals[i][1] = max(intervals[i][1], intervals[i + 1][1])
@@ -955,6 +955,27 @@ def insertInterval(self, intervals: List[List[int]], newInterval: List[int]) -> 
         intervals.insert(idx, newInterval)
         merge(idx)
     return intervals
+
+
+# https://leetcode.com/problems/01-matrix/
+def updateMatrix(mat: List[List[int]]) -> List[List[int]]:
+
+    rows, cols = len(mat), len(mat[0])
+    dp = [[math.inf] * cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            if mat[r][c] == 0:
+                dp[r][c] = 0
+                continue
+            left = math.inf if c - 1 < 0 else dp[r][c - 1]
+            top = math.inf if r - 1 < 0 else dp[r - 1][c]
+            dp[r][c] = 1 + min(left, top)
+    for r in reversed(range(rows)):
+        for c in reversed(range(cols)):
+            right = math.inf if c + 1 >= cols else dp[r][c + 1]
+            bottom = math.inf if r + 1 >= rows else dp[r + 1][c]
+            dp[r][c] = min(dp[r][c], 1 + min(right, bottom))
+    return dp
 
 
 
