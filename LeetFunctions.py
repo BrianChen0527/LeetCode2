@@ -920,6 +920,24 @@ def minWindow(s: str, t: str) -> str:
     return minSubstr
 
 
+# https://leetcode.com/problems/diameter-of-binary-tree/
+def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
+    def depthFinder(node):
+        if node is None:
+            return 0
+        l, r = depthFinder(node.left), depthFinder(node.right)
+        nonlocal diameter
+        diameter = max(diameter, l + r)
+        return 1 + max(l, r)
+
+    diameter = 0
+    depthFinder(root)
+    return diameter
+
+
+
+
+
 # https://leetcode.com/problems/implement-queue-using-stacks/        
 class MyQueue:
 
@@ -974,7 +992,7 @@ def combinationSum4(self, nums: List[int], target: int) -> int:
 
 # https://leetcode.com/problems/basic-calculator-ii/
 def calculate(self, s: str) -> int:
-
+    pass
 
 
 
