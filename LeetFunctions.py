@@ -978,6 +978,20 @@ def updateMatrix(mat: List[List[int]]) -> List[List[int]]:
     return dp
 
 
+# https://leetcode.com/problems/combination-sum/
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationDFS(steps, path, target):
+        if target < 0:
+            return
+        elif target == 0:
+            return allPaths.append(path)
+        for i in range(len(steps)):
+            combinationDFS(steps[i:], path + [steps[i]], target - steps[i])
+
+    allPaths = []
+    combinationDFS(candidates, [], target)
+    return allPaths
+
 
 # https://leetcode.com/problems/implement-queue-using-stacks/        
 class MyQueue:

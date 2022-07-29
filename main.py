@@ -1,5 +1,6 @@
 # This is a sample Python script.
 import bisect
+import collections
 
 from LeetFunctions import *
 # Press Shift+F10 to execute it or replace it with your code.
@@ -14,7 +15,7 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    n = [1,2,3]
-    n[-2] = n[-2]*n.pop()
-    print(n)
+    dp = collections.defaultdict(int)
+    if dp:
+        print("not empty")
 
