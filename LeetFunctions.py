@@ -993,6 +993,23 @@ def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
     return allPaths
 
 
+# https://leetcode.com/problems/permutations/
+def permute(self, nums: List[int]) -> List[List[int]]:
+    def genPerms(p):
+        if len(visited) == length:
+            perms.append(p)
+        for n in nums:
+            if n not in visited:
+                visited.add(n)
+                genPerms(p + [n])
+                visited.remove(n)
+    length, visited, perms = len(nums), set(), []
+    genPerms([])
+    return perms
+
+
+
+
 # https://leetcode.com/problems/implement-queue-using-stacks/        
 class MyQueue:
 
