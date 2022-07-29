@@ -1008,6 +1008,45 @@ def permute(self, nums: List[int]) -> List[List[int]]:
     return perms
 
 
+# https://leetcode.com/problems/accounts-merge/
+def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+    def accountsDFS(idx, emails):
+        if idx in visited_accounts:
+            return
+        visited_accounts.add(idx)
+        account = accounts[idx][1:]
+        for e in account:
+            emails.add(e)
+            for neighbor in all_emails[e]:
+                accountsDFS(neighbor, emails)
+        return emails
+
+    all_emails = collections.defaultdict(list)
+    accountsLen = len(accounts)
+
+    # match each email with corresponding account indices
+    for i in range(accountsLen):
+        for j in range(1, len(accounts[i])):
+            email = accounts[i][j]
+            all_emails[email].append(i)
+
+    # Iterate through all accounts and conduct DFS
+    visited_accounts, distinct_accounts, ans = set(), [], []
+    for i in range(accountsLen):
+        if i in visited_accounts:
+            continue
+        ans.append(accounts[i][:1] + sorted(accountsDFS(i, set())))
+    return ans
+
+
+
+
+
+
+
+
+
+
 class TimeMap:
 
     def __init__(self):
