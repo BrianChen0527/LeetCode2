@@ -935,6 +935,26 @@ def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
     return diameter
 
 
+# https://leetcode.com/problems/insert-interval/
+def insertInterval(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+    def merge(i):
+        while len(intervals) - 1 > i and intervals[i][1] >= intervals[i + 1][0]:
+            intervals[i][1] = max(intervals[i][1], intervals[i + 1][1])
+            intervals.pop(i + 1)
+
+    if not intervals:
+        return [newInterval]
+
+    idx = 0
+    while idx < len(intervals) and intervals[idx][0] < newInterval[0]:
+        idx += 1
+    if idx > 0 and intervals[idx - 1][1] >= newInterval[0]:
+        intervals[idx - 1][1] = max(intervals[idx - 1][1], newInterval[1])
+        merge(idx - 1)
+    else:
+        intervals.insert(idx, newInterval)
+        merge(idx)
+    return intervals
 
 
 
