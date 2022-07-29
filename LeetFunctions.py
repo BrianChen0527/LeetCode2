@@ -1008,6 +1008,26 @@ def permute(self, nums: List[int]) -> List[List[int]]:
     return perms
 
 
+class TimeMap:
+
+    def __init__(self):
+        self.times = [collections.defaultdict(str)]
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        currLen = len(self.times)
+        if currLen < timestamp:
+            self.times += [None] * (timestamp - currLen)
+        self.times[timestamp - 1] = collections.defaultdict(str)
+        self.times[timestamp - 1][key] = value
+
+
+    def get(self, key: str, timestamp: int) -> str:
+        for i in range(timestamp - 1, -1, -1):
+            if i < len(self.times) and self.times[i] is not None:
+                if key in self.times[i]:
+                    return self.times[i][key]
+        return ""
+
 
 
 # https://leetcode.com/problems/implement-queue-using-stacks/        

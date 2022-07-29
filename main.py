@@ -15,7 +15,8 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    dp = collections.defaultdict(int)
-    if dp:
-        print("not empty")
-
+    d = collections.defaultdict(str)
+    if "abc" in d:
+        print(d)
+    if "abc" in d:
+        print(d)
