@@ -1039,7 +1039,19 @@ def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
     return ans
 
 
+# https://leetcode.com/problems/sort-colors/submissions/
+def sortColors(nums: List[int]) -> None:
+    num0s, num1s, num2s = 0, 0, 0
 
+    for i in range(len(nums)):
+        if nums[i] == 0:
+            nums[num0s], nums[i] = nums[i], nums[num0s]
+            num0s += 1
+
+    for i in range(num0s, len(nums)):
+        if nums[i] == 1:
+            nums[num1s + num0s], nums[i] = nums[i], nums[num1s + num0s]
+            num1s += 1
 
 
 
