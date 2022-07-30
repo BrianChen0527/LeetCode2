@@ -1143,6 +1143,32 @@ def findAnagrams(s: str, p: str) -> List[int]:
     return anagramIdx
 
 
+# https://leetcode.com/problems/minimum-height-trees/
+def findMinHeightTrees(n: int, edges: List[List[int]]) -> List[int]:
+    in_degree, adj_list = [0] * n, [[] for _ in range(n)]
+    leaves = []
+
+    for e in edges:
+        adj_list[e[0]].append(e[1])
+        adj_list[e[1]].append(e[0])
+
+    for i, g in enumerate(adj_list):
+        in_degree[i] = len(g)
+        if len(g) == 1:
+            leaves.append(i)
+
+    while n > 2:
+        new_leaves = []
+        for leaf in leaves:
+            for g in adj_list[leaf]:
+                in_degree[g] -= 1
+                if in_degree[g] == 1:
+                    new_leaves.append(g)
+        n -= len(leaves)
+        leaves = new_leaves[:]
+
+    print(adj_list)
+    print(in_degree)
 
 
 class TimeMap:
