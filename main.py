@@ -15,13 +15,10 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-   n = 2
-   tasks = ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "F", "G"]
-   c = collections.Counter(tasks)
-   # numTasks = sorted(list(c.values()), key=lambda x: -x)
-   dp = []
-   while len(c) > 0:
-      ptr = 0
-      if len(dp) == ptr:
-         dp += ([True] + [False] * n)
-
+   cache = collections.OrderedDict()
+   cache[1] = 100
+   cache[2] = 200
+   cache.move_to_end(1)
+   print(cache)
+   cache.popitem(last=False)
+   print(cache)
