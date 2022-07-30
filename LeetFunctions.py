@@ -1118,6 +1118,33 @@ def letterCombinations(digits: str) -> List[str]:
     return allPerms
 
 
+# https://leetcode.com/problems/find-all-anagrams-in-a-string/
+def findAnagrams(s: str, p: str) -> List[int]:
+    if len(s) < len(p):
+        return []
+
+    mp, anagramIdx = collections.defaultdict(int), []
+    lenS, start, end = len(s), 0, len(p)
+
+    for c in p:
+        mp[c] += 1
+    for i in range(len(p)):
+        if s[i] in mp:
+            mp[s[i]] -= 1
+
+    while end <= lenS:
+        if all(v == 0 for v in mp.values()):
+            anagramIdx.append(start)
+        if s[start] in mp:
+            mp[s[start]] += 1
+        if end < lenS and s[end] in mp:
+            mp[s[end]] -= 1
+        start, end = start + 1, end + 1
+    return anagramIdx
+
+
+
+
 class TimeMap:
 
     def __init__(self):

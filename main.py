@@ -15,6 +15,4 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    str = ""
-    if not str:
-        print("here")
+   print(ord('c') - ord('a'))
