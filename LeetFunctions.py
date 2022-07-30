@@ -1167,8 +1167,18 @@ def findMinHeightTrees(n: int, edges: List[List[int]]) -> List[int]:
         n -= len(leaves)
         leaves = new_leaves[:]
 
-    print(adj_list)
-    print(in_degree)
+
+# https://leetcode.com/problems/task-scheduler/
+def leastInterval(tasks: List[str], n: int) -> int:
+    c = collections.Counter(tasks)
+    v = c.values()
+    maxCount = max(v)
+    minTime = (maxCount - 1) * n + 1
+    for t in v:
+        if t == maxCount:
+            minTime += 1
+    return max(minTime, len(tasks))
+
 
 
 class TimeMap:
