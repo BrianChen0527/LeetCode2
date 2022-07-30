@@ -1064,10 +1064,28 @@ def canPartition(nums: List[int]) -> bool:
     return total % 2 == 0 and (bits >> (total // 2)) & 1
 
 
+# https://leetcode.com/problems/subsets/
+def subsets(self, nums: List[int]) -> List[List[int]]:
+    def subsetTraversal(path, remaining):
+        allSubsets.append(path)
+        for i in range(len(remaining)):
+            subsetTraversal(path + [remaining[i]], remaining[i + 1:])
+
+    allSubsets = []
+    subsetTraversal([], nums)
+    return allSubsets
 
 
+# https://leetcode.com/problems/subsets/
+def subsetsFast(self, nums: List[int]) -> List[List[int]]:
+    totaLen = 1 << len(nums)
+    allSubsets = [[] for _ in range(totaLen)]
 
-
+    for i in range(totaLen):
+        for j in range(len(nums)):
+            if (i >> j) & 1:
+                allSubsets[i].append(nums[j])
+    return allSubsets
 
 
 class TimeMap:
