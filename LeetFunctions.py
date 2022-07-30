@@ -53,12 +53,10 @@ def longestCommonSubsequence(self, text1: str, text2: str) -> int:
     for i in range(1, n1 + 1):
         for j in range(1, n2 + 1):
             if text1[i - 1] == text2[j - 1]:
-                dp[i][j] = dp[i-1][j-1] + 1
+                dp[i][j] = dp[i - 1][j - 1] + 1
             else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
     return dp[-1][-1]
-
-
 
 
 def find_averages_of_subarrays(K, arr):
@@ -486,7 +484,6 @@ def wiggleSort(self, nums: List[int]) -> None:
 
 
 def arraysIntersection(arr1: List[int], arr2: List[int], arr3: List[int]) -> List[int]:
-
     def merger(arr1: List[int], arr2: List[int]) -> List[int]:
         tmp = []
         p1, p2 = 0, 0
@@ -513,7 +510,7 @@ def appendDict(graph, key, value):
 def findAllPaths(graph, curr, end, visited, currentRate, rate, maxRate):
     # Mark the current currency as visited and adjust currentRate
     visited.add(curr)
-    currentRate = currentRate*rate
+    currentRate = currentRate * rate
     # If current currency is same as target currency, then update maxRate
     if curr == end:
         maxRate[0] = max(float(maxRate[0]), currentRate)
@@ -530,8 +527,6 @@ def findAllPaths(graph, curr, end, visited, currentRate, rate, maxRate):
     currentRate / rate
 
 
-
-
 def findWords(board: List[List[str]], words: List[str]) -> List[str]:
     def trieBFS(node, pth, r, c, wordsPresent):
         if node.isWord:
@@ -540,7 +535,6 @@ def findWords(board: List[List[str]], words: List[str]) -> List[str]:
 
         if r < 0 or r >= rows or c < 0 or c >= cols:
             return
-
 
         tmp = board[r][c]
         node = node.children.get(tmp)
@@ -552,7 +546,6 @@ def findWords(board: List[List[str]], words: List[str]) -> List[str]:
         trieBFS(node, pth + tmp, r, c + 1, wordsPresent)
         trieBFS(node, pth + tmp, r, c - 1, wordsPresent)
         board[r][c] = tmp
-
 
     trie = Trie2()
     node = trie.root
@@ -643,7 +636,7 @@ def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
 
     mp = [[] for i in range(numCourses)]
     nonCyclic = set()  # nodes added to nonCyclic are non-cyclic, so if a course's prereq is a node in nonCyclic,
-                       # we know this course is non-cyclic too and thus can optimize for speed
+    # we know this course is non-cyclic too and thus can optimize for speed
     for p in prerequisites:
         mp[p[0]].append(p[1])
 
@@ -671,11 +664,11 @@ def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
 
     for i in range(rows):
         oceansBFS(i, 0, canPacific)
-        oceansBFS(i, cols-1, canAtlantic)
+        oceansBFS(i, cols - 1, canAtlantic)
 
     for i in range(cols):
         oceansBFS(0, i, canPacific)
-        oceansBFS(rows-1, i, canAtlantic)
+        oceansBFS(rows - 1, i, canAtlantic)
 
     canReachBoth = []
     for r in range(rows):
@@ -718,6 +711,7 @@ def longestConsecutive(nums: List[int]) -> int:
             d[num] = dictDFS(num + 1) + 1
             return d[num]
         return 0
+
     if not nums:
         return 0
 
@@ -787,9 +781,11 @@ def rotate(self, matrix: List[List[int]]) -> None:
     for layer in range((n + 1) // 2):
         length = n - 2 * layer
         for p in range(layer, n - 1 - layer):
-            top, right, bottom, left = matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][layer]
+            top, right, bottom, left = matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], \
+                                       matrix[n - 1 - p][layer]
             print(top, " ", right, " ", bottom, " ", left)
-            matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][layer] = left, top, right , bottom
+            matrix[layer][p], matrix[p][n - 1 - layer], matrix[n - 1 - layer][n - 1 - p], matrix[n - 1 - p][
+                layer] = left, top, right, bottom
 
 
 # https://leetcode.com/problems/word-search/
@@ -803,7 +799,6 @@ def exist(self, board: List[List[str]], word: str) -> bool:
         res = any(wordSearch(word[1:], r + d[0], c + d[1]) for d in dirs)
         board[r][c] = tmp
         return res
-
 
     dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     rows, cols = len(board), len(board[0])
@@ -868,9 +863,10 @@ def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
             inorderTraversal(node.left, pth)
             pth.append(node.val)
             inorderTraversal(node.right, pth)
+
     pth = []
     inorderTraversal(root, pth)
-    return pth[k-1]
+    return pth[k - 1]
 
 
 # https://leetcode.com/problems/longest-repeating-character-replacement/
@@ -959,7 +955,6 @@ def insertInterval(intervals: List[List[int]], newInterval: List[int]) -> List[L
 
 # https://leetcode.com/problems/01-matrix/
 def updateMatrix(mat: List[List[int]]) -> List[List[int]]:
-
     rows, cols = len(mat), len(mat[0])
     dp = [[math.inf] * cols for _ in range(rows)]
     for r in range(rows):
@@ -1003,6 +998,7 @@ def permute(self, nums: List[int]) -> List[List[int]]:
                 visited.add(n)
                 genPerms(p + [n])
                 visited.remove(n)
+
     length, visited, perms = len(nums), set(), []
     genPerms([])
     return perms
@@ -1088,6 +1084,37 @@ def subsetsFast(self, nums: List[int]) -> List[List[int]]:
     return allSubsets
 
 
+# https://leetcode.com/problems/binary-tree-right-side-view/
+def rightSideView(root: Optional[TreeNode]) -> List[int]:
+    q = deque()
+    q.append(root)
+    rightSide = []
+    while len(q) > 0:
+        rightSide.append(q[-1].val)
+        nextLevel = []
+        for node in q:
+            if node.left:
+                nextLevel.append(node.left)
+            if node.right:
+                nextLevel.append(node.right)
+        q = deque(nextLevel)
+    return rightSide
+
+
+# https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+def letterCombinations(digits: str) -> List[str]:
+    def genPerms(path, remaining):
+        if not remaining:
+            allPerms.append(path)
+        for c in d[remaining[0]]:
+            genPerms(path + c, remaining[1:])
+
+
+    d = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+    allPerms = []
+    genPerms([], digits)
+    return allPerms
+
 class TimeMap:
 
     def __init__(self):
@@ -1100,7 +1127,6 @@ class TimeMap:
         self.times[timestamp - 1] = collections.defaultdict(str)
         self.times[timestamp - 1][key] = value
 
-
     def get(self, key: str, timestamp: int) -> str:
         for i in range(timestamp - 1, -1, -1):
             if i < len(self.times) and self.times[i] is not None:
@@ -1109,8 +1135,7 @@ class TimeMap:
         return ""
 
 
-
-# https://leetcode.com/problems/implement-queue-using-stacks/        
+# https://leetcode.com/problems/implement-queue-using-stacks/
 class MyQueue:
 
     def __init__(self):
@@ -1123,11 +1148,11 @@ class MyQueue:
     def pop(self) -> int:
         if len(self.stack1) > 0:
             return self.stack1.pop(-1)
-        
+
         while len(self.stack2) > 0:
             self.stack1.append(self.stack2.pop(-1))
-        return self.stack1.pop(-1)            
-        
+        return self.stack1.pop(-1)
+
     def peek(self) -> int:
         if len(self.stack1) > 0:
             return self.stack1[-1]
@@ -1167,12 +1192,6 @@ def calculate(self, s: str) -> int:
     pass
 
 
-
-
-
-
-
-
 class FileSystem:
     def __init__(self):
         self.trie = dict()
@@ -1199,8 +1218,6 @@ class FileSystem:
                 return -1
             t = t[s]
         return t['_end']
-
-
 
 
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
@@ -1347,10 +1364,8 @@ class MedianFinder:
         else:
             heapq.heappush(self.large, -heapq.heappushpop(self.small, -num))
 
-
     def findMedian(self) -> float:
         if len(self.small) == len(self.large):
-            return (self.large[0] - self.small[0])/2
+            return (self.large[0] - self.small[0]) / 2
         else:
             return -float(self.small[0])
-
