@@ -1341,6 +1341,24 @@ def calculate(self, s: str) -> int:
     pass
 
 
+# https://leetcode.com/problems/next-permutation/
+def nextPermutation(nums: List[int]) -> None:
+    i = len(nums) - 1
+    while i > 0:
+        if nums[i - 1] < nums[i]:
+            idx = i
+            while idx < len(nums):
+                if nums[idx] <= nums[i - 1]:
+                    break
+                idx += 1
+            nums[idx - 1], nums[i - 1] = nums[i - 1], nums[idx - 1]
+            nums[i:] = sorted(nums[i:])
+            break
+        i -= 1
+    if i == 0:
+        nums = nums.sort()
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
