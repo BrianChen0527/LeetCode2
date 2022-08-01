@@ -1249,6 +1249,20 @@ def orangesRotting(grid: List[List[int]]) -> int:
         minSteps += 1
     return minSteps
 
+   
+# https://leetcode.com/problems/daily-temperatures/
+def dailyTemperatures(temperatures: List[int]) -> List[int]:
+    dp = [0] * len(temperatures)
+    for i in range(len(temperatures) - 2, -1, -1):
+        currTemp, ptr = temperatures[i], i + 1
+        while currTemp >= temperatures[ptr]:
+            if dp[ptr] == 0:
+                dp[i] = 0
+                break
+            ptr += dp[ptr]
+        dp[i] = ptr - i
+    return dp
+    
     
 class TimeMap:
 
