@@ -1296,6 +1296,15 @@ def isValidSudoku(board: List[List[str]]) -> bool:
     return True
 
 
+# https://leetcode.com/problems/group-anagrams/submissions/
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    anagrams = collections.defaultdict(list)
+    for s in strs:
+        tmp = str(sorted(s))
+        anagrams[tmp].append(s)
+    return list(anagrams.values())
+
+
 
 class TimeMap:
 
