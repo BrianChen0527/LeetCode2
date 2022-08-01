@@ -1262,8 +1262,41 @@ def dailyTemperatures(temperatures: List[int]) -> List[int]:
             ptr += dp[ptr]
         dp[i] = ptr - i
     return dp
-    
-    
+
+
+# https://leetcode.com/problems/valid-sudoku/
+def isValidSudoku(board: List[List[str]]) -> bool:
+    for row in board:
+        s = set()
+        for num in row:
+            if num == ".": continue
+            if num in s:
+                return False
+            s.add(num)
+
+    for c in range(9):
+        s = set()
+        for r in range(9):
+            num = board[r][c]
+            if num == ".":  continue
+            if num in s:
+                return False
+            s.add(num)
+
+    for i in range(3):
+        for j in range(3):
+            s = set()
+            for r in range(3):
+                for c in range(3):
+                    num = board[3 * i + r][3 * j + c]
+                    if num == ".":  continue
+                    if num in s:
+                        return False
+                    s.add(num)
+    return True
+
+
+
 class TimeMap:
 
     def __init__(self):
