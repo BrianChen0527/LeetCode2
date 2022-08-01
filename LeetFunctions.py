@@ -1202,10 +1202,31 @@ class LRUCache:
             self.cache.popitem(last=False)
 
 
- def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        return heapq.nsmallest(k, points, key=lambda x: x[0]**2 + x[1]**2)
+# https://leetcode.com/problems/k-closest-points-to-origin/
+def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
+    return heapq.nsmallest(k, points, key=lambda x: x[0]**2 + x[1]**2)
 
 
+# https://leetcode.com/problems/evaluate-reverse-polish-notation/
+def evalRPN(tokens: List[str]) -> int:
+    stack = []
+    for t in tokens:
+        match t:
+            case '+':
+                stack.append(stack.pop() + stack.pop())
+            case '-':
+                n1, n2 = stack.pop(), stack.pop()
+                stack.append(n2 - n1)
+            case '*':
+                stack.append(stack.pop() * stack.pop())
+            case '/':
+                n1, n2 = stack.pop(), stack.pop()
+                stack.append(int(n2 / n1))
+            case _:
+                stack.append(int(t))
+    return stack[0]
+
+    
 class TimeMap:
 
     def __init__(self):
