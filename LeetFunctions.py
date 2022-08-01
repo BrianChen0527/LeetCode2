@@ -1226,6 +1226,29 @@ def evalRPN(tokens: List[str]) -> int:
                 stack.append(int(t))
     return stack[0]
 
+
+# https://leetcode.com/problems/rotting-oranges/
+def orangesRotting(grid: List[List[int]]) -> int:
+    rows, cols = len(grid), len(grid[0])
+    minSteps = 0
+    dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+    rotten, fresh = set(), set()
+
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 2:
+                rotten.add((r, c))
+            elif grid[r][c] == 1:
+                fresh.add((r, c))
+
+    while fresh:
+        if not rotten:
+            return -1
+        rotten = set((r + d[0], c + d[1]) for r, c in rotten for d in dirs if (r + d[0], c + d[1]) in fresh)
+        fresh -= rotten
+        minSteps += 1
+    return minSteps
+
     
 class TimeMap:
 
