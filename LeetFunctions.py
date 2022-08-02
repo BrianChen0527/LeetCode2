@@ -1444,7 +1444,42 @@ def findDuplicate(nums: List[int]) -> int:
         tortoise, hare = nums[tortoise], nums[hare]
     return hare
     
-        
+
+# https://leetcode.com/problems/course-schedule-ii/
+def findOrder(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+    def DFS(course, visit_status):
+        if visit_status[course] == 1:  # visiting (detected cycle)
+            return False
+        if visit_status[course] == 2:  # visited (done with this course)
+            return True
+        visit_status[course] = 1
+        for c in prereqs[course]:
+            if not DFS(c, visit_status):
+                return False
+        order.append(course)
+        visit_status[course] = 2
+        return True
+
+    prereqs = [[] for _ in range(numCourses)]
+    order, visit_status = [], [0] * numCourses
+
+    for p in prerequisites:
+        prereqs[p[0]].append(p[1])
+
+    for c in range(numCourses):
+        if not DFS(c, visit_status):
+            return []
+    return order
+
+
+
+
+
+    return order
+
+
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
