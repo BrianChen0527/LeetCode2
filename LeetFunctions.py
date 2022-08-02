@@ -1343,6 +1343,19 @@ class TimeMap:
                     return self.times[i][key]
         return ""
 
+    
+# https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+    n1, n2 = head, head
+    for i in range(n):
+        n2 = n2.next
+
+    while n2:
+        n1, n2 = n1.next, n2.next
+    n1.next = n1.next.next
+    return head
+
+    
 
 # https://leetcode.com/problems/implement-queue-using-stacks/
 class MyQueue:
