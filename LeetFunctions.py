@@ -1305,6 +1305,24 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
     return list(anagrams.values())
 
 
+ # https://leetcode.com/problems/gas-station/
+def canCompleteCircuit(gas: List[int], cost: List[int]) -> int:
+    sum_costs, lowest_fuel, lowest_fuel_point = 0, math.inf, 0
+
+    for i in range(len(cost)):
+        cost[i] = gas[i] - cost[i]
+        if i - 1 >= 0:
+            cost[i] += cost[i - 1]
+        if cost[i] < lowest_fuel:
+            lowest_fuel_point = i
+            lowest_fuel = cost[i]
+        sum_costs += cost[i]
+
+    if sum_costs < 0:
+        return -1
+
+    return 0 if lowest_fuel_point + 1 == len(cost) else lowest_fuel_point
+
 
 class TimeMap:
 
