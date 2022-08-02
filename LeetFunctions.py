@@ -1432,6 +1432,19 @@ def nextPermutation(nums: List[int]) -> None:
         nums = nums.sort()
 
 
+# https://leetcode.com/problems/find-the-duplicate-number/
+def findDuplicate(nums: List[int]) -> int:
+    tortoise, hare = nums[0], nums[0]
+    while True:
+        tortoise, hare = nums[tortoise], nums[nums[hare]]
+        if tortoise == hare: break
+
+    hare = nums[0]
+    while tortoise != hare:
+        tortoise, hare = nums[tortoise], nums[hare]
+    return hare
+    
+        
 class FileSystem:
     def __init__(self):
         self.trie = dict()
