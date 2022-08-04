@@ -1471,12 +1471,20 @@ def findOrder(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
             return []
     return order
 
+# https://leetcode.com/problems/swap-nodes-in-pairs/
+def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    if not head or not head.next:
+        return head
 
-
-
-
-    return order
-
+    prev, curr, head = None, head, head.next
+    while curr and curr.next:
+        second, third = curr.next, curr.next.next
+        curr.next, second.next = third, curr
+        if prev:
+            prev.next = second
+        prev = curr
+        curr = third
+    return head
 
 
 
