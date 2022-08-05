@@ -1516,7 +1516,17 @@ def rotate(nums: List[int], k: int) -> None:
 
 # https://leetcode.com/problems/odd-even-linked-list/
 def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    if not head:
+        return head
+    odd, even, evenHead = head, head.next, head.next
+    while even and even.next:
+        odd.next = even.next
+        odd = odd.next
+        even.next = odd.next
+        even = even.next
+    odd.next = evenHead
 
+    return head
 
 
 class FileSystem:
