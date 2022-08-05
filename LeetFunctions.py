@@ -1503,6 +1503,7 @@ def pathSum(root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
     paths = []
     pathDFS(root, [], targetSum)
 
+
 # https://leetcode.com/problems/rotate-array/submissions/
 def rotate(nums: List[int], k: int) -> None:
     """
@@ -1511,6 +1512,11 @@ def rotate(nums: List[int], k: int) -> None:
     diff = len(nums) - (k % len(nums))
     print(nums[diff:] + nums[:diff])
     nums[:] = nums[diff:] + nums[:diff]
+
+
+# https://leetcode.com/problems/odd-even-linked-list/
+def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
 
 
 class FileSystem:
