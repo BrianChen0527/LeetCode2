@@ -1503,6 +1503,14 @@ def pathSum(root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
     paths = []
     pathDFS(root, [], targetSum)
 
+def rotate(nums: List[int], k: int) -> None:
+    """
+    Do not return anything, modify nums in-place instead.
+    """
+    diff = len(nums) - (k % len(nums))
+    print(nums[diff:] + nums[:diff])
+    nums[:] = nums[diff:] + nums[:diff]
+
 
 class FileSystem:
     def __init__(self):
