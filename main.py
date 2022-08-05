@@ -15,10 +15,5 @@ from LeetFunctions import WordDictionary
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-   cache = collections.OrderedDict()
-   cache[1] = 100
-   cache[2] = 200
-   cache.move_to_end(1)
-   print(cache)
-   cache.popitem(last=False)
-   print(cache)
+   s = "asb"
+   print(3*s)
