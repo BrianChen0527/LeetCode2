@@ -1487,6 +1487,22 @@ def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
     return head
 
 
+# https://leetcode.com/problems/path-sum-ii/
+def pathSum(root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+    def pathDFS(node, path, target):
+        if target == 0:
+            paths.append(path)
+        if target < 0:
+            return
+        if node.left:
+            pathDFS(node.left, path + [node.left.val], target - node.left.val)
+        if node.right:
+            pathDFS(node.right, path + [node.right.val], target - node.right.val)
+    if not root:
+        return []
+    paths = []
+    pathDFS(root, [], targetSum)
+
 
 class FileSystem:
     def __init__(self):
