@@ -1531,7 +1531,22 @@ def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
 # https://leetcode.com/problems/decode-string/
 def decodeString(s: str) -> str:
-     
+    stack, currStr, currNum = [], '', 0
+
+    for c in s:
+        if c == '[':
+            stack.append(currStr)
+            stack.append(currNum)
+            currStr, currNum = '', 0
+        elif c == ']':
+            prevNum = stack.pop()
+            prevStr = stack.pop()
+            currStr = prevStr + prevNum * currStr
+        elif c.isnumeric():
+            currNum = currNum * 10 + int(c)
+        else:
+            currStr += c
+    return currStr
 
 
 class FileSystem:
