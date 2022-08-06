@@ -1549,6 +1549,22 @@ def decodeString(s: str) -> str:
     return currStr
 
 
+# https://leetcode.com/problems/contiguous-array/
+def findMaxLength(nums: List[int]) -> int:
+    maxLen, counter, counterDic = 0, 0, collections.defaultdict(int)
+    for i, n in enumerate(nums):
+        if n:
+            counter += 1
+
+        else:
+            counter -= 1
+
+        if counter in counterDic:
+            maxLen = max(maxLen, i - counterDic[counter])
+        else:
+            counterDic[counter] = i
+    return maxLen
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
