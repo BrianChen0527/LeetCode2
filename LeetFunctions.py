@@ -1583,6 +1583,28 @@ def widthOfBinaryTree(root: Optional[TreeNode]) -> int:
             levelOrderQ.popleft()
     return maxWidth
 
+# https://leetcode.com/problems/find-k-closest-elements/
+def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
+    result, i = deque([x]), arr.index(x)
+    left, right = i - 1, i + 1
+
+    while len(result) < k:
+        if left < 0:
+            result.append(arr[right])
+            right += 1
+        elif right >= len(result):
+            result.appendleft(arr[left])
+            left -= 1
+        else:
+            if (arr[right] - x) < (x - arr[left]):
+                result.append(arr[right])
+                right += 1
+            else:
+                result.appendleft(arr[left])
+                left -= 1
+    return result
+
+
 
 
 class FileSystem:
