@@ -1565,6 +1565,26 @@ def findMaxLength(nums: List[int]) -> int:
             counterDic[counter] = i
     return maxLen
 
+
+# https://leetcode.com/problems/maximum-width-of-binary-tree/
+def widthOfBinaryTree(root: Optional[TreeNode]) -> int:
+    if not root:
+        return 0
+    maxWidth, levelOrderQ = 0, deque()
+    levelOrderQ.append((root, 0))
+    while levelOrderQ:
+        maxWidth = max(maxWidth, levelOrderQ[-1][1] - levelOrderQ[0][1])
+        for i in range(len(levelOrderQ)):
+            node, idx = levelOrderQ[0][0], levelOrderQ[0][1]
+            if node.left:
+                levelOrderQ.append((node.left, idx * 2))
+            if node.right:
+                levelOrderQ.append((node.right, idx * 2 + 1))
+            levelOrderQ.popleft()
+    return maxWidth
+
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
