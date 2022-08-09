@@ -1605,6 +1605,26 @@ def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
     return result
 
 
+# https://leetcode.com/problems/add-two-numbers/
+def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    ans = ListNode()
+    head, carry = ans, 0
+    while l1 or l2:
+        newVal = 0
+        if not l1:
+            newVal = l2.val + carry
+            l2 = l2.next
+        elif not l2:
+            newVal = l1.val + carry
+            l1 = l1.next
+        else:
+            newVal = l1.val + l2.val + carry
+            l1, l2 = l1.next, l2.next
+
+        ans.next = ListNode(newVal % 10)
+        carry = newVal // 10
+        ans = ans.next
+    return head.next
 
 
 class FileSystem:
