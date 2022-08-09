@@ -1343,7 +1343,18 @@ class TimeMap:
                     return self.times[i][key]
         return ""
 
-    
+   
+# https://leetcode.com/problems/subarray-sum-equals-k/
+def subarraySum(nums: List[int], k: int) -> int:
+    occurrences, currSum, pastSums = 0, 0, collections.defaultdict(int)
+    pastSums[0] = 1
+    for i in range(len(nums)):
+        currSum += nums[i]
+        if currSum - k in pastSums:
+            occurrences += pastSums[currSum - k]
+        pastSums[currSum] += 1
+    return occurrences
+
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
     n1, n2 = head, head
