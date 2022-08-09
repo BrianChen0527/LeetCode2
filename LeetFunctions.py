@@ -1627,6 +1627,26 @@ def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[Li
     return head.next
 
 
+# https://leetcode.com/problems/generate-parentheses/
+def generateParenthesis(n: int) -> List[str]:
+    def parenthesisGenerator(k, permutation):
+        if k == 0:
+            permutation += ')' * len(stack)
+            res.append(permutation)
+            return
+        if stack:
+            stack.pop()
+            parenthesisGenerator(k, permutation + ')')
+            stack.append('(')
+        stack.append('(')
+        parenthesisGenerator(k - 1, permutation + '(')
+        stack.pop()
+
+    res, stack = [], []
+    parenthesisGenerator(n, "")
+    return res
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
