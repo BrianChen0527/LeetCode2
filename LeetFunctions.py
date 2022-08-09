@@ -1667,6 +1667,18 @@ def mergeLists(l1: Optional[ListNode], l2: Optional[ListNode]):
         currNode.next = l2
     return head.next
 
+def customMergeSort(head):
+    if not head or not head.next:
+        return head
+
+    slow, fast = head, head
+    while fast and fast.next:
+        slow, fast = slow.next, fast.next.next
+    tmp = slow.next
+    slow.next = None
+    l1, l2 = self.customMergeSort(head), self.customMergeSort(tmp)
+    return self.mergeLists(l1, l2)
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
