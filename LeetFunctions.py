@@ -1647,6 +1647,26 @@ def generateParenthesis(n: int) -> List[str]:
     return res
 
 
+ # https://leetcode.com/problems/sort-list/
+def sortList(head: Optional[ListNode]) -> Optional[ListNode]:
+    return self.customMergeSort(head)
+
+def mergeLists(l1: Optional[ListNode], l2: Optional[ListNode]):
+    head = ListNode(0)
+    currNode = head
+    while l1 and l2:
+        if l1.val < l2.val:
+            currNode.next = l1
+            currNode, l1 = currNode.next, l1.next
+        else:
+            currNode.next = l2
+            currNode, l2 = currNode.next, l2.next
+    if l1:
+        currNode.next = l1
+    elif l2:
+        currNode.next = l2
+    return head.next
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
