@@ -1,5 +1,6 @@
 # functions file
 import bisect
+import itertools
 import math
 import random
 from typing import List
@@ -1619,6 +1620,17 @@ def asteroidCollision(asteroids: List[int]) -> List[int]:
             if abs(asteroid) == stack[-1]:
                 stack.pop()
     return stack
+
+
+# https://leetcode.com/problems/random-pick-with-weight/
+class weightedPick:
+
+    def __init__(self, w: List[int]):
+        self.weights = itertools.accumulate(w)
+
+    def pickIndex(self) -> int:
+        randIdx = random.random()*self.weights[-1]
+        return bisect.bisect_left(self.weights, randIdx)
 
 
 class FileSystem:

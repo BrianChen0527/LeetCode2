@@ -12,8 +12,10 @@ import sys
 # import pandas as pd
 # from sklearn import ...
 from LeetFunctions import WordDictionary
+import random
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-   s = "asb"
-   print(3*s)
+
+   n = random.randint(1, 100)
+   print(n)
