@@ -1616,6 +1616,110 @@ def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
                 left -= 1
     return result
 
+
+# https://leetcode.com/problems/asteroid-collision/
+def asteroidCollision(asteroids: List[int]) -> List[int]:
+    stack = []
+    for asteroid in asteroids:
+        if asteroid > 0:
+            stack.append(asteroid)
+        if not stack:
+            continue
+        else:
+            while stack and abs(asteroid) > stack[-1]:
+                stack.pop()
+            if abs(asteroid) == stack[-1]:
+                stack.pop()
+    return stack
+
+
+# https://leetcode.com/problems/random-pick-with-weight/
+class weightedPick:
+
+    def __init__(self, w: List[int]):
+        self.weights = itertools.accumulate(w)
+
+    def pickIndex(self) -> int:
+        randIdx = random.random()*self.weights[-1]
+        return bisect.bisect_left(self.weights, randIdx)
+
+
+# https://leetcode.com/problems/add-two-numbers/
+def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    ans = ListNode()
+    head, carry = ans, 0
+    while l1 or l2:
+        newVal = 0
+        if not l1:
+            newVal = l2.val + carry
+            l2 = l2.next
+        elif not l2:
+            newVal = l1.val + carry
+            l1 = l1.next
+        else:
+            newVal = l1.val + l2.val + carry
+            l1, l2 = l1.next, l2.next
+
+        ans.next = ListNode(newVal % 10)
+        carry = newVal // 10
+        ans = ans.next
+    return head.next
+
+
+# https://leetcode.com/problems/generate-parentheses/
+def generateParenthesis(n: int) -> List[str]:
+    def parenthesisGenerator(k, permutation):
+        if k == 0:
+            permutation += ')' * len(stack)
+            res.append(permutation)
+            return
+        if stack:
+            stack.pop()
+            parenthesisGenerator(k, permutation + ')')
+            stack.append('(')
+        stack.append('(')
+        parenthesisGenerator(k - 1, permutation + '(')
+        stack.pop()
+
+    res, stack = [], []
+    parenthesisGenerator(n, "")
+    return res
+
+
+# https://leetcode.com/problems/sort-list/
+class MergeSort():
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        return self.customMergeSort(head)
+
+    def mergeLists(self, l1: Optional[ListNode], l2: Optional[ListNode]):
+        head = ListNode(0)
+        currNode = head
+        while l1 and l2:
+            if l1.val < l2.val:
+                currNode.next = l1
+                currNode, l1 = currNode.next, l1.next
+            else:
+                currNode.next = l2
+                currNode, l2 = currNode.next, l2.next
+        if l1:
+            currNode.next = l1
+        elif l2:
+            currNode.next = l2
+        return head.next
+
+    def customMergeSort(self, head):
+        if not head or not head.next:
+            return head
+
+        slow, fast = head, head
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        tmp = slow.next
+        slow.next = None
+        l1, l2 = self.customMergeSort(head), self.customMergeSort(tmp)
+        return self.mergeLists(l1, l2)
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
