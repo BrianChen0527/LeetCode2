@@ -1605,6 +1605,20 @@ def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
     return result
 
 
+# https://leetcode.com/problems/asteroid-collision/
+def asteroidCollision(asteroids: List[int]) -> List[int]:
+    stack = []
+    for asteroid in asteroids:
+        if asteroid > 0:
+            stack.append(asteroid)
+        if not stack:
+            continue
+        else:
+            while stack and abs(asteroid) > stack[-1]:
+                stack.pop()
+            if abs(asteroid) == stack[-1]:
+                stack.pop()
+    return stack
 
 
 class FileSystem:
