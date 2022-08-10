@@ -1344,7 +1344,18 @@ class TimeMap:
                     return self.times[i][key]
         return ""
 
-    
+   
+# https://leetcode.com/problems/subarray-sum-equals-k/
+def subarraySum(nums: List[int], k: int) -> int:
+    occurrences, currSum, pastSums = 0, 0, collections.defaultdict(int)
+    pastSums[0] = 1
+    for i in range(len(nums)):
+        currSum += nums[i]
+        if currSum - k in pastSums:
+            occurrences += pastSums[currSum - k]
+        pastSums[currSum] += 1
+    return occurrences
+
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
     n1, n2 = head, head
@@ -1604,34 +1615,6 @@ def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
                 result.appendleft(arr[left])
                 left -= 1
     return result
-
-
-# https://leetcode.com/problems/asteroid-collision/
-def asteroidCollision(asteroids: List[int]) -> List[int]:
-    stack = []
-    for asteroid in asteroids:
-        if asteroid > 0:
-            stack.append(asteroid)
-        if not stack:
-            continue
-        else:
-            while stack and abs(asteroid) > stack[-1]:
-                stack.pop()
-            if abs(asteroid) == stack[-1]:
-                stack.pop()
-    return stack
-
-
-# https://leetcode.com/problems/random-pick-with-weight/
-class weightedPick:
-
-    def __init__(self, w: List[int]):
-        self.weights = itertools.accumulate(w)
-
-    def pickIndex(self) -> int:
-        randIdx = random.random()*self.weights[-1]
-        return bisect.bisect_left(self.weights, randIdx)
-
 
 class FileSystem:
     def __init__(self):
