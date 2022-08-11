@@ -17,5 +17,5 @@ import random
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-   n = random.randint(1, 100)
-   print(n)
+   arr = [-111,221,312]
+   print(random.choice(arr))
