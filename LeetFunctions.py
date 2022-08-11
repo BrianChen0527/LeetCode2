@@ -1738,7 +1738,15 @@ def findKthLargest(nums: List[int], k: int) -> int:
 
 #　https://leetcode.com/problems/maximal-square/
 def maximalSquare(self, matrix: List[List[str]]) -> int:
-    
+    rows, cols, maxSize = len(matrix), len(matrix[0]), 0
+    dp = [[0] * (cols + 1) for r in range(rows + 1)]
+    for r in range(1, rows + 1):
+        for c in range(1, cols + 1):
+            if matrix[r - 1][c - 1] != "0":
+                dp[r][c] = min(dp[r - 1][c - 1], dp[r - 1][c], dp[r][c - 1]) + 1
+                maxSize = max(maxSize, dp[r][c])
+    return maxSize ** 2
+
 
 
 class FileSystem:
