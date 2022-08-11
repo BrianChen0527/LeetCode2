@@ -1736,6 +1736,11 @@ def findKthLargest(nums: List[int], k: int) -> int:
     return findKthLargest(lower, k - len(higher) - len(mid))
 
 
+#　https://leetcode.com/problems/maximal-square/
+def maximalSquare(self, matrix: List[List[str]]) -> int:
+    
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
