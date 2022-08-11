@@ -1723,14 +1723,18 @@ class MergeSort():
 # https://leetcode.com/problems/kth-largest-element-in-an-array/
 def findKthLargest(nums: List[int], k: int) -> int:
     pivot = random.choice(nums)
-    lower, higher, mid = [x for x in nums if x < pivot], [x for x in nums if x > pivot], [x for x in nums if x == pivot]
 
+    higher = [x for x in nums if x > pivot]
     if len(higher) >= k:
-        return findKthLargest(lower, k)
-    elif len(higher) + len(mid) >= k:
+        return findKthLargest(higher, k)
+
+    mid = [x for x in nums if x == pivot]
+    if len(higher) + len(mid) >= k:
         return mid[0]
-    else:
-        return findKthLargest(lower, k - len(higher) - len(mid))
+
+    lower = [x for x in nums if x < pivot]
+    return findKthLargest(lower, k - len(higher) - len(mid))
+
 
 class FileSystem:
     def __init__(self):
