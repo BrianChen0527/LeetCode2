@@ -1748,6 +1748,29 @@ def maximalSquare(self, matrix: List[List[str]]) -> int:
     return maxSize ** 2
 
 
+# https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+def zigzagLevelOrder(root: Optional[TreeNode]) -> List[List[int]]:
+    if not root:
+        return []
+    res, level, q = [], 0, deque([root])
+    while q:
+        currLevel = []
+        if level % 2:
+            for i in range(len(q) - 1, -1, -1):
+                currLevel.append(q[i].val)
+        else:
+            currLevel = [node.val for node in q]
+        res.append(currLevel)
+        level += 1
+        for i in range(len(q)):
+            if q[0].left:
+                q.append(q[0].left)
+            if q[0].right:
+                q.append(q[0].right)
+            q.popleft()
+
+    return res
+
 
 class FileSystem:
     def __init__(self):
