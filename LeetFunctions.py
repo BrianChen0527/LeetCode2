@@ -1772,6 +1772,30 @@ def zigzagLevelOrder(root: Optional[TreeNode]) -> List[List[int]]:
     return res
 
 
+# https://leetcode.com/problems/path-sum-iii/
+def pathSum(root: Optional[TreeNode], targetSum: int) -> int:
+    def pathSumDFS(node, currSum, pathSums):
+        currSum += node.val
+        nonlocal count
+        if currSum - targetSum in pathSums:
+            count += pathSums[currSum - targetSum]
+
+        pathSums[currSum] += 1
+        if node.left:
+            pathSumDFS(node.left, currSum, pathSums)
+        if node.right:
+            pathSumDFS(node.right, currSum, pathSums)
+        pathSums[currSum] -= 1
+
+    if not root:
+        return 0
+    pathSums, count = collections.defaultdict(int), 0
+    pathSums[0] = 1
+    pathSumDFS(root, 0, pathSums)
+    return count
+
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
