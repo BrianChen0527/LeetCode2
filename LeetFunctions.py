@@ -1849,6 +1849,25 @@ def searchMatrix1(matrix: List[List[int]], target: int) -> bool:
     return targetCol < len(matrix[0]) and matrix[targetRow][targetCol] == target
 
 
+# https://leetcode.com/problems/search-a-2d-matrix/
+def searchMatrix2(matrix: List[List[int]], target: int) -> bool:
+    rows, cols = len(matrix), len(matrix[0])
+    if target < matrix[0][0] or target > matrix[rows - 1][cols - 1]:
+        return False
+
+    l, r = 0, rows * cols - 1
+
+    while l <= r:
+        mid = (l + r) // 2
+        if matrix[mid // cols][mid % cols] > target:
+            r = mid - 1
+        elif matrix[mid // cols][mid % cols] < target:
+            l = mid + 1
+        else:
+            return True
+    return False
+
+
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
 class RandomizedSet:
 
