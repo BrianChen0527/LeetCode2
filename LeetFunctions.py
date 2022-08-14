@@ -1795,6 +1795,20 @@ def pathSum(root: Optional[TreeNode], targetSum: int) -> int:
     return count
 
 
+# https://leetcode.com/problems/powx-n/
+def myPow(x: float, n: int) -> float:
+    if not n:
+        return 1.0
+    if n < 0:
+        n = -n
+        x = 1 / x
+    num = 1
+    while n:
+        if n & 1:
+            num *= x
+        x *= x
+        n >>= 1
+    return num
 
 class FileSystem:
     def __init__(self):
