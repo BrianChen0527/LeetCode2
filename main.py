@@ -18,4 +18,4 @@ import random
 if __name__ == '__main__':
 
    arr = [-111,221,312]
-   print(random.choice(arr))
+   print(bisect.bisect_left(arr, 312))

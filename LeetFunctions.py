@@ -1838,6 +1838,17 @@ class FileSystem:
         return t['_end']
 
 
+# https://leetcode.com/problems/search-a-2d-matrix/
+def searchMatrix1(matrix: List[List[int]], target: int) -> bool:
+    col1 = [row[0] for row in matrix]
+    targetRow = bisect.bisect_left(col1, target)
+    if targetRow < len(matrix) and matrix[targetRow][0] == target:
+        return True
+    targetRow = max(targetRow - 1, 0)
+    targetCol = bisect.bisect_left(matrix[targetRow], target)
+    return targetCol < len(matrix[0]) and matrix[targetRow][targetCol] == target
+
+
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
 class RandomizedSet:
 
