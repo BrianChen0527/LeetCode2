@@ -1824,33 +1824,6 @@ def myPow(x: float, n: int) -> float:
         n >>= 1
     return num
 
-class FileSystem:
-    def __init__(self):
-        self.trie = dict()
-
-    def createPath(self, path: str, value: int) -> bool:
-        t = self.trie
-        path = path.split("/")[1:]
-        for s in path[:-1]:
-            if s not in t:
-                return False
-            t = t[s]
-
-        if path[-1] in t:
-            return False
-        else:
-            t[path[-1]] = {'_end': value}
-        return True
-
-    def get(self, path: str) -> int:
-        t = self.trie
-        path = path.split("/")[1:]
-        for s in path:
-            if s not in t:
-                return -1
-            t = t[s]
-        return t['_end']
-
 
 # https://leetcode.com/problems/search-a-2d-matrix/
 def searchMatrix1(matrix: List[List[int]], target: int) -> bool:
@@ -1912,6 +1885,35 @@ def numDecodings(s: str) -> int:
 
         prev2, prev1 = prev1, curr
     return curr
+
+
+
+class FileSystem:
+    def __init__(self):
+        self.trie = dict()
+
+    def createPath(self, path: str, value: int) -> bool:
+        t = self.trie
+        path = path.split("/")[1:]
+        for s in path[:-1]:
+            if s not in t:
+                return False
+            t = t[s]
+
+        if path[-1] in t:
+            return False
+        else:
+            t[path[-1]] = {'_end': value}
+        return True
+
+    def get(self, path: str) -> int:
+        t = self.trie
+        path = path.split("/")[1:]
+        for s in path:
+            if s not in t:
+                return -1
+            t = t[s]
+        return t['_end']
 
 
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
