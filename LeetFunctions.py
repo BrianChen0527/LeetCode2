@@ -1634,6 +1634,19 @@ def asteroidCollision(asteroids: List[int]) -> List[int]:
     return stack
 
 
+# https://leetcode.com/problems/reverse-integer/
+def reverse(x: int) -> int:
+    intMax = 2147483647
+    negative = True if x < 0 else False
+    x = abs(x)
+    x = float(str(abs(x))[::-1])
+    if negative:
+        x *= -1
+    if x < -(intMax + 1) or x > intMax:
+        return 0
+    return int(x)
+
+    
 # https://leetcode.com/problems/random-pick-with-weight/
 class weightedPick:
 
@@ -1899,7 +1912,6 @@ def numDecodings(s: str) -> int:
 
         prev2, prev1 = prev1, curr
     return curr
-
 
 
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
