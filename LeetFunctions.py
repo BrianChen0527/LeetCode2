@@ -1887,6 +1887,28 @@ def numDecodings(s: str) -> int:
     return curr
 
 
+# https://leetcode.com/problems/reorder-list/
+def reorderList(head: Optional[ListNode]) -> None:
+    slow, fast = head, head
+
+    while fast and fast.next:
+        slow, fast = slow.next, fast.next.next
+
+    newHead, curr = None, slow.next
+    slow.next = None
+    while curr:
+        nextNode = curr.next
+        curr.next = newHead
+        newHead, curr = curr, nextNode
+
+    curr = head
+
+    while curr and newHead:
+        tmp1, tmp2 = curr.next, newHead.next
+        curr.next = newHead
+        newHead.next = tmp1
+        curr, newHead = tmp1, tmp2
+    return head
 
 class FileSystem:
     def __init__(self):
