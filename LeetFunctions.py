@@ -10,6 +10,7 @@ import collections
 from collections import deque
 import heapq
 import sys
+import functools
 
 
 # Definition for singly-linked list.
@@ -1866,6 +1867,21 @@ def searchMatrix2(matrix: List[List[int]], target: int) -> bool:
         else:
             return True
     return False
+
+
+# https://leetcode.com/problems/largest-number/
+def largestNumber(nums: List[int]) -> str:
+    def compareDigits(n1, n2):
+        if n1 + n2 > n2 + n1:
+            return -1
+        elif n1 + n2 < n2 + n1:
+            return 1
+        else:
+            return 0
+
+    nums = list(map(str, nums))
+    ans = "".join(sorted(nums, key=functools.cmp_to_key(compareDigits)))
+    return ans if ans[0] != '0' else '0'
 
 
 # https://leetcode.com/problems/insert-delete-getrandom-o1/

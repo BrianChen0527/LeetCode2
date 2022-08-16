@@ -14,8 +14,13 @@ import sys
 from LeetFunctions import WordDictionary
 import random
 
+
+def numDigits(num):
+    return int(math.log10(num))
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-   arr = [-111,221,312]
-   print(bisect.bisect_left(arr, 312))
+    nums = [39, 30, 9, 8, 777, 60]
+    print(sorted(nums, key=lambda x: -(x / pow(10, numDigits(x)))))
