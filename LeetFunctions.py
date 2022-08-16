@@ -1868,6 +1868,22 @@ def searchMatrix2(matrix: List[List[int]], target: int) -> bool:
     return False
 
 
+# https://leetcode.com/problems/decode-ways/
+def numDecodings(s: str) -> int:
+    dp = [0] * (len(s) + 2)
+    prev1, prev2, curr = 1, 1, 0
+
+    for i in range(len(s)):
+        curr = 0
+        if s[i] != '0':
+            curr = prev1
+
+        if i > 0 and s[i - 1] != '0' and int(s[i - 1 : i + 1]) <= 26:
+            curr += prev2
+
+        prev2, prev1 = prev1, curr
+    return curr
+
 # https://leetcode.com/problems/insert-delete-getrandom-o1/
 class RandomizedSet:
 
