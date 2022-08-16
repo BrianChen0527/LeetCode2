@@ -1910,6 +1910,27 @@ def reorderList(head: Optional[ListNode]) -> None:
         curr, newHead = tmp1, tmp2
     return head
 
+
+# https://leetcode.com/problems/cheapest-flights-within-k-stops/
+def findCheapestPrice(n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+    flightsG = [collections.defaultdict(int) for _ in range(n)]
+
+    for f in flights:
+        flightsG[f[0]][f[1]] = f[2]
+    pq, stopsLeftWhenVisited = [(0, src, k + 1)], [0] * n  # pq = [(currPrice, currCity, stopsLeft)]
+
+    while pq:
+        currPrice, currCity, stopsLeft = heapq.heappop(pq)
+        if currCity == dst:
+            return currPrice
+        if stopsLeftWhenVisited[currCity] >= stopsLeft:
+            continue
+        stopsLeftWhenVisited[currCity] = stopsLeft
+        for city in flightsG[currCity]:
+            heapq.heappush(pq, (currPrice + flightsG[currCity][city], city, stopsLeft - 1))
+    return -1
+
+
 class FileSystem:
     def __init__(self):
         self.trie = dict()
