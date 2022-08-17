@@ -1987,6 +1987,36 @@ def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
     return newHead
 
 
+# https://leetcode.com/problems/basic-calculator-ii/
+def calculate(self, s: str) -> int:
+    currNum, stack = 0, []
+    sign = '+'
+
+    for n in (s + '+'):
+        if n.isspace():
+            continue
+        if n.isnumeric():
+            currNum = currNum*10 + int(n)
+            continue
+
+
+        if sign == '+':
+            stack.append(currNum)
+        elif sign == '-':
+            stack.append(-currNum)
+        elif sign == '*':
+            res = stack.pop() * currNum
+            stack.append(res)
+        else:
+            res = int(stack.pop() / currNum)
+            stack.append(res)
+
+        currNum = 0
+        sign = n
+    return sum(stack)
+
+
+
 def knapsackClassic(weights, values, capacity):
     n = len(weights)
     dp = [[0] * capacity for _ in range(2)]
