@@ -1961,6 +1961,31 @@ def threeSumClosest(self, nums: List[int], target: int) -> int:
     return ans
 
 
+# https://leetcode.com/problems/rotate-list/
+def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+    if not k or not head or not head.next:
+        return head
+    listLength, curr, newHead, tmp = 0, head, head, None
+
+    while curr:
+        curr = curr.next
+        listLength += 1
+
+    rotateLength = k % listLength
+    if not rotateLength:
+        return head
+
+    for i in range(listLength - rotateLength - 1):
+        newHead = newHead.next
+
+    tmp, newHead = newHead, newHead.next
+    tmp.next, tmp = None, newHead
+
+    while tmp.next:
+        tmp = tmp.next
+    tmp.next = head
+    return newHead
+
 
 def knapsackClassic(weights, values, capacity):
     n = len(weights)
