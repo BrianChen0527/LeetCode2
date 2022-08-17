@@ -1911,6 +1911,37 @@ def reorderList(head: Optional[ListNode]) -> None:
     return head
 
 
+# https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+def distanceK(root: TreeNode, target: TreeNode, k: int) -> List[int]:
+    def buildGraph(node):
+        if node.left:
+            BSTGraph[node.val].append(node.left.val)
+            BSTGraph[node.left.val].append(node.val)
+            buildGraph(node.left)
+        if node.right:
+            BSTGraph[node.val].append(node.right.val)
+            BSTGraph[node.right.val].append(node.val)
+            buildGraph(node.right)
+
+    BSTGraph = collections.defaultdict(list)
+    buildGraph(root)
+
+    q = deque(BSTGraph[target.val])
+    visited = {target.val}
+    while k > 0:
+        connections = len(q)
+        for n in range(connections):
+            node = q.popleft()
+            for newNode in BSTGraph[node]:
+                if newNode not in visited:
+                    q.append(newNode)
+                    visited.add(newNode)
+        k -= 1
+    return q
+
+
+
+
 def knapsackClassic(weights, values, capacity):
     n = len(weights)
     dp = [[0] * capacity for _ in range(2)]
