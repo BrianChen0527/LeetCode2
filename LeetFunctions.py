@@ -1911,6 +1911,22 @@ def reorderList(head: Optional[ListNode]) -> None:
     return head
 
 
+def knapsackClassic(weights, values, capacity):
+    n = len(weights)
+    dp = [[0] * capacity for _ in range(2)]
+
+    for i in range(n):
+        for c in range(capacity):
+            if c == 0:
+                continue
+            elif c >= weights[i]:
+                dp[(i + 1) % 2][c] = max(dp[i % 2][c], dp[(i + 1) % 2][c - weights[i]] + values[i])
+            else:
+                dp[(i + 1) % 2][c] = dp[i % 2][c]
+
+    return dp[-1][-1]
+
+
 # https://leetcode.com/problems/cheapest-flights-within-k-stops/
 def findCheapestPrice(n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
     flightsG = [collections.defaultdict(int) for _ in range(n)]

@@ -21,6 +21,6 @@ def numDigits(num):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-
-    nums = [39, 30, 9, 8, 777, 60]
-    print(sorted(nums, key=lambda x: -(x / pow(10, numDigits(x)))))
+    weights = [1, 2, 3]
+    values = [10, 15, 40]
+    print(knapsackClassic(weights,values, 6))
