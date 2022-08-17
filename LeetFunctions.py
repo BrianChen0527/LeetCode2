@@ -1996,9 +1996,8 @@ def calculate(self, s: str) -> int:
         if n.isspace():
             continue
         if n.isnumeric():
-            currNum = currNum*10 + int(n)
+            currNum = currNum * 10 + int(n)
             continue
-
 
         if sign == '+':
             stack.append(currNum)
