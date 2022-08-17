@@ -1940,6 +1940,26 @@ def distanceK(root: TreeNode, target: TreeNode, k: int) -> List[int]:
     return q
 
 
+# https://leetcode.com/problems/3sum-closest/
+def threeSumClosest(self, nums: List[int], target: int) -> int:
+    n, minDiff, ans = len(nums), math.inf, 0
+    nums = sorted(nums)
+    for i in range(n - 2):
+        l, r = i + 1, n - 1
+        while l < r:
+            currSum = nums[i] + nums[l] + nums[r]
+            if abs(currSum - target) < minDiff:
+                minDiff = abs(currSum - target)
+                ans = currSum
+
+            if currSum > target:
+                r -= 1
+            elif currSum < target:
+                l += 1
+            else:
+                return target
+    return ans
+
 
 
 def knapsackClassic(weights, values, capacity):
