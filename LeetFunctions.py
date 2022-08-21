@@ -197,18 +197,23 @@ def reverseList(self, head):
 
 
 # Given a string s, return the longest palindromic substring in s.
-def longestPalindrome(self, s):
-    p = s[0]
-    for i in range(1, len(s)):
-        if (i + 1 < len(s) and s[i - 1] == s[i + 1]):
-            temp = self.helper(s, i, i)
-            if (len(temp) > len(p)):
-                p = temp
-        if (s[i - 1] == s[i]):
-            temp = self.helper(s, i - 1, i)
-            if (len(temp) > len(p)):
-                p = temp
-    return p
+# https://leetcode.com/problems/longest-palindromic-substring/submissions/
+def longestPalindrome(self, s: str) -> str:
+    longest, i = "", 0
+    while i < len(s):
+        l, r = i - 1, i + 1
+        while l >= 0 and s[l] == s[i]:
+            l -= 1
+        while r < len(s) and s[r] == s[i]:
+            r += 1
+        i = r
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            l -= 1
+            r += 1
+        if r - l - 1 > len(longest):
+            longest = s[l + 1: r]
+
+    return longest
 
 
 # helper function for longestPalindrome
@@ -898,24 +903,34 @@ def eraseOverlapIntervals(intervals: List[List[int]]) -> int:
 
 
 # https://leetcode.com/problems/minimum-window-substring/
-def minWindow(s: str, t: str) -> str:
-    needLen, needs = len(t), collections.Counter(t)
-    start, minSubstr = 0, ""
+def minWindow2(self, s: str, t: str) -> str:
+    if len(t) > len(s):
+        return ""
 
-    for i, c in enumerate(s):
-        if c in needs:
-            print(needs)
-            if needs[c] > 0:
-                needLen -= 1
-            needs[c] -= 1
-        while needLen <= 0 and start < i:
-            if minSubstr == "" or len(minSubstr) > i - start + 1:
-                minSubstr = s[start: i + 1]
-            needs[s[start]] += 1
-            start += 1
-            if needs[s[start]] > 0:
-                needLen += 1
-    return minSubstr
+    chars, count, minWindow = collections.defaultdict(int), len(t), None
+    for c in t:
+        chars[c] += 1
+
+    l, r = 0, 0
+
+    while r < len(s):
+        c = s[r]
+        if c in chars:
+            if chars[c] > 0:
+                count -= 1
+            chars[c] -= 1
+
+        while count == 0 and l <= r:
+            if not minWindow or r - l + 1 < len(minWindow):
+                minWindow = s[l:r + 1]
+
+            if s[l] in chars:
+                chars[s[l]] += 1
+                if chars[s[l]] > 0:
+                    count += 1
+            l += 1
+        r += 1
+    return minWindow if minWindow else ""
 
 
 # https://leetcode.com/problems/diameter-of-binary-tree/
