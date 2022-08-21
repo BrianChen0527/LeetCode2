@@ -1182,28 +1182,6 @@ def leastInterval(tasks: List[str], n: int) -> int:
     return max(minTime, len(tasks))
 
 
-# https://leetcode.com/problems/lru-cache/
-class LRUCache:
-    def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.cache = collections.OrderedDict()
-
-    def get(self, key: int) -> int:
-        if key in self.cache:
-            self.cache.move_to_end(key)
-            return self.cache[key]
-        return -1
-
-    def put(self, key: int, value: int) -> None:
-        if key in self.cache:
-            self.cache.move_to_end(key)
-            self.cache[key] = value
-            return
-        self.cache[key] = value
-        if len(self.cache) > self.capacity:
-            self.cache.popitem(last=False)
-
-
 # https://leetcode.com/problems/k-closest-points-to-origin/
 def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
     return heapq.nsmallest(k, points, key=lambda x: x[0]**2 + x[1]**2)
@@ -1325,26 +1303,6 @@ def canCompleteCircuit(gas: List[int], cost: List[int]) -> int:
 
     return 0 if lowest_fuel_point + 1 == len(cost) else lowest_fuel_point
 
-
-class TimeMap:
-
-    def __init__(self):
-        self.times = [collections.defaultdict(str)]
-
-    def set(self, key: str, value: str, timestamp: int) -> None:
-        currLen = len(self.times)
-        if currLen < timestamp:
-            self.times += [None] * (timestamp - currLen)
-        self.times[timestamp - 1] = collections.defaultdict(str)
-        self.times[timestamp - 1][key] = value
-
-    def get(self, key: str, timestamp: int) -> str:
-        for i in range(timestamp - 1, -1, -1):
-            if i < len(self.times) and self.times[i] is not None:
-                if key in self.times[i]:
-                    return self.times[i][key]
-        return ""
-
    
 # https://leetcode.com/problems/subarray-sum-equals-k/
 def subarraySum(nums: List[int], k: int) -> int:
@@ -1367,37 +1325,6 @@ def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
         n1, n2 = n1.next, n2.next
     n1.next = n1.next.next
     return head
-
-    
-
-# https://leetcode.com/problems/implement-queue-using-stacks/
-class MyQueue:
-
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-
-    def push(self, x: int) -> None:
-        self.stack2.append(x)
-
-    def pop(self) -> int:
-        if len(self.stack1) > 0:
-            return self.stack1.pop(-1)
-
-        while len(self.stack2) > 0:
-            self.stack1.append(self.stack2.pop(-1))
-        return self.stack1.pop(-1)
-
-    def peek(self) -> int:
-        if len(self.stack1) > 0:
-            return self.stack1[-1]
-
-        while len(self.stack2) > 0:
-            self.stack1.append(self.stack2.pop(-1))
-        return self.stack1[-1]
-
-    def empty(self) -> bool:
-        return len(self.stack2) == 0 and len(self.stack1) == 0
 
 
 # https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
@@ -1645,95 +1572,6 @@ def reverse(x: int) -> int:
     if x < -(intMax + 1) or x > intMax:
         return 0
     return int(x)
-
-    
-# https://leetcode.com/problems/random-pick-with-weight/
-class weightedPick:
-
-    def __init__(self, w: List[int]):
-        self.weights = itertools.accumulate(w)
-
-    def pickIndex(self) -> int:
-        randIdx = random.random()*self.weights[-1]
-        return bisect.bisect_left(self.weights, randIdx)
-
-
-# https://leetcode.com/problems/add-two-numbers/
-def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-    ans = ListNode()
-    head, carry = ans, 0
-    while l1 or l2:
-        newVal = 0
-        if not l1:
-            newVal = l2.val + carry
-            l2 = l2.next
-        elif not l2:
-            newVal = l1.val + carry
-            l1 = l1.next
-        else:
-            newVal = l1.val + l2.val + carry
-            l1, l2 = l1.next, l2.next
-
-        ans.next = ListNode(newVal % 10)
-        carry = newVal // 10
-        ans = ans.next
-    return head.next
-
-
-# https://leetcode.com/problems/generate-parentheses/
-def generateParenthesis(n: int) -> List[str]:
-    def parenthesisGenerator(k, permutation):
-        if k == 0:
-            permutation += ')' * len(stack)
-            res.append(permutation)
-            return
-        if stack:
-            stack.pop()
-            parenthesisGenerator(k, permutation + ')')
-            stack.append('(')
-        stack.append('(')
-        parenthesisGenerator(k - 1, permutation + '(')
-        stack.pop()
-
-    res, stack = [], []
-    parenthesisGenerator(n, "")
-    return res
-
-
-# https://leetcode.com/problems/sort-list/
-class MergeSort():
-    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        return self.customMergeSort(head)
-
-    def mergeLists(self, l1: Optional[ListNode], l2: Optional[ListNode]):
-        head = ListNode(0)
-        currNode = head
-        while l1 and l2:
-            if l1.val < l2.val:
-                currNode.next = l1
-                currNode, l1 = currNode.next, l1.next
-            else:
-                currNode.next = l2
-                currNode, l2 = currNode.next, l2.next
-        if l1:
-            currNode.next = l1
-        elif l2:
-            currNode.next = l2
-        return head.next
-
-    def customMergeSort(self, head):
-        if not head or not head.next:
-            return head
-
-        slow, fast = head, head
-        while fast and fast.next:
-            slow, fast = slow.next, fast.next.next
-        tmp = slow.next
-        slow.next = None
-        l1, l2 = self.customMergeSort(head), self.customMergeSort(tmp)
-        return self.mergeLists(l1, l2)
-
-
 # https://leetcode.com/problems/kth-largest-element-in-an-array/
 def findKthLargest(nums: List[int], k: int) -> int:
     pivot = random.choice(nums)
@@ -2050,6 +1888,165 @@ def findCheapestPrice(n: int, flights: List[List[int]], src: int, dst: int, k: i
         for city in flightsG[currCity]:
             heapq.heappush(pq, (currPrice + flightsG[currCity][city], city, stopsLeft - 1))
     return -1
+
+
+# https://leetcode.com/problems/add-two-numbers/
+def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    ans = ListNode()
+    head, carry = ans, 0
+    while l1 or l2:
+        newVal = 0
+        if not l1:
+            newVal = l2.val + carry
+            l2 = l2.next
+        elif not l2:
+            newVal = l1.val + carry
+            l1 = l1.next
+        else:
+            newVal = l1.val + l2.val + carry
+            l1, l2 = l1.next, l2.next
+
+        ans.next = ListNode(newVal % 10)
+        carry = newVal // 10
+        ans = ans.next
+    return head.next
+
+
+# https://leetcode.com/problems/generate-parentheses/
+def generateParenthesis(n: int) -> List[str]:
+    def parenthesisGenerator(k, permutation):
+        if k == 0:
+            permutation += ')' * len(stack)
+            res.append(permutation)
+            return
+        if stack:
+            stack.pop()
+            parenthesisGenerator(k, permutation + ')')
+            stack.append('(')
+        stack.append('(')
+        parenthesisGenerator(k - 1, permutation + '(')
+        stack.pop()
+
+    res, stack = [], []
+    parenthesisGenerator(n, "")
+    return res
+
+
+# https://leetcode.com/problems/random-pick-with-weight/
+class weightedPick:
+
+    def __init__(self, w: List[int]):
+        self.weights = itertools.accumulate(w)
+
+    def pickIndex(self) -> int:
+        randIdx = random.random()*self.weights[-1]
+        return bisect.bisect_left(self.weights, randIdx)
+
+
+# https://leetcode.com/problems/sort-list/
+class MergeSort():
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        return self.customMergeSort(head)
+
+    def mergeLists(self, l1: Optional[ListNode], l2: Optional[ListNode]):
+        head = ListNode(0)
+        currNode = head
+        while l1 and l2:
+            if l1.val < l2.val:
+                currNode.next = l1
+                currNode, l1 = currNode.next, l1.next
+            else:
+                currNode.next = l2
+                currNode, l2 = currNode.next, l2.next
+        if l1:
+            currNode.next = l1
+        elif l2:
+            currNode.next = l2
+        return head.next
+
+    def customMergeSort(self, head):
+        if not head or not head.next:
+            return head
+
+        slow, fast = head, head
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+        tmp = slow.next
+        slow.next = None
+        l1, l2 = self.customMergeSort(head), self.customMergeSort(tmp)
+        return self.mergeLists(l1, l2)
+
+
+# https://leetcode.com/problems/lru-cache/
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = collections.OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            return self.cache[key]
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            self.cache[key] = value
+            return
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+
+class TimeMap:
+
+    def __init__(self):
+        self.times = [collections.defaultdict(str)]
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        currLen = len(self.times)
+        if currLen < timestamp:
+            self.times += [None] * (timestamp - currLen)
+        self.times[timestamp - 1] = collections.defaultdict(str)
+        self.times[timestamp - 1][key] = value
+
+    def get(self, key: str, timestamp: int) -> str:
+        for i in range(timestamp - 1, -1, -1):
+            if i < len(self.times) and self.times[i] is not None:
+                if key in self.times[i]:
+                    return self.times[i][key]
+        return ""
+
+
+# https://leetcode.com/problems/implement-queue-using-stacks/
+class MyQueue:
+
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+
+    def push(self, x: int) -> None:
+        self.stack2.append(x)
+
+    def pop(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1.pop(-1)
+
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1.pop(-1)
+
+    def peek(self) -> int:
+        if len(self.stack1) > 0:
+            return self.stack1[-1]
+
+        while len(self.stack2) > 0:
+            self.stack1.append(self.stack2.pop(-1))
+        return self.stack1[-1]
+
+    def empty(self) -> bool:
+        return len(self.stack2) == 0 and len(self.stack1) == 0
 
 
 class FileSystem:
