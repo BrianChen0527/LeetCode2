@@ -2116,42 +2116,39 @@ class RandomizedSet:
 
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 class Codec:
-    def serialize(self, root: Optional[TreeNode]):
+
+    def serialize(self, root):
         """Encodes a tree to a single string.
+
         :type root: TreeNode
         :rtype: str
         """
+        if not root:
+            return "_,"
 
-        def preOrder(node):
-            if node is None:
-                nodes.append('#')
-            else:
-                nodes.append(str(node.val))
-                preOrder(node.left)
-                preOrder(node.right)
-
-        nodes = []
-        preOrder(root)
-        return ' '.join(nodes)
+        return str(root.val) + "," + self.serialize(root.left) + self.serialize(root.right)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
+
         :type data: str
         :rtype: TreeNode
         """
-        data = data.split(' ')
 
-        def build(data):
-            print(data[0])
-            if data[0] == '#':
-                data.pop(0)
+        def preorderTraversal():
+            nonlocal data
+            pos = data.find(',')
+            val = data[:pos]
+            data = data[pos + 1:]
+            if val == '_':
                 return None
-            val = data[0]
-            data.pop(0)
-            node = TreeNode(val=val, left=build(data), right=build(data))
-            return node
+            else:
+                node = TreeNode(int(val))
+                node.left = preorderTraversal()
+                node.right = preorderTraversal()
+                return node
 
-        return build(data)
+        return preorderTraversal()
 
 
 class WordDictionary:
