@@ -608,48 +608,48 @@ class Node:
         self.neighbors = neighbors if neighbors is not None else []
 
 
-# https://leetcode.com/problems/clone-graph/
+# https://leetcode.com/problems/clone-graph/submissions/
 def cloneGraph(self, node: 'Node') -> 'Node':
-    def cloner(node, visited):
-        if node.val in visited:
-            return visited[node.val]
+    def cloner(currNode):
+        if currNode.val in visited:
+            return visited[currNode.val]
 
-        newNode = Node(node.val)
-        visited[node.val] = newNode
+        newNode = Node(currNode.val)
+        visited[currNode.val] = newNode
 
-        for neighbor in node.neighbors:
-            newNode.neighbors.append(cloner(neighbor, visited))
+        for n in currNode.neighbors:
+            newNode.neighbors.append(cloner(n))
         return newNode
 
-    if node is None:
-        return None
+    if not node:
+        return
     visited = {}
-    return cloner(node, visited)
+    return cloner(node)
 
 
 # https://github.com/BrianChen0527
 def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
-    def isCyclic(mp, course, visiting):
-        if course in nonCyclic:  # if we already know this course is not part of a cycle
+    def isCyclic(currCourse, visiting):
+        if currCourse in visited:
             return False
-        if course in visiting:  # if we've visited this course already (cycle!)
+        if currCourse in visiting:
             return True
-        visiting.add(course)
-        for p in mp[course]:
-            if isCyclic(mp, p, visiting):
-                return True
-        nonCyclic.add(course)
+        visiting.add(currCourse)
+
+        if currCourse in coursesG:
+            for c in coursesG[currCourse]:
+                if isCyclic(c, visiting):
+                    return True
+        visited.add(currCourse)
         return False
 
-    mp = [[] for i in range(numCourses)]
-    nonCyclic = set()  # nodes added to nonCyclic are non-cyclic, so if a course's prereq is a node in nonCyclic,
-    # we know this course is non-cyclic too and thus can optimize for speed
-    for p in prerequisites:
-        mp[p[0]].append(p[1])
+    coursesG = collections.defaultdict(list)
+    for c in prerequisites:
+        coursesG[c[1]].append(c[0])
 
-    for n in range(len(mp)):
-        visiting = set()
-        if isCyclic(mp, n, visiting):
+    visited = set()
+    for c in coursesG:
+        if isCyclic(c, set()):
             return False
     return True
 
@@ -1866,7 +1866,6 @@ def calculate(self, s: str) -> int:
         currNum = 0
         sign = n
     return sum(stack)
-
 
 
 def knapsackClassic(weights, values, capacity):
