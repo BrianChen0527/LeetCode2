@@ -1510,6 +1510,20 @@ def decodeString(s: str) -> str:
     return currStr
 
 
+# https://leetcode.com/problems/merge-intervals/submissions/
+def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+    intervals.sort(key=lambda x: x[0])
+    idx = 1
+    while True:
+        if idx >= len(intervals):
+            break
+        while idx < len(intervals) and intervals[idx - 1][1] >= intervals[idx][0]:
+            intervals[idx - 1][1] = max(intervals[idx - 1][1], intervals[idx][1])
+            del intervals[idx]
+        idx += 1
+    return intervals
+
+
 # https://leetcode.com/problems/house-robber/submissions/
 def rob1(self, nums: List[int]) -> int:
     prev1, prev2, maxRob = 0, 0, 0
