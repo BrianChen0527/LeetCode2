@@ -1511,7 +1511,7 @@ def decodeString(s: str) -> str:
 
 
 # https://leetcode.com/problems/house-robber/submissions/
-def rob(self, nums: List[int]) -> int:
+def rob1(self, nums: List[int]) -> int:
     prev1, prev2, maxRob = 0, 0, 0
     for h in nums:
         maxRob = max(prev2 + h, prev1)
@@ -1520,7 +1520,7 @@ def rob(self, nums: List[int]) -> int:
 
 
 # https://leetcode.com/problems/house-robber-ii/submissions/
-def rob(self, nums: List[int]) -> int:
+def rob2(self, nums: List[int]) -> int:
     def robHelper(houses):
         prev1, prev2, maxRob = 0, 0, 0
         for h in houses:
@@ -1532,6 +1532,16 @@ def rob(self, nums: List[int]) -> int:
         return max(nums)
     return max(robHelper(nums[1:]), robHelper(nums[:-1]))
 
+
+# https://leetcode.com/problems/house-robber-iii/submissions/
+def rob3(self, root: Optional[TreeNode]) -> int:
+    def robHelper(node):
+        if not node:
+            return (0,0)
+        else:
+            l, r = robHelper(node.left), robHelper(node.right)
+            return (max(node.val + l[1] + r[1], l[0] + r[0]), l[0] + r[0])
+    return max(robHelper(root))
 
 # https://leetcode.com/problems/contiguous-array/
 def findMaxLength(nums: List[int]) -> int:
