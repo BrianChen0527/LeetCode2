@@ -1510,7 +1510,8 @@ def decodeString(s: str) -> str:
     return currStr
 
 
-def rob(nums: List[int]) -> int:
+# https://leetcode.com/problems/house-robber-ii/submissions/
+def rob(self, nums: List[int]) -> int:
     def robHelper(houses):
         prev1, prev2, maxRob = 0, 0, 0
         for h in houses:
@@ -1518,6 +1519,8 @@ def rob(nums: List[int]) -> int:
             prev2, prev1 = prev1, maxRob
         return maxRob
 
+    if len(nums) < 3:
+        return max(nums)
     return max(robHelper(nums[1:]), robHelper(nums[:-1]))
 
 
