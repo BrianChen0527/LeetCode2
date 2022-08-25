@@ -15,12 +15,57 @@ from LeetFunctions import WordDictionary
 import random
 
 
-def numDigits(num):
-    return int(math.log10(num))
+class customNode:
+    def __init__(self, val: int, dist: int):
+        self.val = val
+        self.dist = dist
+        self.neighbors = []
 
+
+def shortestDist1(start: customNode, end: customNode):
+    currTree = set()
+
+    canReach = [(0, start)]
+    while canReach:
+        currDist, currNode = heapq.heappop(canReach)
+        if currNode.val in currTree:
+            continue
+        if currNode == end:
+            return currDist
+
+        currTree.add(currNode.val)
+        for n in currNode.neighbors:
+            heapq.heappush(canReach, (currDist + n.dist, n))
+
+
+
+def shortestDist2(start: customNode, end: customNode, nodesGraph: dict):
+    currTree = set()
+
+    canReach = [(0, start)]
+    while canReach:
+        currDist, currNode = heapq.heappop(canReach)
+        if currNode in currTree:
+            continue
+        if currNode == end:
+            return currDist
+
+        currTree.add(currNode)
+        for n in nodesGraph[currNode]:
+            heapq.heappush(canReach, (currDist + n[1], n[0]))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    weights = [1, 2, 3]
-    values = [10, 15, 40]
-    print(knapsackClassic(weights,values, 6))
+    n1 = customNode(1, 200)
+    n2 = customNode(2, 130)
+    n3 = customNode(3, 450)
+    n4 = customNode(4, 400)
+    n5 = customNode(5, 100)
+    arr = []
+
+    n1.neighbors = [n2, n3]
+    n2.neighbors = [n4]
+    n4.neighbors = [n5]
+    n3.neighbors = [n5]
+    print(shortestDist(n1, n5))
+
