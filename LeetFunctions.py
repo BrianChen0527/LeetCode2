@@ -1510,6 +1510,17 @@ def decodeString(s: str) -> str:
     return currStr
 
 
+def rob(nums: List[int]) -> int:
+    def robHelper(houses):
+        prev1, prev2, maxRob = 0, 0, 0
+        for h in houses:
+            maxRob = max(prev2 + h, prev1)
+            prev2, prev1 = prev1, maxRob
+        return maxRob
+
+    return max(robHelper(nums[1:]), robHelper(nums[:-1]))
+
+
 # https://leetcode.com/problems/contiguous-array/
 def findMaxLength(nums: List[int]) -> int:
     maxLen, counter, counterDic = 0, 0, collections.defaultdict(int)
