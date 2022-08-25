@@ -234,13 +234,12 @@ def twoSum(self, nums, target: int):
         hash[nums[i]] = i
 
 
-def maxProfit(self, prices):
-    maxP, maxTrade = 0, 0
-    for i in reversed(prices):
-        if i > maxTrade:
-            maxTrade = i
-        if maxTrade - i > maxP:
-            maxP = maxTrade - i
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+def maxProfit(self, prices: List[int]) -> int:
+    maxP, maxSell = 0, 0
+    for i in prices[::-1]:
+        maxSell = max(i, maxSell)
+        maxP = max(maxP, maxSell - i)
     return maxP
 
 
