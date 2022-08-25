@@ -243,6 +243,18 @@ def maxProfit(self, prices: List[int]) -> int:
     return maxP
 
 
+# https://leetcode.com/problems/jump-game/submissions/
+def canJump(nums: List[int]) -> bool:
+    maxReach, n = 0, len(nums)
+
+    for i in range(n):
+        if i > maxReach:
+            return False
+        maxReach = max(maxReach, i + nums[i])
+        if maxReach >= n - 1:
+            return True
+
+
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
     l, r = 0, len(nums) - 1
