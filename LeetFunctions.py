@@ -279,7 +279,35 @@ def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
 
 
 # https://leetcode.com/problems/is-graph-bipartite/submissions/
+def isBipartite(self, graph: List[List[int]]) -> bool:
+    def bipartiteBFS(node, part):
+        if node in valid:
+            return True
 
+        if part == 0 and node in part1:
+            return False
+        if part == 1 and node in part0:
+            return False
+
+        if node in part0 or node in part1:
+            return True
+
+        if part == 0:
+            part0.add(node)
+        else:
+            part1.add(node)
+
+        for n in graph[node]:
+            if not bipartiteBFS(n, 1 - part):
+                return False
+        valid.add(node)
+        return True
+
+    part0, part1, valid = set(), set(), set()
+    for i in range(len(graph)):
+        if not bipartiteBFS(i, 0):
+            return False
+    return True
 
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
