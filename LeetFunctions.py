@@ -255,6 +255,31 @@ def canJump(nums: List[int]) -> bool:
             return True
 
 
+# https://leetcode.com/problems/longest-increasing-path-in-a-matrix/submissions/
+def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+    def increasingDFS(r, c):
+        if dp[r][c] == math.inf:
+            longestDist = 0
+            for d in dirs:
+                r2, c2 = r + d[0], c + d[1]
+                if r2 < 0 or r2 >= m or c2 < 0 or c2 >= n or matrix[r2][c2] <= matrix[r][c]:
+                    continue
+                longestDist = max(longestDist, increasingDFS(r2, c2))
+
+            dp[r][c] = longestDist
+        return dp[r][c] + 1
+
+    m, n = len(matrix), len(matrix[0])
+    dirs, ans = [(1, 0), (0, 1), (-1, 0), (0, -1)], 1
+    dp = [[math.inf] * n for _ in range(m)]
+    for r in range(m):
+        for c in range(n):
+            ans = max(ans, increasingDFS(r, c))
+    return ans
+
+
+
+
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
     l, r = 0, len(nums) - 1
