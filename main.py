@@ -37,6 +37,28 @@ def shortestDist1(start: customNode, end: customNode):
         for n in currNode.neighbors:
             heapq.heappush(canReach, (currDist + n.dist, n))
 
+# https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/submissions/
+def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
+    def childrenDFS(node):
+        if node in visited:
+            return visited[node]
+
+        children = set()
+        for v in G[node]:
+            children.add(v)
+            children = children | childrenDFS(v)
+
+        visited[node] = children
+        return children
+
+    G = collections.defaultdict(list)
+    for e in edges:
+        G[e[1]].append(e[0])
+
+    ans, visited = [[] for _ in range(n)], {}
+    for i in range(n):
+        ans[i] = sorted(list(childrenDFS(i)))
+    return ans
 
 
 def shortestDist2(start: customNode, end: customNode, nodesGraph: dict):

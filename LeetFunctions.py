@@ -309,6 +309,7 @@ def isBipartite(self, graph: List[List[int]]) -> bool:
             return False
     return True
 
+
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
     l, r = 0, len(nums) - 1
