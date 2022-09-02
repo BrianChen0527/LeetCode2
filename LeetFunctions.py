@@ -2071,6 +2071,52 @@ def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
     return ans
 
 
+# https://leetcode.com/problems/basic-calculator/submissions/
+def calculate(self, s: str) -> int:
+    stack, currNum, isNeg = [], 0, False
+    currSum = 0
+    for c in (s + "+"):
+        match c:
+            case '(':
+                stack.append(currSum)
+                stack.append(isNeg)
+                currSum, currNum = 0, 0
+                isNeg = False
+            case ' ':
+                continue
+            case ')':
+                if isNeg:
+                    currSum -= currNum
+                    isNeg = False
+                else:
+                    currSum += currNum
+                currNum = 0
+                prevNeg = stack.pop()
+                prevSum = stack.pop()
+                if prevNeg:
+                    currSum = prevSum - currSum
+                else:
+                    currSum = prevSum + currSum
+                currNum = 0
+            case '+':
+                if isNeg:
+                    currSum -= currNum
+                    isNeg = False
+                else:
+                    currSum += currNum
+                currNum = 0
+            case '-':
+                if isNeg:
+                    currSum -= currNum
+                else:
+                    currSum += currNum
+                isNeg = True
+                currNum = 0
+            case _:
+                currNum = currNum * 10 + int(c)
+    return currSum
+
+
 # https://leetcode.com/problems/generate-parentheses/
 def generateParenthesis(n: int) -> List[str]:
     def parenthesisGenerator(k, permutation):
