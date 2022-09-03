@@ -18,6 +18,10 @@ import numpy as np
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    str = 'asdf'
+    str[1] = 'x'
+    print(str)
+
     arr1 = np.array([1, 2, 3, 4], ndmin=5)
     print(arr1)
     arr3 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]

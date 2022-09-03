@@ -2071,6 +2071,32 @@ def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
     return ans
 
 
+# https://leetcode.com/problems/word-ladder/submissions/
+def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+    alph = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+    q, s, minChanges, visited = deque([(beginWord, 1)]), set(wordList), math.inf, set([beginWord])
+
+    if endWord not in s:
+        return 0
+
+    while q:
+        currWord, currSteps = q.popleft()
+
+        for i in range(len(currWord)):
+            for c in alph:
+                neWord = currWord[:i] + c + currWord[i + 1:]
+                if neWord in visited:
+                    continue
+                if neWord in s:
+                    if neWord == endWord:
+                        return currSteps + 1
+                    q.append((neWord, currSteps + 1))
+                    visited.add(neWord)
+    return 0
+
+'''
 # https://leetcode.com/problems/basic-calculator/submissions/
 def calculate(self, s: str) -> int:
     stack, currNum, isNeg = [], 0, False
@@ -2115,7 +2141,7 @@ def calculate(self, s: str) -> int:
             case _:
                 currNum = currNum * 10 + int(c)
     return currSum
-
+'''
 
 # https://leetcode.com/problems/generate-parentheses/
 def generateParenthesis(n: int) -> List[str]:
