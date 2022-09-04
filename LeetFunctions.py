@@ -1436,11 +1436,6 @@ def combinationSum4(self, nums: List[int], target: int) -> int:
     return dp[-1]
 
 
-# https://leetcode.com/problems/basic-calculator-ii/
-def calculate(self, s: str) -> int:
-    pass
-
-
 # https://leetcode.com/problems/next-permutation/
 def nextPermutation(nums: List[int]) -> None:
     i = len(nums) - 1
@@ -1959,6 +1954,27 @@ def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         tmp = tmp.next
     tmp.next = head
     return newHead
+
+
+# https://leetcode.com/problems/maximum-profit-in-job-scheduling/submissions/
+def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
+    def jobsDFS(t):
+        if t == n:
+            return 0
+        if t in dp:
+            return dp[t]
+        ans = jobsDFS(t + 1)
+
+        t2 = bisect.bisect_left(startTimes, jobs[t][1])
+        ans = max(ans, jobs[t][2] + jobsDFS(t2))
+        dp[t] = ans
+        return ans
+
+    n, maxTime, maxP, dp = len(startTime), 0, 0, {}
+    jobs = sorted(list(zip(startTime, endTime, profit)))
+    startTimes = [j[0] for j in jobs]
+
+    return jobsDFS(0)
 
 
 # https://leetcode.com/problems/basic-calculator-ii/
