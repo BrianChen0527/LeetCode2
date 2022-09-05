@@ -2159,6 +2159,38 @@ def calculate(self, s: str) -> int:
     return currSum
 '''
 
+
+# https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/submissions/
+def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) -> int:
+    def cityDijkstra(city):
+        q = []
+        heapq.heappush(q, (-distanceThreshold, city))
+        visited, canVisit = set(), 0
+
+        while q:
+            dist, city = heapq.heappop(q)
+            if city in visited:
+                continue
+            for dest in G[city]:
+                if dest[0] not in visited and dist + dest[1] <= 0:
+                    heapq.heappush(q, (dist + dest[1], dest[0]))
+            canVisit += 1
+            visited.add(city)
+
+        return canVisit
+
+    G, minReach, ans = [[] for _ in range(n)], math.inf, 0
+    for e in edges:
+        G[e[0]].append((e[1], e[2]))
+        G[e[1]].append((e[0], e[2]))
+    for i in range(n):
+        r = cityDijkstra(i)
+        if r <= minReach:
+            minReach = r
+            ans = i
+    return ans
+
+
 # https://leetcode.com/problems/generate-parentheses/
 def generateParenthesis(n: int) -> List[str]:
     def parenthesisGenerator(k, permutation):
