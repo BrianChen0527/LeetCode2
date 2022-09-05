@@ -2346,6 +2346,30 @@ class RandomizedSet:
         return list(self.s)[random.random(0, len(self.s))]
 
 
+# https://leetcode.com/problems/maximum-frequency-stack/submissions/
+class FreqStack:
+
+    def __init__(self):
+        self.numToFreq = collections.Counter()
+        self.freqDict = collections.defaultdict(list)
+        self.maxFreq = 0
+
+    def push(self, val: int) -> None:
+        numToFreq, freqDict = self.numToFreq, self.freqDict
+        numToFreq[val] += 1
+        freqDict[numToFreq[val]].append(val)
+        self.maxFreq = max(self.maxFreq, numToFreq[val])
+
+    def pop(self) -> int:
+        numToFreq, freqDict = self.numToFreq, self.freqDict
+        val = freqDict[self.maxFreq].pop()
+        numToFreq[val] -= 1
+        if not freqDict[self.maxFreq]:
+            self.maxFreq -= 1
+
+        return val
+
+
 # https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 class Codec:
 
