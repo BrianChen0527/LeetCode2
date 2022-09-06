@@ -2211,6 +2211,42 @@ def convert(self, s: str, numRows: int) -> str:
                     ans += s[c - 2 * i]
     return ans
 
+def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+    def NSum(s, N, arr, prevNums, target):
+        ans = []
+
+        if N == 2:
+            l, r = s, len(arr)
+            while l < r:
+                currS = arr[l] + arr[r]
+                if currS > target:
+                    r -= 1
+                elif currS > target:
+                    l += 1
+                else:
+                    ans += [prevNums + [arr[l], arr[r]]]
+        else:
+            while s < len(arr) - N:
+                if target < sum(arr[s:s + N]):
+                    break
+
+                ans += NSum(s, N - 1, arr, prevNums + [arr[s]], target - arr[s])
+                while s + 1 < len(arr) - N and arr[s] == arr[s + 1]:
+                    s += 1
+        return ans
+
+    return NSum(0, 4, nums, [], target)
+
+
+# https://leetcode.com/problems/integer-to-roman/submissions/
+def intToRoman(self, num: int) -> str:
+    d0 = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    d1 = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    d2 = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+    d3 = ["", "M", "MM", "MMM"]
+
+    return d3[num // 1000] + d2[(num % 1000) // 100] + d1[(num % 100) // 10] + d0[num % 10]
+
 # https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/submissions/
 def strStr(self, haystack: str, needle: str) -> int:
     h, n = len(haystack), len(needle)
