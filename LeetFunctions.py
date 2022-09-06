@@ -2191,6 +2191,20 @@ def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) ->
     return ans
 
 
+# https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/submissions/
+def strStr(self, haystack: str, needle: str) -> int:
+    h, n = len(haystack), len(needle)
+
+    for i in range(h - n + 1):
+
+        pos = i
+        while haystack[pos] == needle[pos - i]:
+            pos += 1
+            if pos - i == n:
+                return i
+    return -1
+
+
 # https://leetcode.com/problems/generate-parentheses/
 def generateParenthesis(n: int) -> List[str]:
     def parenthesisGenerator(k, permutation):
