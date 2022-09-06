@@ -2191,6 +2191,26 @@ def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) ->
     return ans
 
 
+
+def convert(self, s: str, numRows: int) -> str:
+    if numRows == 1:
+        return s
+
+    ans, sLen, cycle = "", len(s), 2 * numRows - 2
+    for i in range(numRows):
+        c = i
+        if i == 0 or i == numRows - 1:
+            while c < sLen:
+                ans += s[c]
+                c += cycle
+        else:
+            while c < sLen:
+                ans += s[c]
+                c += cycle
+                if c - 2 * i < sLen:
+                    ans += s[c - 2 * i]
+    return ans
+
 # https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/submissions/
 def strStr(self, haystack: str, needle: str) -> int:
     h, n = len(haystack), len(needle)
