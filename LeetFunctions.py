@@ -2191,7 +2191,7 @@ def findTheCity(self, n: int, edges: List[List[int]], distanceThreshold: int) ->
     return ans
 
 
-
+# https://leetcode.com/problems/zigzag-conversion/submissions/
 def convert(self, s: str, numRows: int) -> str:
     if numRows == 1:
         return s
