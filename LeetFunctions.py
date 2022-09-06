@@ -2211,31 +2211,39 @@ def convert(self, s: str, numRows: int) -> str:
                     ans += s[c - 2 * i]
     return ans
 
+
+# https://leetcode.com/problems/4sum/
 def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
-    def NSum(s, N, arr, prevNums, target):
+    def NSum(s, N, prevNums, target):
         ans = []
 
         if N == 2:
-            l, r = s, len(arr)
+            l, r = s, lenN - 1
             while l < r:
-                currS = arr[l] + arr[r]
+                currS = nums[l] + nums[r]
                 if currS > target:
                     r -= 1
-                elif currS > target:
+                elif currS < target:
                     l += 1
                 else:
-                    ans += [prevNums + [arr[l], arr[r]]]
+                    ans += [prevNums + [nums[l], nums[r]]]
+                    while l + 1 < r and nums[l] == nums[l + 1]:
+                        l += 1
+                    while r - 1 > l and nums[r] == nums[r - 1]:
+                        r -= 1
+                    l, r = l + 1, r - 1
         else:
-            while s < len(arr) - N:
-                if target < sum(arr[s:s + N]):
+            while s < lenN - N + 1:
+                if target < sum(nums[s:s + N]):
                     break
-
-                ans += NSum(s, N - 1, arr, prevNums + [arr[s]], target - arr[s])
-                while s + 1 < len(arr) - N and arr[s] == arr[s + 1]:
+                ans += NSum(s + 1, N - 1, prevNums + [nums[s]], target - nums[s])
+                s += 1
+                while s < lenN and nums[s] == nums[s - 1]:
                     s += 1
         return ans
 
-    return NSum(0, 4, nums, [], target)
+    lenN, nums = len(nums), sorted(nums)
+    return NSum(0, 4, [], target)
 
 
 # https://leetcode.com/problems/integer-to-roman/submissions/
