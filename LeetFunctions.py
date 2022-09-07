@@ -689,7 +689,15 @@ def cloneGraph(self, node: 'Node') -> 'Node':
     return node if not node else cloner(node)
 
 
-#def shortestDist(start, end):
+# https://leetcode.com/problems/linked-list-cycle/submissions/
+def hasCycle(self, head: Optional[ListNode]) -> bool:
+    slow = fast = head
+
+    while fast and fast.next:
+        slow, fast = slow.next, fast.next.next
+        if fast and slow == fast:
+            return True
+    return False
 
 
 # https://github.com/BrianChen0527
