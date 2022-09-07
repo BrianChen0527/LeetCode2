@@ -2212,6 +2212,11 @@ def convert(self, s: str, numRows: int) -> str:
     return ans
 
 
+# https://leetcode.com/problems/sum-of-two-integers/submissions/
+def getSum(self, a: int, b: int) -> int:
+    return sum([a,b])
+
+
 # https://leetcode.com/problems/4sum/
 def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
     def NSum(s, N, prevNums, target):
