@@ -679,18 +679,14 @@ def cloneGraph(self, node: 'Node') -> 'Node':
     def cloner(currNode):
         if currNode.val in visited:
             return visited[currNode.val]
-
-        newNode = Node(currNode.val)
-        visited[currNode.val] = newNode
-
+        clone = Node(currNode.val)
+        visited[currNode.val] = clone
         for n in currNode.neighbors:
-            newNode.neighbors.append(cloner(n))
-        return newNode
+            clone.neighbors.append(cloner(n))
+        return clone
 
-    if not node:
-        return
     visited = {}
-    return cloner(node)
+    return node if not node else cloner(node)
 
 
 #def shortestDist(start, end):
