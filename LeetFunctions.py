@@ -727,7 +727,17 @@ def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
     return True
 
 
-
+def longestPalindromicSubsequence(s: str):
+    n = len(s)
+    dp = [[0] * (n + 1) for _ in range(n + 1)]
+    for r in range(1, n + 1):
+        for c in range(1, n + 1):
+            if s[r - 1] == s[n - c]:
+                dp[r][c] = dp[r-1][c-1] + 1
+            else:
+                dp[r][c] = max(dp[r-1][c], dp[r][c-1])
+        print(dp)
+    return dp[-1][-1]
 
 
 # https://leetcode.com/problems/pacific-atlantic-water-flow/

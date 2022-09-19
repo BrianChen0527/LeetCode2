@@ -16,8 +16,16 @@ import random
 
 import numpy as np
 
+
+def minProductSubarray(arr):
+    minProduct = arr[0]
+    currProduct = arr[0]
+    for i in range(len(arr)):
+        currProduct = min(currProduct * arr[i], arr[i])
+        minProduct = min(minProduct, currProduct)
+    return minProduct
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    nums = [1, 0, -1, 0, -2, 2]
-    target = 0
-    print(fourSum(target, nums, target))
+    s = 'rjaljr'
+    print(longestPalindromicSubsequence(s))
