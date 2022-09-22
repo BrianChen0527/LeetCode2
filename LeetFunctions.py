@@ -539,6 +539,15 @@ def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return False
 
 
+def minProductSubarray(arr):
+    minProduct = arr[0]
+    currProduct = arr[0]
+    for i in range(len(arr)):
+        currProduct = min(currProduct * arr[i], arr[i])
+        minProduct = min(minProduct, currProduct)
+    return minProduct
+
+
 def minProductSum(nums1: List[int], nums2: List[int]) -> int:
     nums1.sort()
     nums2.sort(reverse=True)

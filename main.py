@@ -7,7 +7,7 @@ from LeetFunctions import *
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 import sys
-
+import re
 # import numpy as np
 # import pandas as pd
 # from sklearn import ...
@@ -17,15 +17,10 @@ import random
 import numpy as np
 
 
-def minProductSubarray(arr):
-    minProduct = arr[0]
-    currProduct = arr[0]
-    for i in range(len(arr)):
-        currProduct = min(currProduct * arr[i], arr[i])
-        minProduct = min(minProduct, currProduct)
-    return minProduct
+
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    s = 'rjaljr'
-    print(longestPalindromicSubsequence(s))
+    s = "I love EECS 445. It's my favorite course!"
+    print(extract_word(s))
