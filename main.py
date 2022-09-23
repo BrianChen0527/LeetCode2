@@ -25,8 +25,7 @@ if __name__ == '__main__':
     df = pd.read_csv("dataset.csv")
     word_dict = extract_dictionary(df)
     arr = generate_feature_matrix(df, word_dict)
-    print(word_dict)
-
+    print(word_dict['translate'])
 
 
 
