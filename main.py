@@ -1,33 +1,63 @@
-# This is a sample Python script.
+# functions file
 import bisect
-import collections
-
-from LeetFunctions import *
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-from eecs445tests import *
-import sys
-import re
-# import numpy as np
-# import pandas as pd
-# from sklearn import ...
-from LeetFunctions import WordDictionary
+import itertools
+import math
 import random
-
-import numpy as np
-import pandas as pd
-
-
-
+from typing import List
+from typing import Optional
+from queue import PriorityQueue
+import collections
+from collections import deque
+import heapq
+import sys
+import functools
 
 # Press the green button in the gutter to run the script.
+
+def caesarCipher(text, key):
+    ansText = ""
+    for i in range(len(text)):
+        ansText += chr(ord('A') + (ord(text[i]) - ord('A') + key) % 26)
+    return ansText
+
+def generatorChecker(num1, modNum):
+    arr = []
+    for i in range(modNum):
+        mod = (num1**i) % modNum
+        if mod not in arr:
+            arr.append(mod)
+    print(sorted(arr))
+
+def wrapper(fn):
+    print("wrapping")
+    def wrapped():
+        print("Start")
+        fn()
+        print("End")
+    return wrapped
+
+def read_sql_dump(dump):
+    f = open(dump, "r")
+    Lines = f.readlines()
+    sql_strs = []
+    sql_str = "("
+
+    for line in Lines:
+        if line in ['\n', '\r\n']:
+            sql_str = sql_str[:-1]
+            sql_str += ")"
+            sql_strs.append(sql_str)
+            sql_str = "("
+        if '=' not in line:
+            continue
+        line = line.strip()
+        if "id" in line:
+            sql_str += (line[line.index(' = ') + 3:] + ',')
+        else:
+            sql_str += ('\'' + line[line.index(' = ') + 3:] + "\',")
+    return sql_strs
+
 if __name__ == '__main__':
-    df = pd.read_csv("dataset.csv")
-    word_dict = extract_dictionary(df)
-    arr = generate_feature_matrix(df, word_dict)
-    print(word_dict['translate'])
-
-
-
-
-
+    tmp = read_sql_dump("dump.txt")
+    for t in tmp:
+        print(t)
