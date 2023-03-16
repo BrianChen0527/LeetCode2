@@ -2671,3 +2671,63 @@ def shortestDist2(start: customNode, end: customNode, nodesGraph: dict):
         currTree.add(currNode)
         for n in nodesGraph[currNode]:
             heapq.heappush(canReach, (currDist + n[1], n[0]))
+
+
+def caesarCipher(text, key):
+    ansText = ""
+    for i in range(len(text)):
+        ansText += chr(ord('A') + (ord(text[i]) - ord('A') + key) % 26)
+    return ansText
+
+
+def generatorChecker(num1, modNum):
+    arr = []
+    for i in range(modNum):
+        mod = (num1**i) % modNum
+        if mod not in arr:
+            arr.append(mod)
+    print(sorted(arr))
+
+
+def wrapper(fn):
+    print("wrapping")
+    def wrapped():
+        print("Start")
+        fn()
+        print("End")
+    return wrapped
+
+
+def read_sql_dump(dump):
+    f = open(dump, "r")
+    Lines = f.readlines()
+    sql_strs = []
+    sql_str = "("
+
+    for line in Lines:
+        if line in ['\n', '\r\n']:
+            sql_str = sql_str[:-1]
+            sql_str += ")"
+            sql_strs.append(sql_str)
+            sql_str = "("
+        if '=' not in line:
+            continue
+        line = line.strip()
+        if "id" in line:
+            sql_str += (line[line.index(' = ') + 3:] + ',')
+        else:
+            sql_str += ('\'' + line[line.index(' = ') + 3:] + "\',")
+    return sql_strs
+
+
+def sql_to_java(filename):
+    f = open(filename, "r")
+    Lines = f.readlines()
+    for line in Lines:
+        if "--" in line:
+            continue
+        if not line.strip():
+            print()
+            print()
+            continue
+        print("\"" + line.rstrip().replace(";", "") + " \" + ")
