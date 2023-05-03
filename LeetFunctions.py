@@ -86,6 +86,20 @@ def max_sub_array_of_size_k(k, arr):
     return max_sum
 
 
+def isBalanced(self, root: Optional[TreeNode]) -> bool:
+    balanced = [True]
+    def traverse(node, balanced):
+        if not node:
+            return 0
+        l, r = traverse(node.left, balanced), traverse(node.right, balanced)
+        if abs(l - r) > 1:
+            balanced[0] = False
+        return 1 + max(l, r)
+
+    traverse(root)
+    return balanced[0]
+
+
 # https://leetcode.com/problems/longest-increasing-subsequence/
 def lengthOfLIS(self, nums: List[int]) -> int:
     dp = []
@@ -1486,12 +1500,13 @@ def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
 
 # https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-    if root.val > p.val and root.val > q.val:
-        return self.lowestCommonAncestor(self, root.left, p, q)
-    elif root.val < p.val and root.val < q.val:
-        return self.lowestCommonAncestor(self, root.right, p, q)
-    else:
-        return root
+    while True:
+        if root.val > p.val and root.val > q.val:
+            root = root.left
+        elif root.val < p.val and root.val < q.val:
+            root = root.right
+        else:
+            return root
 
 
 # https://leetcode.com/problems/combination-sum-iv/
