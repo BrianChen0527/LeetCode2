@@ -17,13 +17,12 @@ import subprocess
 import tempfile
 import shutil
 import re
-
+from LeetFunctions import *
 
 
 def main():
-    str = "//asdfas "
-    str = re.sub(r"[^a-zA-Z0-9 ]", "", str)
-    print(str)
+    arr = [1]
+    print(binarySearch("", arr, 1))
 
 
 if __name__ == '__main__':

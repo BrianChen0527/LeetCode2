@@ -11,6 +11,7 @@ from collections import deque
 import heapq
 import sys
 import functools
+import re
 
 
 # Definition for singly-linked list.
@@ -27,6 +28,52 @@ class TreeNode:
         self.left = left
         self.right = right
 
+
+def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    curr = ListNode(0)
+    head = curr
+
+    while list1 and list2:
+        if list1.val < list2.val:
+            curr.next = list1
+            list1 = list1.next
+        else:
+            curr.next = list2
+            list2 = list2.next
+        curr = curr.next
+
+    if list1:
+        curr.next = list1
+
+    if list2:
+        curr.next = list2
+
+    return head.next
+
+
+def maxProfit(self, prices: List[int]) -> int:
+    minP, profit = float('inf'), 0
+    for p in prices:
+        minP = min(minP, p)
+        profit = max(profit, p - minP)
+    return profit
+
+
+def binarySearch(self, nums: List[int], target: int) -> int:
+    l, r = 0, len(nums) - 1
+    while l < r:
+        mid = (l + r) // 2
+        if nums[mid] < target:
+            l = mid + 1
+        elif nums[mid] > target:
+            r = mid - 1
+        else:
+            return mid
+    return -1 if target != nums[l] else l
+
+def isPalindrome(self, s: str) -> bool:
+    s = (re.sub(r'[^a-zA-Z0-9]', '', s)).lower()
+    return s == s[::-1]
 
 def max_sub_array_of_size_k(k, arr):
     max_sum = 0
@@ -2732,30 +2779,4 @@ def sql_to_java(filename):
             continue
         print("\"" + line.rstrip().replace(";", "") + " \" + ")
 
-def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-    curr = ListNode(0)
-    head = curr
 
-    while list1 and list2:
-        if list1.val < list2.val:
-            curr.next = list1
-            list1 = list1.next
-        else:
-            curr.next = list2
-            list2 = list2.next
-        curr = curr.next
-
-    if list1:
-        curr.next = list1
-
-    if list2:
-        curr.next = list2
-
-    return head.next
-
-def maxProfit(self, prices: List[int]) -> int:
-    minP, profit = float('inf'), 0
-    for p in prices:
-        minP = min(minP, p)
-        profit = max(profit, p - minP)
-    return profit
