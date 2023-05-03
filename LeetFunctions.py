@@ -2752,3 +2752,10 @@ def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) ->
         curr.next = list2
 
     return head.next
+
+def maxProfit(self, prices: List[int]) -> int:
+    minP, profit = float('inf'), 0
+    for p in prices:
+        minP = min(minP, p)
+        profit = max(profit, p - minP)
+    return profit
