@@ -11,13 +11,20 @@ from collections import deque
 import heapq
 import sys
 import functools
+import os
+import hashlib
+import subprocess
+import tempfile
+import shutil
+import re
 
-# Press the green button in the gutter to run the script.
 
 
-
-
+def main():
+    str = "//asdfas "
+    str = re.sub(r"[^a-zA-Z0-9 ]", "", str)
+    print(str)
 
 
 if __name__ == '__main__':
-    sql_to_java("test.txt")
+    main()
