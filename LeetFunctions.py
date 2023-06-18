@@ -71,9 +71,55 @@ def binarySearch(self, nums: List[int], target: int) -> int:
             return mid
     return -1 if target != nums[l] else l
 
+
+# https://leetcode.com/problems/first-bad-version/
+def isBadVersion(n):
+    return False
+
+def firstBadVersion(self, n: int) -> int:
+    l, r = 1, n
+    while l < r:
+        mid = (l + r) // 2
+        if isBadVersion(mid):
+            r = mid
+        else:
+            l = mid + 1
+
+    return l
+
+# https://leetcode.com/problems/longest-palindrome/description/
+def longestPalindrome(self, s: str) -> int:
+    longest, hasOdd = 0, False
+    count = collections.Counter(s)
+    for i in count.values():
+        if i % 2 == 0:
+            longest += i
+        else:
+            longest += (i - 1)
+            hasOdd = True
+
+    return longest + 1 if hasOdd else longest
+
+
+
+
+# https://leetcode.com/problems/ransom-note/
+def climbStairs(self, n: int) -> int:
+    one, two = 1, 1
+    if n == 1:
+        return 1
+
+    for i in range(n - 1):
+        three = one + two
+        one = two
+        two = three
+    return three
+
+
 def isPalindrome(self, s: str) -> bool:
     s = (re.sub(r'[^a-zA-Z0-9]', '', s)).lower()
     return s == s[::-1]
+
 
 def max_sub_array_of_size_k(k, arr):
     max_sum = 0
@@ -370,6 +416,34 @@ def isBipartite(self, graph: List[List[int]]) -> bool:
             return False
     return True
 
+
+# https://leetcode.com/problems/median-of-two-sorted-arrays/solutions/2471/very-concise-o-log-min-m-n-iterative-solution-with-detailed-explanation/
+def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
+    n1, n2 = len(nums1), len(nums2)
+    if n1 > n2:
+        return findMedianSortedArrays(nums2, nums1)
+
+    lo, hi = 0, n1*2
+    while lo <= hi:
+        mid1 = (lo + hi) // 2
+        mid2 = n1 + n2 - mid1
+
+        print(mid1, " ", mid2)
+
+        l1 = float('-inf') if mid1 == 0 else nums1[(mid1 - 1)//2]
+        l2 = float('-inf') if mid2 == 0 else nums2[(mid2 - 1)//2]
+        r1 = float('inf') if mid1 == n1*2 else nums1[mid1//2]
+        r2 = float('inf') if mid2 == n2*2 else nums2[mid2//2]
+
+        print(l1, " ", r1, " ", l2, " ", r2)
+
+        if l1 > r2:
+            hi = mid1 - 1
+        elif l2 > r1:
+            lo = mid1 + 1
+        else:
+            return (max(l1, l2) + min(r1, r2)) / 2
+    return -1
 
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
