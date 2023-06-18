@@ -428,14 +428,10 @@ def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
         mid1 = (lo + hi) // 2
         mid2 = n1 + n2 - mid1
 
-        print(mid1, " ", mid2)
-
         l1 = float('-inf') if mid1 == 0 else nums1[(mid1 - 1)//2]
         l2 = float('-inf') if mid2 == 0 else nums2[(mid2 - 1)//2]
         r1 = float('inf') if mid1 == n1*2 else nums1[mid1//2]
         r2 = float('inf') if mid2 == n2*2 else nums2[mid2//2]
-
-        print(l1, " ", r1, " ", l2, " ", r2)
 
         if l1 > r2:
             hi = mid1 - 1
