@@ -441,6 +441,34 @@ def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
             return (max(l1, l2) + min(r1, r2)) / 2
     return -1
 
+
+# https://leetcode.com/problems/bus-routes/
+def numBusesToDestination(routes: List[List[int]], source: int, target: int) -> int:
+    mp = collections.defaultdict(set) # maps station number to bus number
+
+    for busID, busRoute in enumerate(routes):
+        for s in busRoute:
+            mp[s].add(busID)
+
+    visited = set([source])
+    bfs = [(source, 0)]
+    for station, dist in bfs:
+        if station == target:
+            return dist
+        for bus in mp[station]:
+            for next_station in routes[bus]:
+                if next_station not in visited:
+                    bfs.append((next_station, dist + 1))
+                    visited.add(next_station)
+            routes[bus] = []
+
+    return -1
+
+
+
+
+
+
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
     l, r = 0, len(nums) - 1
