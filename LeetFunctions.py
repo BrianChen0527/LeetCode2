@@ -465,7 +465,20 @@ def numBusesToDestination(routes: List[List[int]], source: int, target: int) -> 
     return -1
 
 
-
+# https://leetcode.com/problems/sliding-window-maximum/
+def maxSlidingWindow(nums: List[int], k: int) -> List[int]:
+    DQ = deque()
+    ans = []
+    for i in range(len(nums)):
+        if len(DQ) > 0 and DQ[0] == i - k:
+            DQ.popleft()
+        num = nums[i]
+        while len(DQ) > 0 and DQ[-1] <= num:
+            DQ.pop()
+        DQ.append(i)
+        if i >= k - 1:
+            ans.append(nums[DQ[0]])
+    return ans
 
 
 
