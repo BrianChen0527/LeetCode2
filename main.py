@@ -21,8 +21,8 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [1,-9,8,-6,6,4,0,5]
-    print(maxSlidingWindow(arr1, 4))
+    arr1 = [7,2,4]
+    print(maxSlidingWindow(arr1, 2))
 
 
 if __name__ == '__main__':
