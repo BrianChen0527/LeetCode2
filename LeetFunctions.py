@@ -480,7 +480,32 @@ def maxSlidingWindow(nums: List[int], k: int) -> List[int]:
             ans.append(nums[DQ[0]])
     return ans
 
+class PalindromePairs:
+    def isPalindrome(self, word: str):
+        l = len(word)
+        n = l // 2
+        return n == 0 or word[:n] == word[n + (l % 2):][::-1]
 
+    def palindromePairs(self, words: List[str]) -> List[List[int]]:
+        mp, ans = {}, []
+
+        for i, word in enumerate(words):
+            mp[word[::-1]] = i
+
+        if "" in mp:
+            emptyStrIdx = mp[""]
+            for i, word in enumerate(words):
+                if word and self.isPalindrome(self, word):
+                    ans.extend([[i, emptyStrIdx], [emptyStrIdx, i]])
+            del mp[""]
+
+        for i, word in enumerate(words):
+            for j in range(len(word)):
+                if word[j:] in mp and mp[word[j:]] != i and self.isPalindrome(self, word[:j]):
+                    ans.append([mp[word[j:]], i])
+                if word[:j] in mp and mp[word[:j]] != i and self.isPalindrome(self, word[j:]):
+                    ans.append([i, mp[word[:j]]])
+        return ans
 
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
