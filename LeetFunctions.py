@@ -2931,3 +2931,35 @@ def sql_to_java(filename):
         print("\"" + line.rstrip().replace(";", "") + " \" + ")
 
 
+# https://leetcode.com/problems/reverse-nodes-in-k-group/
+def reverseListHelper(head: Optional[ListNode]):
+    prev, last = None, head
+    while head:
+        next = head.next
+        head.next = prev
+        prev = head
+        head = next
+    return prev, last   # prev is the new head, last is the original head, now the last element
+
+def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
+    lists, pos, curr = [], 0, head
+
+    while curr:
+        pos += 1
+        if pos % k == 0:
+            lists.append(head)
+            head = curr
+            curr = curr.next
+            head.next = None
+            head = curr
+        else:
+            curr = curr.next
+
+    realHead, prevLast = reverseListHelper(lists[0])
+    for node in lists[1:]:
+        newHead, last = reverseListHelper(node)
+        prevLast.next = newHead
+        prevLast = last
+    prevLast.next = head
+
+    return realHead
