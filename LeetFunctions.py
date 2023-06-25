@@ -2963,3 +2963,36 @@ def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
     prevLast.next = head
 
     return realHead
+
+# https://leetcode.com/problems/sudoku-solver/solutions/140837/python-very-simple-backtracking-solution-using-dictionaries-and-queue-100-ms-beats-90/
+def solveSudoku(board: List[List[str]]) -> None:
+    rows, cols, blocks = [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)]
+    Q = []
+
+    # parse grid
+    for r in range(9):
+        for c in range(9):
+            if board[r][c] != ".":
+                num = int(board[r][c]) - 1
+                rows[r][num] = cols[c][num] = blocks[(r // 3)*3 + c // 3][num] = True
+            else:
+                Q.append((r,c))
+
+    print(Q)
+
+    def solver():
+        if not Q:
+            return True
+        r, c = Q.pop()
+        for i in range(9):
+            if rows[r][i] or cols[c][i] or blocks[(r // 3)*3 + c // 3][i]:
+                continue
+            rows[r][i] = cols[c][i] = blocks[(r // 3)*3 + c // 3][i] = True
+            board[r][c] = str(i + 1)
+            if solver():
+                return True
+            rows[r][i] = cols[c][i] = blocks[(r // 3)*3 + c // 3][i] = False
+            board[r][c] = "."
+        Q.append((r, c))
+        return False
+    solver()
