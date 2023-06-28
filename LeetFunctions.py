@@ -2964,6 +2964,17 @@ def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
     return realHead
 
+# https://leetcode.com/problems/first-missing-positive/solutions/17071/my-short-c-solution-o-1-space-and-o-n-time/
+def firstMissingPositive( nums: List[int]) -> int:
+    for i in range(len(nums)):
+        while 0 < nums[i] <= len(nums) and nums[nums[i] - 1] != nums[i]:
+            nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+
+    for i, num in enumerate(nums):
+        if num != i + 1:
+            return i + 1
+    return len(nums) + 1
+
 # https://leetcode.com/problems/sudoku-solver/solutions/140837/python-very-simple-backtracking-solution-using-dictionaries-and-queue-100-ms-beats-90/
 def solveSudoku(board: List[List[str]]) -> None:
     rows, cols, blocks = [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)]
