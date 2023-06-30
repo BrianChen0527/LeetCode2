@@ -3007,3 +3007,33 @@ def solveSudoku(board: List[List[str]]) -> None:
         Q.append((r, c))
         return False
     solver()
+
+# https://leetcode.com/problems/n-queens/solutions/19810/fast-short-and-easy-to-understand-python-solution-11-lines-76ms/
+def solveNQueens(n: int) -> List[List[str]]:
+    cols = [False for i in range(n)]
+    xydiff = [False for i in range(2*n - 1)]
+    xysum = [False for i in range(n * 2)]
+    board = [("." * col + "x" + "." * (n - col - 1)) for col in range(n)]
+    currboard = []
+    ans = []
+
+    def boardDFS(currRow):
+        for col in range(n):
+            if cols[col]: continue
+            if xydiff[currRow - col + n - 1]: continue
+            if xysum[col + currRow]: continue
+            print(currRow, col)
+            cols[col] = xysum[col + currRow] = xydiff[currRow - col + n - 1] = True
+            currboard.append(board[col])
+            print(currboard)
+            if currRow == n - 1:
+                print(currboard)
+                ans.append(currboard[:])
+                currboard.pop()
+                cols[col] = xysum[col + currRow] = xydiff[currRow - col + n - 1] = False
+                break
+            boardDFS(currRow + 1)
+            currboard.pop()
+            cols[col] = xysum[col + currRow] = xydiff[currRow - col + n - 1] = False
+    boardDFS(0)
+    return ans
