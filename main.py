@@ -21,9 +21,7 @@ from LeetFunctions import *
 
 
 def main():
-    nums = [3,4,-1,1]
-
-    print(firstMissingPositive(nums))
+    print(solveNQueens(4))
 
 if __name__ == '__main__':
     main()
