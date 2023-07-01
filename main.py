@@ -21,7 +21,8 @@ from LeetFunctions import *
 
 
 def main():
-    print(solveNQueens(4))
+    arr = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]
+    print("Result: ", smallestRangeV2(arr))
 
 if __name__ == '__main__':
     main()
