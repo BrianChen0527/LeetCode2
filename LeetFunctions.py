@@ -3101,4 +3101,24 @@ def smallestRangeTLE( nums: List[List[int]]) -> List[int]:
             print(mp)
     return final_ans
 
+def smallestRangeV2(nums: List[List[int]]) -> List[int]:
+    Q = [(l[0], i, 0) for i, l in enumerate(nums)]
+    heapq.heapify(Q)
+    ans = [-float('inf'), float('inf')]
+    curr_max = max([tup[0] for tup in Q])
+    while Q:
+        curr_min, list_idx, num_idx = heapq.heappop(Q)
+
+        if curr_max - curr_min < ans[1] - ans[0]:
+            ans = [curr_min, curr_max]
+
+        if num_idx == len(nums[list_idx]) - 1:
+            return ans
+
+        num_idx += 1
+        new_min = nums[list_idx][num_idx]
+        curr_max = max(curr_max, new_min)
+        heapq.heappush(Q, (new_min, list_idx, num_idx))
+    return ans
+
 
