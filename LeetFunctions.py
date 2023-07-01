@@ -3037,3 +3037,68 @@ def solveNQueens(n: int) -> List[List[str]]:
             cols[col] = xysum[col + currRow] = xydiff[currRow - col + n - 1] = False
     boardDFS(0)
     return ans
+
+# https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+def smallestRangeTLE( nums: List[List[int]]) -> List[int]:
+    tmp, ans = [], []
+    n = offset = len(nums)
+    mp = [0 for i in range(n)]
+
+    while nums:
+        pos1 = pos2 = 0
+        idx = len(nums) - 1
+        last = nums[-1]
+
+        while pos1 < len(ans) and pos2 < len(last):
+            if ans[pos1][0] < last[pos2]:
+                tmp.append(ans[pos1])
+                pos1 += 1
+            else:
+                tmp.append((last[pos2], idx))
+                pos2 += 1
+
+        while pos1 < len(ans):
+            tmp.append(ans[pos1])
+            pos1 += 1
+
+        while pos2 < len(last):
+            tmp.append((last[pos2], idx))
+            pos2 += 1
+
+        nums.pop()
+        ans = tmp[:]
+        tmp.clear()
+
+    print(ans)
+
+    print("===================")
+    l = r = 0
+    final_ans = []
+    while r < len(ans):
+        while r < len(ans) and offset > 0:
+            num_idx = ans[r][1]
+            if mp[num_idx] == 0:
+                offset -= 1
+            mp[num_idx] += 1
+            r += 1
+            print(mp)
+
+        print("===================")
+
+        while offset == 0:
+            leftnum, rightnum = ans[l][0], ans[r - 1][0]
+            print(leftnum, rightnum)
+
+            if not final_ans or rightnum - leftnum < final_ans[1] - final_ans[0]:
+                final_ans = [leftnum, rightnum]
+                print("[+] ", final_ans)
+
+            num_idx = ans[l][1]
+            mp[num_idx] -= 1
+            if mp[num_idx] == 0:
+                offset += 1
+            l += 1
+            print(mp)
+    return final_ans
+
+
