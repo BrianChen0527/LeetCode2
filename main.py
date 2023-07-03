@@ -21,8 +21,7 @@ from LeetFunctions import *
 
 
 def main():
-    arr = [[4,10,15,24,26],[0,9,12,20],[5,18,22,30]]
-    print("Result: ", smallestRangeV2(arr))
+    print(numTrees(3))
 
 if __name__ == '__main__':
     main()
