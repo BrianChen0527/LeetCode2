@@ -3122,3 +3122,19 @@ def smallestRangeV2(nums: List[List[int]]) -> List[int]:
     return ans
 
 
+# https://leetcode.com/problems/unique-binary-search-trees/
+def numTrees(n: int) -> int:
+    dp = [-1 for _ in range(n + 1)]
+    dp[0], dp[1] = 1, 1
+
+    def numTreesDP(num_nodes):
+        if dp[num_nodes] != -1:
+            return dp[num_nodes]
+
+        possibilities = 0
+        for i in range(num_nodes):
+            possibilities += numTreesDP(i) * numTreesDP(num_nodes - i - 1)
+        dp[num_nodes] = possibilities
+        return possibilities
+    return numTreesDP(n)
+
