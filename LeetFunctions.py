@@ -3138,3 +3138,20 @@ def numTrees(n: int) -> int:
         return possibilities
     return numTreesDP(n)
 
+
+def countPrimes(n: int) -> int:
+    if n < 2:
+        return 0
+
+    dp = [False for i in range(n)]
+    dp[0] = dp[1] = True
+    numPrimes = 0
+    for i in range(n):
+        if dp[i]:
+            continue
+        numPrimes += 1
+        product = 2
+        while i * product < n:
+            dp[i * product] = True
+            product += 1
+    return numPrimes
