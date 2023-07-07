@@ -21,7 +21,11 @@ from LeetFunctions import *
 
 
 def main():
-    print(numTrees(3))
+    print(countPrimes(0))
+    print(countPrimes(1))
+    print(countPrimes(2))
+    print(countPrimes(3))
+    print(countPrimes(7))
 
 if __name__ == '__main__':
     main()
