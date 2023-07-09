@@ -21,11 +21,9 @@ from LeetFunctions import *
 
 
 def main():
-    print(countPrimes(0))
-    print(countPrimes(1))
-    print(countPrimes(2))
-    print(countPrimes(3))
-    print(countPrimes(7))
+    arr1 = [9, 8, 3, 8]
+    arr2 = [10, 6, 9 ,5]
+    print(stoneGameVI(arr1, arr2))
 
 if __name__ == '__main__':
     main()
