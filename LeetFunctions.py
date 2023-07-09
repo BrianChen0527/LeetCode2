@@ -3155,3 +3155,25 @@ def countPrimes(n: int) -> int:
             dp[i * product] = True
             product += 1
     return numPrimes
+
+def stoneGameVI(aliceValues: List[int], bobValues: List[int]) -> int:
+    n = len(aliceValues)
+    mp = [(abs(aliceValues[i] + bobValues[i]), i) for i in range(n)]
+    alice, bob = 0, 0
+
+    mp.sort(key=lambda x: -x[0])
+
+    for i in range(n):
+        if i % 2 == 0:
+            print("alice: ", aliceValues[mp[i][1]])
+            alice += aliceValues[mp[i][1]]
+        else:
+            print("bob: ", bobValues[mp[i][1]])
+            bob += bobValues[mp[i][1]]
+
+    if alice > bob:
+        return 1
+    elif alice < bob:
+        return -1
+    else:
+        return 0
