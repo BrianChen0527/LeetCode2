@@ -3177,3 +3177,16 @@ def stoneGameVI(aliceValues: List[int], bobValues: List[int]) -> int:
         return -1
     else:
         return 0
+
+# https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+def maxProfitII(prices: List[int], fee: int) -> int:
+    currmin = currmax = prices[0]
+    profit = 0
+    for i in prices:
+        if i < currmax - fee:
+            profit += max(currmax - currmin - fee, 0)
+            currmin = currmax = i
+        currmax = max(currmax, i)
+        currmin = min(currmin, i)
+
+    return profit + max(currmax - currmin - fee, 0)
