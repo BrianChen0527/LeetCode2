@@ -21,9 +21,7 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [9, 8, 3, 8]
-    arr2 = [10, 6, 9, 5]
-    print(stoneGameVI(arr1, arr2))
+    print(strWithout3a3b(2, 1))
 
 if __name__ == '__main__':
     main()
