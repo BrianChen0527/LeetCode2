@@ -3190,3 +3190,26 @@ def maxProfitII(prices: List[int], fee: int) -> int:
         currmin = min(currmin, i)
 
     return profit + max(currmax - currmin - fee, 0)
+
+# https://leetcode.com/problems/string-without-aaa-or-bbb/
+def strWithout3a3b(a: int, b: int) -> str:
+    ans = ""
+    while a or b:
+        if a == 0:
+            return ans + 'b'*b
+        elif b == 0:
+            return ans + 'a'*a
+        elif a == b:
+            return ans + "ab"*a
+        elif a > b:
+            ans = ans + "aab"
+            a -= 2
+            b -= 1
+        else:
+            ans = ans + "bba"
+            a -= 1
+            b -= 2
+    return ans
+
+
+    return ans
