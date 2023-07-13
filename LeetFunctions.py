@@ -3211,5 +3211,24 @@ def strWithout3a3b(a: int, b: int) -> str:
             b -= 2
     return ans
 
+def validateStackSequences(pushed: List[int], popped: List[int]) -> bool:
+    left, right = [], pushed[::-1]
+    visited = set()
 
-    return ans
+    for num in popped:
+        if left and num == left[-1]:
+            left.pop()
+            continue
+
+        if num in visited:
+            return False
+
+        while right and right[-1] != num:
+            to_push = right[-1]
+            left.append(to_push)
+            visited.add(to_push)
+            right.pop()
+            print(num, visited, left, right)
+        right.pop()
+
+    return True
