@@ -3232,3 +3232,25 @@ def validateStackSequences(pushed: List[int], popped: List[int]) -> bool:
         right.pop()
 
     return True
+
+def maxSumMinProduct(nums: List[int]) -> int:
+    acc = [0] + nums[:]
+    for i in range(1, len(acc)):
+        acc[i] += acc[i - 1]
+
+    stack = []
+    ans = 0
+
+    for i in range(len(nums) + 1):
+        while stack and (i == len(nums) or nums[stack[-1]] > nums[i]):
+            curr_min_idx = stack[-1]
+            stack.pop()
+            curr_sum = acc[i] - acc[0 if not stack else stack[-1] + 1]
+            ans = max(ans, nums[curr_min_idx] * curr_sum)
+            # print(nums[curr_min_idx], acc[i - 1], acc[0 if not stack else stack[-1] + 1], ans)
+            # print("acc: ", acc)
+        stack.append(i)
+        # real_stack = [nums[i] for i in stack]
+        # print(real_stack, ans)
+
+    return ans % 1000000007
