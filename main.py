@@ -21,9 +21,8 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [1,2,3,4,5]
-    arr2 = [4,5,3,2,1]
-    print(validateStackSequences(arr1, arr2))
+    arr1 = [1,2,3,2]
+    print(maxSumMinProduct(arr1))
 
 if __name__ == '__main__':
     main()
