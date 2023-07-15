@@ -21,8 +21,8 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [1,2,3,2]
-    print(maxSumMinProduct(arr1))
+    arr1 = [[0,1],[2,2],[0,3]]
+    print(productQueries(15, arr1))
 
 if __name__ == '__main__':
     main()
