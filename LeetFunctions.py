@@ -3254,3 +3254,22 @@ def maxSumMinProduct(nums: List[int]) -> int:
         # print(real_stack, ans)
 
     return ans % 1000000007
+
+def productQueries(n: int, queries: List[List[int]]) -> List[int]:
+    end = int(math.log2(n))
+
+    nums = deque()
+    for i in range(end, -1, -1):
+        j = pow(2, i)
+        if n >= j:
+            n -= j
+            nums.appendleft(i)
+
+    dp, ans = [pow(2, nums[0])], []
+    for l, r in queries:
+        if r >= len(dp):
+            for i in range(len(dp), r + 1):
+                dp.append(dp[-1] * pow(2, nums[i]))
+        ans.append((dp[r] // (1 if l - 1 < 0 else dp[l - 1])) % 1000000007)
+    return ans
+
