@@ -21,8 +21,9 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [[0,1],[2,2],[0,3]]
-    print(productQueries(15, arr1))
+    str1 = "My name is Haley"
+    str2 = "My Haley"
+    print(areSentencesSimilar(str1 , str2))
 
 if __name__ == '__main__':
     main()
