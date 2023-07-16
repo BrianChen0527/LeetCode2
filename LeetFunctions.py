@@ -3273,3 +3273,24 @@ def productQueries(n: int, queries: List[List[int]]) -> List[int]:
         ans.append((dp[r] // (1 if l - 1 < 0 else dp[l - 1])) % 1000000007)
     return ans
 
+def areSentencesSimilar(sentence1: str, sentence2: str) -> bool:
+    if len(sentence2) > len(sentence1):
+        return areSentencesSimilar(sentence2, sentence1)
+
+    words1, words2 = sentence1.split(), sentence2.split()
+    n1, n2 = len(words1), len(words2)
+    l1, r1 = 0, n1 - 1
+    l2, r2 = 0, n2 - 1
+
+    print(words1, words2)
+
+    while l2 < n2 and words1[l1] == words2[l2]:
+        l1 += 1
+        l2 += 1
+
+    while r2 >= 0 and words1[r1] == words2[r2]:
+        r1 -= 1
+        r2 -= 1
+
+    return (r2 < l2) or (r2 < 0) or (l2 >= n2)
+
