@@ -76,6 +76,7 @@ def binarySearch(self, nums: List[int], target: int) -> int:
 def isBadVersion(n):
     return False
 
+
 def firstBadVersion(self, n: int) -> int:
     l, r = 1, n
     while l < r:
@@ -86,6 +87,7 @@ def firstBadVersion(self, n: int) -> int:
             l = mid + 1
 
     return l
+
 
 # https://leetcode.com/problems/longest-palindrome/description/
 def longestPalindrome(self, s: str) -> int:
@@ -99,8 +101,6 @@ def longestPalindrome(self, s: str) -> int:
             hasOdd = True
 
     return longest + 1 if hasOdd else longest
-
-
 
 
 # https://leetcode.com/problems/ransom-note/
@@ -134,6 +134,7 @@ def max_sub_array_of_size_k(k, arr):
 
 def isBalanced(self, root: Optional[TreeNode]) -> bool:
     balanced = [True]
+
     def traverse(node, balanced):
         if not node:
             return 0
@@ -423,15 +424,15 @@ def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
     if n1 > n2:
         return findMedianSortedArrays(nums2, nums1)
 
-    lo, hi = 0, n1*2
+    lo, hi = 0, n1 * 2
     while lo <= hi:
         mid1 = (lo + hi) // 2
         mid2 = n1 + n2 - mid1
 
-        l1 = float('-inf') if mid1 == 0 else nums1[(mid1 - 1)//2]
-        l2 = float('-inf') if mid2 == 0 else nums2[(mid2 - 1)//2]
-        r1 = float('inf') if mid1 == n1*2 else nums1[mid1//2]
-        r2 = float('inf') if mid2 == n2*2 else nums2[mid2//2]
+        l1 = float('-inf') if mid1 == 0 else nums1[(mid1 - 1) // 2]
+        l2 = float('-inf') if mid2 == 0 else nums2[(mid2 - 1) // 2]
+        r1 = float('inf') if mid1 == n1 * 2 else nums1[mid1 // 2]
+        r2 = float('inf') if mid2 == n2 * 2 else nums2[mid2 // 2]
 
         if l1 > r2:
             hi = mid1 - 1
@@ -444,7 +445,7 @@ def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
 
 # https://leetcode.com/problems/bus-routes/
 def numBusesToDestination(routes: List[List[int]], source: int, target: int) -> int:
-    mp = collections.defaultdict(set) # maps station number to bus number
+    mp = collections.defaultdict(set)  # maps station number to bus number
 
     for busID, busRoute in enumerate(routes):
         for s in busRoute:
@@ -480,6 +481,7 @@ def maxSlidingWindow(nums: List[int], k: int) -> List[int]:
             ans.append(nums[DQ[0]])
     return ans
 
+
 class PalindromePairs:
     def isPalindrome(self, word: str):
         l = len(word)
@@ -506,6 +508,7 @@ class PalindromePairs:
                 if word[:j] in mp and mp[word[:j]] != i and self.isPalindrome(self, word[j:]):
                     ans.append([i, mp[word[:j]]])
         return ans
+
 
 # https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/submissions/
 def findMin(self, nums):
@@ -939,9 +942,9 @@ def longestPalindromicSubsequence(s: str):
     for r in range(1, n + 1):
         for c in range(1, n + 1):
             if s[r - 1] == s[n - c]:
-                dp[r][c] = dp[r-1][c-1] + 1
+                dp[r][c] = dp[r - 1][c - 1] + 1
             else:
-                dp[r][c] = max(dp[r-1][c], dp[r][c-1])
+                dp[r][c] = max(dp[r - 1][c], dp[r][c - 1])
         print(dp)
     return dp[-1][-1]
 
@@ -1491,7 +1494,8 @@ def leastInterval(tasks: List[str], n: int) -> int:
 
 # https://leetcode.com/problems/k-closest-points-to-origin/
 def kClosest(points: List[List[int]], k: int) -> List[List[int]]:
-    return heapq.nsmallest(k, points, key=lambda x: x[0]**2 + x[1]**2)
+    return heapq.nsmallest(k, points, key=lambda x: x[0] ** 2 + x[1] ** 2)
+
 
 '''
 # https://leetcode.com/problems/evaluate-reverse-polish-notation/
@@ -1513,6 +1517,7 @@ def evalRPN(tokens):
                 stack.append(int(t))
     return stack[0]
 '''
+
 
 # https://leetcode.com/problems/rotting-oranges/
 def orangesRotting(grid: List[List[int]]) -> int:
@@ -1536,7 +1541,7 @@ def orangesRotting(grid: List[List[int]]) -> int:
         minSteps += 1
     return minSteps
 
-   
+
 # https://leetcode.com/problems/daily-temperatures/
 def dailyTemperatures(temperatures: List[int]) -> List[int]:
     dp = [0] * len(temperatures)
@@ -1592,7 +1597,7 @@ def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
     return list(anagrams.values())
 
 
- # https://leetcode.com/problems/gas-station/
+# https://leetcode.com/problems/gas-station/
 def canCompleteCircuit(gas: List[int], cost: List[int]) -> int:
     sum_costs, lowest_fuel, lowest_fuel_point = 0, math.inf, 0
 
@@ -1610,7 +1615,7 @@ def canCompleteCircuit(gas: List[int], cost: List[int]) -> int:
 
     return 0 if lowest_fuel_point + 1 == len(cost) else lowest_fuel_point
 
-   
+
 # https://leetcode.com/problems/subarray-sum-equals-k/
 def subarraySum(nums: List[int], k: int) -> int:
     occurrences, currSum, pastSums = 0, 0, collections.defaultdict(int)
@@ -1621,6 +1626,7 @@ def subarraySum(nums: List[int], k: int) -> int:
             occurrences += pastSums[currSum - k]
         pastSums[currSum] += 1
     return occurrences
+
 
 # https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
@@ -1686,7 +1692,7 @@ def findDuplicate(nums: List[int]) -> int:
     while tortoise != hare:
         tortoise, hare = nums[tortoise], nums[hare]
     return hare
-    
+
 
 # https://leetcode.com/problems/course-schedule-ii/
 def findOrder(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
@@ -1713,6 +1719,7 @@ def findOrder(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         if not DFS(c, visit_status):
             return []
     return order
+
 
 # https://leetcode.com/problems/swap-nodes-in-pairs/
 def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
@@ -1741,6 +1748,7 @@ def pathSum(root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
             pathDFS(node.left, path + [node.left.val], target - node.left.val)
         if node.right:
             pathDFS(node.right, path + [node.right.val], target - node.right.val)
+
     if not root:
         return []
     paths = []
@@ -1833,11 +1841,13 @@ def rob2(self, nums: List[int]) -> int:
 def rob3(self, root: Optional[TreeNode]) -> int:
     def robHelper(node):
         if not node:
-            return (0,0)
+            return (0, 0)
         else:
             l, r = robHelper(node.left), robHelper(node.right)
             return (max(node.val + l[1] + r[1], l[0] + r[0]), l[0] + r[0])
+
     return max(robHelper(root))
+
 
 # https://leetcode.com/problems/contiguous-array/
 def findMaxLength(nums: List[int]) -> int:
@@ -1872,6 +1882,7 @@ def widthOfBinaryTree(root: Optional[TreeNode]) -> int:
                 levelOrderQ.append((node.right, idx * 2 + 1))
             levelOrderQ.popleft()
     return maxWidth
+
 
 # https://leetcode.com/problems/find-k-closest-elements/
 def findClosestElements(arr: List[int], k: int, x: int) -> List[int]:
@@ -1940,7 +1951,7 @@ def findKthLargest(nums: List[int], k: int) -> int:
     return findKthLargest(lower, k - len(higher) - len(mid))
 
 
-#　https://leetcode.com/problems/maximal-square/
+# 　https://leetcode.com/problems/maximal-square/
 def maximalSquare(self, matrix: List[List[str]]) -> int:
     rows, cols, maxSize = len(matrix), len(matrix[0]), 0
     dp = [[0] * (cols + 1) for r in range(rows + 1)]
@@ -2070,7 +2081,7 @@ def numDecodings(s: str) -> int:
         if s[i] != '0':
             curr = prev1
 
-        if i > 0 and s[i - 1] != '0' and int(s[i - 1 : i + 1]) <= 26:
+        if i > 0 and s[i - 1] != '0' and int(s[i - 1: i + 1]) <= 26:
             curr += prev2
 
         prev2, prev1 = prev1, curr
@@ -2333,6 +2344,7 @@ def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int
                     visited.add(neWord)
     return 0
 
+
 '''
 # https://leetcode.com/problems/basic-calculator/submissions/
 def calculate(self, s: str) -> int:
@@ -2435,7 +2447,7 @@ def convert(self, s: str, numRows: int) -> str:
 
 # https://leetcode.com/problems/sum-of-two-integers/submissions/
 def getSum(self, a: int, b: int) -> int:
-    return sum([a,b])
+    return sum([a, b])
 
 
 # https://leetcode.com/problems/4sum/
@@ -2481,6 +2493,7 @@ def intToRoman(self, num: int) -> str:
 
     return d3[num // 1000] + d2[(num % 1000) // 100] + d1[(num % 100) // 10] + d0[num % 10]
 
+
 # https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/submissions/
 def strStr(self, haystack: str, needle: str) -> int:
     h, n = len(haystack), len(needle)
@@ -2522,7 +2535,7 @@ class weightedPick:
         self.weights = itertools.accumulate(w)
 
     def pickIndex(self) -> int:
-        randIdx = random.random()*self.weights[-1]
+        randIdx = random.random() * self.weights[-1]
         return bisect.bisect_left(self.weights, randIdx)
 
 
@@ -2881,7 +2894,7 @@ def caesarCipher(text, key):
 def generatorChecker(num1, modNum):
     arr = []
     for i in range(modNum):
-        mod = (num1**i) % modNum
+        mod = (num1 ** i) % modNum
         if mod not in arr:
             arr.append(mod)
     print(sorted(arr))
@@ -2889,10 +2902,12 @@ def generatorChecker(num1, modNum):
 
 def wrapper(fn):
     print("wrapping")
+
     def wrapped():
         print("Start")
         fn()
         print("End")
+
     return wrapped
 
 
@@ -2939,7 +2954,8 @@ def reverseListHelper(head: Optional[ListNode]):
         head.next = prev
         prev = head
         head = next
-    return prev, last   # prev is the new head, last is the original head, now the last element
+    return prev, last  # prev is the new head, last is the original head, now the last element
+
 
 def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
     lists, pos, curr = [], 0, head
@@ -2964,8 +2980,9 @@ def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
     return realHead
 
+
 # https://leetcode.com/problems/first-missing-positive/solutions/17071/my-short-c-solution-o-1-space-and-o-n-time/
-def firstMissingPositive( nums: List[int]) -> int:
+def firstMissingPositive(nums: List[int]) -> int:
     for i in range(len(nums)):
         while 0 < nums[i] <= len(nums) and nums[nums[i] - 1] != nums[i]:
             nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
@@ -2975,9 +2992,11 @@ def firstMissingPositive( nums: List[int]) -> int:
             return i + 1
     return len(nums) + 1
 
+
 # https://leetcode.com/problems/sudoku-solver/solutions/140837/python-very-simple-backtracking-solution-using-dictionaries-and-queue-100-ms-beats-90/
 def solveSudoku(board: List[List[str]]) -> None:
-    rows, cols, blocks = [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)]
+    rows, cols, blocks = [[False] * 9 for i in range(9)], [[False] * 9 for i in range(9)], [[False] * 9 for i in
+                                                                                            range(9)]
     Q = []
 
     # parse grid
@@ -2985,9 +3004,9 @@ def solveSudoku(board: List[List[str]]) -> None:
         for c in range(9):
             if board[r][c] != ".":
                 num = int(board[r][c]) - 1
-                rows[r][num] = cols[c][num] = blocks[(r // 3)*3 + c // 3][num] = True
+                rows[r][num] = cols[c][num] = blocks[(r // 3) * 3 + c // 3][num] = True
             else:
-                Q.append((r,c))
+                Q.append((r, c))
 
     print(Q)
 
@@ -2996,22 +3015,24 @@ def solveSudoku(board: List[List[str]]) -> None:
             return True
         r, c = Q.pop()
         for i in range(9):
-            if rows[r][i] or cols[c][i] or blocks[(r // 3)*3 + c // 3][i]:
+            if rows[r][i] or cols[c][i] or blocks[(r // 3) * 3 + c // 3][i]:
                 continue
-            rows[r][i] = cols[c][i] = blocks[(r // 3)*3 + c // 3][i] = True
+            rows[r][i] = cols[c][i] = blocks[(r // 3) * 3 + c // 3][i] = True
             board[r][c] = str(i + 1)
             if solver():
                 return True
-            rows[r][i] = cols[c][i] = blocks[(r // 3)*3 + c // 3][i] = False
+            rows[r][i] = cols[c][i] = blocks[(r // 3) * 3 + c // 3][i] = False
             board[r][c] = "."
         Q.append((r, c))
         return False
+
     solver()
+
 
 # https://leetcode.com/problems/n-queens/solutions/19810/fast-short-and-easy-to-understand-python-solution-11-lines-76ms/
 def solveNQueens(n: int) -> List[List[str]]:
     cols = [False for i in range(n)]
-    xydiff = [False for i in range(2*n - 1)]
+    xydiff = [False for i in range(2 * n - 1)]
     xysum = [False for i in range(n * 2)]
     board = [("." * col + "x" + "." * (n - col - 1)) for col in range(n)]
     currboard = []
@@ -3035,11 +3056,13 @@ def solveNQueens(n: int) -> List[List[str]]:
             boardDFS(currRow + 1)
             currboard.pop()
             cols[col] = xysum[col + currRow] = xydiff[currRow - col + n - 1] = False
+
     boardDFS(0)
     return ans
 
+
 # https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
-def smallestRangeTLE( nums: List[List[int]]) -> List[int]:
+def smallestRangeTLE(nums: List[List[int]]) -> List[int]:
     tmp, ans = [], []
     n = offset = len(nums)
     mp = [0 for i in range(n)]
@@ -3101,6 +3124,7 @@ def smallestRangeTLE( nums: List[List[int]]) -> List[int]:
             print(mp)
     return final_ans
 
+
 def smallestRangeV2(nums: List[List[int]]) -> List[int]:
     Q = [(l[0], i, 0) for i, l in enumerate(nums)]
     heapq.heapify(Q)
@@ -3136,6 +3160,7 @@ def numTrees(n: int) -> int:
             possibilities += numTreesDP(i) * numTreesDP(num_nodes - i - 1)
         dp[num_nodes] = possibilities
         return possibilities
+
     return numTreesDP(n)
 
 
@@ -3155,6 +3180,7 @@ def countPrimes(n: int) -> int:
             dp[i * product] = True
             product += 1
     return numPrimes
+
 
 def stoneGameVI(aliceValues: List[int], bobValues: List[int]) -> int:
     n = len(aliceValues)
@@ -3178,6 +3204,7 @@ def stoneGameVI(aliceValues: List[int], bobValues: List[int]) -> int:
     else:
         return 0
 
+
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
 def maxProfitII(prices: List[int], fee: int) -> int:
     currmin = currmax = prices[0]
@@ -3191,16 +3218,17 @@ def maxProfitII(prices: List[int], fee: int) -> int:
 
     return profit + max(currmax - currmin - fee, 0)
 
+
 # https://leetcode.com/problems/string-without-aaa-or-bbb/
 def strWithout3a3b(a: int, b: int) -> str:
     ans = ""
     while a or b:
         if a == 0:
-            return ans + 'b'*b
+            return ans + 'b' * b
         elif b == 0:
-            return ans + 'a'*a
+            return ans + 'a' * a
         elif a == b:
-            return ans + "ab"*a
+            return ans + "ab" * a
         elif a > b:
             ans = ans + "aab"
             a -= 2
@@ -3210,6 +3238,7 @@ def strWithout3a3b(a: int, b: int) -> str:
             a -= 1
             b -= 2
     return ans
+
 
 def validateStackSequences(pushed: List[int], popped: List[int]) -> bool:
     left, right = [], pushed[::-1]
@@ -3233,6 +3262,7 @@ def validateStackSequences(pushed: List[int], popped: List[int]) -> bool:
 
     return True
 
+
 def maxSumMinProduct(nums: List[int]) -> int:
     acc = [0] + nums[:]
     for i in range(1, len(acc)):
@@ -3255,6 +3285,7 @@ def maxSumMinProduct(nums: List[int]) -> int:
 
     return ans % 1000000007
 
+
 def productQueries(n: int, queries: List[List[int]]) -> List[int]:
     end = int(math.log2(n))
 
@@ -3272,6 +3303,7 @@ def productQueries(n: int, queries: List[List[int]]) -> List[int]:
                 dp.append(dp[-1] * pow(2, nums[i]))
         ans.append((dp[r] // (1 if l - 1 < 0 else dp[l - 1])) % 1000000007)
     return ans
+
 
 def areSentencesSimilar(sentence1: str, sentence2: str) -> bool:
     if len(sentence2) > len(sentence1):
@@ -3294,3 +3326,106 @@ def areSentencesSimilar(sentence1: str, sentence2: str) -> bool:
 
     return (r2 < l2) or (r2 < 0) or (l2 >= n2)
 
+
+# https://leetcode.com/problems/get-biggest-three-rhombus-sums-in-a-grid/description/
+def getBiggestThree(grid: List[List[int]]) -> List[int]:
+    ans = []
+
+    def updateAns(currsum):
+        if currsum in ans:
+            return
+        heapq.heappush(ans, currsum)
+        if len(ans) > 3:
+            heapq.heappop(ans)
+
+    rows, cols = len(grid), len(grid[0])
+    for r in range(rows):
+        for c in range(cols):
+            updateAns(grid[r][c])
+
+            offset = min(c, cols - c - 1, (rows - r - 1) // 2)
+            if offset == 0: continue
+
+            for off in range(1, offset + 1):
+                currsum = 0
+                r1, c1 = r, c
+                r2, c2 = r + off, c - off
+                r3, c3 = r + 2 * off, c
+                r4, c4 = r + off, c + off
+
+                if r == 3 and c == 13 and off == 6:
+                    print(r1, c1, r2, c2, r3, c3, r4, c4)
+                for i in range(0, off):
+                    currsum += grid[r1 + i][c1 - i]
+                    currsum += grid[r2 + i][c2 + i]
+                    currsum += grid[r3 - i][c3 + i]
+                    currsum += grid[r4 - i][c4 - i]
+                updateAns(currsum)
+    return sorted(ans, reverse=True)
+
+
+# Function that evaluates the new sum
+def modifyHeap(heap, num):
+    if num not in heap:
+        if len(heap) < 3:
+            heapq.heappush(heap, num)
+        elif heap[0] < num:
+            heapq.heapreplace(heap, num)
+    return
+
+# Function that evaluates the rhombuses with center [row][col]  and corners "dist" away from center
+def explore(grid, m, n, row, col, heap, dist):
+    if dist == 0:
+        s = grid[row][col]
+        modifyHeap(heap, s)
+        explore(grid, m, n, row, col, heap, dist + 1)
+        return
+
+    # Corners locations
+    up = row - dist
+    down = row + dist
+    left = col - dist
+    right = col + dist
+
+    if m <= down or up < 0 or n <= right or left < 0:
+        return
+
+    # add the sum of the corners of the rhombus
+    s = grid[up][col] + grid[down][col] + grid[row][right] + grid[row][left]
+
+    # add the sum of the all diagonal boxes between the corners
+    u, d, r, l = up + 1, down - 1, col + 1, col - 1
+
+    while u < row:
+        if row == 9 and col == 13 and dist == 6:
+            print(u, r, grid[u][r])
+            print(u, l, grid[u][l])
+            print(d, r, grid[d][r])
+            print(d, l, grid[d][l])
+            print("===========================")
+        s += grid[u][r] + grid[u][l] + grid[d][r] + grid[d][l]
+        u += 1
+        r += 1
+        l -= 1
+        d -= 1
+    if s == 1650605:
+        print(row, col, dist)
+
+    modifyHeap(heap, s)
+    explore(grid, m, n, row, col, heap, dist + 1)
+    return
+
+def getBiggestThree2(grid: List[List[int]]) -> List[int]:
+    heap = []
+    heapq.heapify(heap)
+
+    # m x n
+    m = len(grid)
+    n = len(grid[0])
+
+    for row in range(m):
+        for col in range(n):
+            explore(grid, m, n, row, col, heap, 0)
+
+    heap = sorted(heap, reverse=True)
+    return heap
