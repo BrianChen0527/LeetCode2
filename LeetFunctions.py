@@ -3431,7 +3431,18 @@ def getBiggestThree2(grid: List[List[int]]) -> List[int]:
     heap = sorted(heap, reverse=True)
     return heap
 
+# https://leetcode.com/problems/append-characters-to-string-to-make-subsequence/
+def appendCharacters(self, s: str, t: str) -> int:
+    lent, ptr = len(t), 0
 
+    for c in s:
+        if c == t[ptr]:
+            ptr += 1
+        if ptr == lent:
+            return 0
+    return lent - ptr
+
+# https://leetcode.com/problems/fizz-buzz-multithreaded/
 class FizzBuzz:
     def __init__(self, n: int):
         self.n = n
