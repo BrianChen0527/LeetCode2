@@ -3,6 +3,7 @@ import bisect
 import itertools
 import math
 import random
+import threading
 from typing import List
 from typing import Optional
 from queue import PriorityQueue
@@ -3429,3 +3430,50 @@ def getBiggestThree2(grid: List[List[int]]) -> List[int]:
 
     heap = sorted(heap, reverse=True)
     return heap
+
+
+class FizzBuzz:
+    def __init__(self, n: int):
+        self.n = n
+        self.f = threading.Lock()
+        self.b = threading.Lock()
+        self.fb = threading.Lock()
+        self.f.acquire()
+        self.b.acquire()
+        self.fb.acquire()
+        self.mainLock = threading.Lock()
+
+    # printFizz() outputs "fizz"
+    def fizz(self, printFizz: 'Callable[[], None]') -> None:
+        for i in range(self.n // 3 - self.n // 15):
+            self.f.acquire()
+            printFizz()
+            self.mainLock.release()
+
+    # printBuzz() outputs "buzz"
+    def buzz(self, printBuzz: 'Callable[[], None]') -> None:
+        for i in range(self.n // 5 - self.n // 15):
+            self.b.acquire()
+            printBuzz()
+            self.mainLock.release()
+
+    # printFizzBuzz() outputs "fizzbuzz"
+    def fizzbuzz(self, printFizzBuzz: 'Callable[[], None]') -> None:
+        for i in range(self.n // 15):
+            self.fb.acquire()
+            printFizzBuzz()
+            self.mainLock.release()
+
+    # printNumber(x) outputs "x", where x is an integer.
+    def number(self, printNumber: 'Callable[[int], None]') -> None:
+        for i in range(1, self.n + 1):
+            self.mainLock.acquire()
+            if not i % 5 and not i % 3:
+                self.fb.release()
+            elif not i % 5:
+                self.b.release()
+            elif not i % 3:
+                self.f.release()
+            else:
+                printNumber(i)
+                self.mainLock.release()
