@@ -3442,6 +3442,16 @@ def appendCharacters(self, s: str, t: str) -> int:
             return 0
     return lent - ptr
 
+# https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
+def findLength(nums1: List[int], nums2: List[int]) -> int:
+    len1, len2, maxLen = len(nums1), len(nums2), 0
+    dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+    for i in range(len1):
+        for j in range(len2):
+            dp[i + 1][j + 1] = dp[i][j] + 1 if nums1[i] == nums2[j] else 0
+            maxLen = max(maxLen, dp[i + 1][j + 1])
+    return maxLen
+
 # https://leetcode.com/problems/fizz-buzz-multithreaded/
 class FizzBuzz:
     def __init__(self, n: int):
