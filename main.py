@@ -21,9 +21,9 @@ from LeetFunctions import *
 
 
 def main():
-    arr1 = [0,1,1,1,1]
-    arr2 = [1,0,1,0,1]
-    print(findLength(arr1, arr2))
+    arr = [1, 7, 4, 6, 9]
+    print(arr)
+    print(prevPermOpt1(arr))
 
 if __name__ == '__main__':
     main()
