@@ -3498,3 +3498,18 @@ class FizzBuzz:
             else:
                 printNumber(i)
                 self.mainLock.release()
+
+# https://leetcode.com/problems/previous-permutation-with-one-swap/
+def prevPermOpt1(arr: List[int]) -> List[int]:
+    prev, pos = float('inf'), len(arr) - 1
+
+    while pos >= 0 and prev >= arr[pos]:
+        prev = arr[pos]
+        pos -= 1
+    if pos < 0: return arr
+
+    new_pos = len(arr) - 1
+    while arr[new_pos] >= arr[pos]: new_pos -= 1
+    while arr[new_pos - 1] == arr[new_pos]: new_pos -= 1
+    arr[pos], arr[new_pos] = arr[new_pos], arr[pos]
+    return arr
