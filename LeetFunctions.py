@@ -3513,3 +3513,30 @@ def prevPermOpt1(arr: List[int]) -> List[int]:
     while arr[new_pos - 1] == arr[new_pos]: new_pos -= 1
     arr[pos], arr[new_pos] = arr[new_pos], arr[pos]
     return arr
+
+# https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/description/
+def countPaths(n: int, roads: List[List[int]]) -> int:
+    mp = [[] for _ in range(n)]
+    for road in roads:
+        mp[road[1]].append((road[0], road[2]))
+        mp[road[0]].append((road[1], road[2]))
+
+    dists, ways = [float('inf') for _ in range(n)], [0 for _ in range(n)]
+    dists[0], ways[0] = 0, 1
+    heapQ = [(0, 0)]
+
+    while heapQ:
+        dist, node = heapq.heappop(heapQ)
+        if dist > dists[node]:
+            continue
+        for next_node, next_dist in mp[node]:
+            tot_dist = dist + next_dist
+            if tot_dist < dists[next_node]:
+                dists[next_node] = tot_dist
+                ways[next_node] = ways[node]
+                heapq.heappush(heapQ, (tot_dist, next_node))
+            elif tot_dist == dists[next_node]:
+                ways[next_node] += ways[node]
+
+    return ways[n - 1] % 1000000007
+
