@@ -3540,3 +3540,32 @@ def countPaths(n: int, roads: List[List[int]]) -> int:
 
     return ways[n - 1] % 1000000007
 
+# https://leetcode.com/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/description/
+def maxNonOverlapping(nums: List[int], target: int) -> int:
+    prevSums = set([0])
+    ans, currSum, prevIdx = 0, 0, 0
+
+    n = len(nums)
+    for i in range(n):
+        currSum += nums[i]
+        if currSum - target in prevSums:
+            ans += 1
+            prevSums = set([0])
+            currSum = 0
+            continue
+        prevSums.add(currSum)
+    return ans
+
+
+
+
+
+
+
+
+
+
+
+
+
+
