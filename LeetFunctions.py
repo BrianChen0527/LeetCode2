@@ -1694,6 +1694,58 @@ def findDuplicate(nums: List[int]) -> int:
         tortoise, hare = nums[tortoise], nums[hare]
     return hare
 
+def findOrderPractice(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+    def courseDFS(course):
+        if course in visiting:
+            return False
+        if course in visited:
+            return True
+
+        visiting.add(course)
+        for req in adjList[course]:
+            if not courseDFS(req):
+                return False
+        visiting.remove(course)
+        visited.add(course)
+        result.append(course)
+
+        return True
+
+    visited, visiting = set(), set()
+    adjList = [[] for _ in range(numCourses)]
+    result = []
+
+    # build adj list
+    for course, req in prerequisites:
+        adjList[course].append(req)
+
+    # run DFS
+    for i in range(numCourses):
+        if not courseDFS(i):
+            return []
+
+    return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # https://leetcode.com/problems/course-schedule-ii/
 def findOrder(numCourses: int, prerequisites: List[List[int]]) -> List[int]:
